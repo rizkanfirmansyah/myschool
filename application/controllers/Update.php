@@ -207,14 +207,22 @@ class Update extends CI_Controller
                     $new_image = $this->upload->data('file_name');  
                     $this->db->set('gambar', $new_image);  
                 }else{
-                    $this->session->set_flashdata('flash', 'error_image');
+                    $swal = [
+                        'tipe' => 'error',
+                        'pesan' => 'Data Image Error! Ukuran gambar terlalu besar (max:1MB)'
+                    ];
+                    $this->session->set_flashdata($swal);
                     redirect('profile/homepage');
                 }
             }
 
             $this->db->where('id', $id);
             $this->db->update('data_homepage');
-            $this->session->set_flashdata('flash', 'slider_update');
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Data Image Sukses'
+            ];
+            $this->session->set_flashdata($swal);
             redirect('profile/homepage');
         }
 

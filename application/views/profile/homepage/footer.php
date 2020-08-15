@@ -16,7 +16,7 @@
 							<input type="hidden" id="id" name="id" value="<?= $dataslider['id']; ?>">
 						<button type="submit" class="btn btn-success text-right ml-3 mt-2">submit</button>
 					<?= form_close(); ?>
-			
+		
              </div>
              <!-- /.container-fluid -->
 

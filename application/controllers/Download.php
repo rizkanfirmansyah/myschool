@@ -11,7 +11,7 @@ class Download extends CI_Controller
 
     public function excel($id)
     {
-     force_download('assets/templates/excel/'.$id.'/' .$id.'.xlsx', NULL);
+     force_download('assets/templates/excel/'.$id.'/' .$id.'.xls', NULL);
     }
 
     public function gallery($coba)

@@ -60,6 +60,7 @@ class Home_model extends CI_Model
 	{
 		$this->db->select('jenis, count(jenis) as jumlah');
 		$this->db->group_by('jenis');
+		$this->db->where('judul !=', 'ukuran');
 		return $this->db->get('data_homepage')->result_array();
 	}
 

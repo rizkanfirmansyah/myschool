@@ -9,7 +9,7 @@
         <div class="card-body p-0">
           <!-- Nested Row within Card Body -->
           <div class="row">
-            <div class="col-lg-5 ml-3 mt-3 p-5"><img style="width: 200px;" src="<?= base_url('assets/img/images/'); ?><?= $footer['gambar']; ?>" alt="<?= $footer['judul']; ?>" class="ml-5 mt-3 p-auto"/></div>
+            <div class="col-lg-5 ml-3 mt-3 p-5"><img style="width: 200px;" src="<?= base_url('assets/img/images/'); ?><?= $footer['gambar']; ?>" alt="<?= $footer['judul']; ?>" class="ml-1 mt-3 p-auto"/></div>
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
@@ -18,7 +18,7 @@
                 <?= $this->session->flashdata('message'); ?>
                 <form class="user" method="post" action="<?= base_url('auth/login'); ?>">
                   <div class="form-group">
-                    <input type="username" class="form-control form-control-user" id="username" name="username" placeholder="isi dengan nip anda" value="<?= set_value('username'); ?>">
+                    <input type="username" class="form-control form-control-user" id="username" name="username" placeholder="isi dengan NIS/NIP/NUPTK" value="<?= set_value('username'); ?>">
                     <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                   <div class="form-group">

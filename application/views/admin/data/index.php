@@ -91,6 +91,8 @@
 
           <div class="row">
 
+          <input type="text" name="soal" id="soalTambahData" class="soalTambahData">
+
           </div>
           </div>
           </div>

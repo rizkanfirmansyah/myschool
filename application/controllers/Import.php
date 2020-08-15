@@ -25,7 +25,13 @@ class Import extends CI_Controller
 
 	public function siswa()
 	{
-		$this->import->siswa();
+        $check = $this->input->post('checkbox');
+        if($check == null){
+            // echo'wokeeeeeeee';
+            $this->import->siswa();
+        }else{
+            $this->import->updateSiswa();
+        }
     }
     
     public function guru()

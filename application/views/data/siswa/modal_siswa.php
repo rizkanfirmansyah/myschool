@@ -1,4 +1,3 @@
-
 <!-- Modal: siswa -->
 <div class="modal fade right" id="siswa-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" data-backdrop="false">
@@ -30,8 +29,15 @@
              <input type="file" class="custom-file-input" id="customFile" name="fileSiswa" id="fileSiswa">
              <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
-
-
+        <div class="form-row mt-3">
+          <div class="col">
+            <!-- <label for="toogle">Aktifkan untuk fitur update</label> -->
+          </div>
+          <div class="col-md-6">
+            <label for="toogle">Klik untuk opsi update</label>
+            <input type="checkbox" value="1" name="checkbox" class="float-right" data-toggle="toggle">
+          </div>
+        </div>
       </div>
 
       <!--Footer-->

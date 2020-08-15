@@ -75,6 +75,15 @@ class Input extends CI_Controller
             'email' => $this->input->post('emailsiswa'),
         ];
 
+        if(empty($siswa['nama']) || empty($siswa['nis']) || empty($siswa['nisn']) || $siswa['angkatan_id'] == null || $siswa['kelas_id'] == null){
+            $swal= [
+                'tipe' => 'warning',
+                'pesan' => 'Mohon lengkapi profil terlebih dahulu'
+            ];
+            $this->session->set_flashdata($swal);
+        redirect('data/siswa');
+        }
+
         if(empty($this->input->post('passwordsiswa'))){
             $password = $this->input->post('nissiswa');
         }else{

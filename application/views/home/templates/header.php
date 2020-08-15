@@ -87,7 +87,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href=""><img class="logo" src="<?= base_url('assets/img/images/'). $footer['gambar']; ?>" alt="<?= $footer['deskripsi']?>" style="width: 75px;"></a>
+                        <a class="navbar-brand" href=""><img class="logo" src="<?= base_url('assets/img/images/'). $footer['gambar']; ?>" alt="<?= $footer['deskripsi']?>" style="width: 80px;"></a>
                     </div>
                     <!-- Navigation -->
                     <div class="collapse navbar-collapse" id="navbar-menu">

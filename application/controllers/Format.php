@@ -33,5 +33,15 @@ class Format extends CI_Controller
         redirect('data/guru');
     }
 
+    public function statususer()
+    {
+        $siswa = $this->db->get('siswa', ['user_id' => null])->result();
+        
+        foreach($siswa as $s){
+            $users = $this->db->get('users', ['email' => $s->email])->row();
+            $this->db->set('user_id', $users->id)->where('nis', $users->nama)->update('siswa');
+        }
+    }
+
 }
 
