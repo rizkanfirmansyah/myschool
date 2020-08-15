@@ -1,0 +1,150 @@
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+a.style-link:hover{
+  border-bottom: 1px solid skyblue;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+a.style-link-user:hover{
+  color: green;
+}
+
+a.style-link-user{
+  color: grey;
+  opacity: 0.8;
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+  div.main-konten {
+    margin-top: 20px;
+  }
+  
+  .image-postingan {
+    max-width: 300px;
+    max-height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 0;
+  } 
+
+  .image-post-artikel {
+    max-width: 160px;
+    max-height: 150px;
+    display: block;
+    margin-top: 20px;
+    margin-left: -10px;
+    margin-right: 50px;
+  }
+  
+  .card-style-post{
+    display: inline-block; width: 110%; margin-left: -40px; padding: 10px;
+  }
+
+  .container .row div.versiDesktopPagination{
+    display: all;
+  }
+
+  .container .row div.versiMobilePagination{
+    display: none;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+  .image-postingan {
+    max-width: 300px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 0;
+  }
+  .image-post-artikel {
+    max-width: 170px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 0;
+  }
+   .card-style-post{
+    display: inline-block; width: 110%; margin-left: -40px; padding: 10px;
+  }
+    div.versiDesktopPagination{
+    display: all;
+  }
+
+  div.versiMobilePagination{
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+ .image-postingan {
+    max-width: 300px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 20px;
+  }
+  .image-post-artikel {
+    max-width: 300px;
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+  }
+   .card-style-post{
+    display: inline-block; width: 110%; margin-left: -20px; padding: 10px;
+  }
+    div.versiDesktopPagination{
+    display: all;
+  }
+
+  div.versiMobilePagination{
+    display: none;
+  }
+}
+
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
