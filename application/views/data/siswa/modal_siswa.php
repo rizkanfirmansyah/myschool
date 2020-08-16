@@ -168,4 +168,79 @@
 <!-- Modal: siswa -->
 
 
+<!-- Modal: siswa -->
+<div class="modal fade right" id="editSiswaData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-lg modal-full-height modal-right modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <span class="heading lead">Edit Siswa
+            </span>
+            
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">×</span>
+            </button>
+        </div>
+        
+   <?= form_open_multipart('input/siswa');?>
+      <!--Body-->
+      <div class="modal-body">
+
+        <!-- FORM INPUT -->
+        <form class="formEditDataSiswa" method="post">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="siswanama">Nama Lengkap</label>
+              <input type="text" class="form-control" id="siswanama" name="siswanama">
+              <input type="hidden" class="form-control" id="siswaid" name="siswaid">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="siswaalamat">Alamat</label>
+              <input type="text" class="form-control" id="siswaalamat" name="siswaalamat">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="siswattl">Tanggal Lahir</label>
+              <input type="text" class="form-control" id="siswattl" name="siswattl">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="siswaagama">Agama</label>
+              <input type="text" class="form-control" id="siswaagama" name="siswaagama">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="siswaayah">Nama Ayah</label>
+              <input type="text" class="form-control" id="siswaayah" name="siswaayah">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="siswaibu">Nama Ibu</label>
+              <input type="text" class="form-control" id="siswaibu" name="siswaibu">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="datakelas">Kelas</label>
+              <select class="custom-select" name="datakelas" id="datakelas">
+                <option selected disabled id="siswakelas"></option>
+                <?php foreach($allkelas as $k):?>
+                <option value="<?= $k['kelas_id'] ?>"><?= $k['nama_kelas'];?></option>
+                <?php endforeach;?>
+            </select>
+            </div>
+          </div>
+          <button type="submit" data-action="<?= base_url('edit/e_siswa') ?>" id="submitDataSiswa" class="btn btn-primary float-right my-3"><i class="fas fa-send"></i> Simpan</button>
+        </form>
+        <!-- FORM INPUT -->
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal: siswa -->
+
+
 

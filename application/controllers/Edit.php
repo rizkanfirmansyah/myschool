@@ -21,6 +21,21 @@ class Edit extends CI_Controller
             ');
     }
 
+    public function e_siswa()
+    {
+        $data = [
+            'nama' => htmlspecialchars($this->input->post('nama'), true),
+            'kelas_id' => htmlspecialchars($this->input->post('kelas'), true),
+            'alamat' => htmlspecialchars($this->input->post('alamat'), true),
+            'agama' => htmlspecialchars($this->input->post('agama'), true),
+            'nama_ayah' => htmlspecialchars($this->input->post('ayah'), true),
+            'nama_ibu' => htmlspecialchars($this->input->post('ibu'), true),
+            'ttl' => htmlspecialchars($this->input->post('ttl'), true)
+        ];
+
+        $this->db->where('id', $this->input->post('id'))->update('siswa', $data);
+    }
+
 
     public function siswa($id)
     {

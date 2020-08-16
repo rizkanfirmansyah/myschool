@@ -5,9 +5,8 @@
   <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="<?= base_url('format/statususer') ?>" class="btn btn-sm btn-info mx-1"><i class="fas fa-user-circle fa-sm text-white-50"></i> Jadikan User</a>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#inputDataSiswa"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
-            <a href="<?= base_url('format/siswa'); ?>" class="btn btn-sm btn-danger mx-1 " id="formatData" data-text="Apakah anda yakin ingin memformat data user?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
+            <a href="<?= base_url('format/siswa'); ?>" class="btn btn-sm btn-danger mx-1 " id="formatData" data-text="Apakah anda yakin ingin memformat data siswa?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
             <a href="#" class="btn btn-sm btn-success mx-1"  data-toggle="modal" data-target="#siswa-1"><i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
             <a href="<?= base_url('export/e_siswa'); ?>" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download fa-sm text-white-50"></i> Export</a>
           </div>
@@ -101,8 +100,13 @@
                       <th>#</th>
                       <th>Nama</th>
                       <th>NIS</th>
+                      <th>NISN</th>
                       <th>Kelas</th>
                       <th>Jurusan</th>
+                      <th>Alamat</th>
+                      <th>Nama Ayah</th>
+                      <th>Nama Ibu</th>
+                      <th>Agama</th>
                       <!-- <th>Alumni</th> -->
                       <th>Action</th>
                     </tr>
@@ -114,12 +118,19 @@
                       <td class="text-capitalize"><?= $i; ?></td>
                       <td class="text-capitalize"><?= $s['nama'];?></td>
                       <td class="text-capitalize"><?= $s['nis'];?></td>
+                      <td class="text-capitalize"><?= $s['nisn'];?></td>
                       <td class="text-capitalize"><?= $s['nama_kelas'];?></td>
                       <td class="text-capitalize"><?= $s['nama_jurusan'];?></td>
+                      <td class="text-capitalize"><?= $s['alamat'];?></td>
+                      <td class="text-capitalize"><?= $s['nama_ayah'];?></td>
+                      <td class="text-capitalize"><?= $s['nama_ibu'];?></td>
+                      <td class="text-capitalize"><?= $s['agama'];?></td>
                       <!-- <td><input type="checkbox" checked data-toggle="toggle" data-status=""></td> -->
                       <td>
                         <a href="<?= base_url('hapus/siswa/'.$s['id']);?>" data-id="<?= $s['id'] ?>" class="fas fa-trash-alt text-danger hapusDataSiswa"></a>
-                        <a href="" class="fas fa-edit text-warning"></a>
+                        <a href="<?= base_url('edit/siswa') ?>"
+                        data-id="<?= $s['id'] ?>" data-nama="<?= $s['nama'] ?>" data-kelas="<?= $s['nama_kelas'] ?>" data-idkelas="<?= $s['kelas_id'] ?>" data-ayah="<?= $s['nama_ayah'] ?>" data-ibu="<?= $s['nama_ibu'] ?>" data-agama="<?= $s['agama'] ?>" data-alamat="<?= $s['alamat']?>" data-ttl="<?= $s['ttl'] ?>"
+                         class="editDataSiswa fas fa-edit text-warning" data-toggle="modal" data-target="#editSiswaData"></a>
                       </td>
                     </tr>
                     <?php $i++;?>
