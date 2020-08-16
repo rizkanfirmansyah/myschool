@@ -18,47 +18,17 @@ class Staff_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function all()
   {
-    return $this->db->select('*')->from('staff')->join('jabatan', 'staff.id_jabatan=jabatan.id_jabatan', 'left')->join('users', 'staff.email=users.email', 'left')->get()->result_array();
+    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->join('jabatan', 'staff_jabatan.jabatan_id=jabatan.id_jabatan', 'left')->get()->result_array();
   }
 
-  public function staff()
+  public function kabag($id)
   {
-    return $this->db->select('*')->from('staff')->join('jabatan', 'staff.id_jabatan=jabatan.id_jabatan', 'left')->join('users', 'staff.email=users.email', 'left')->where('staff.id_jabatan', 1)->get()->result_array();
+    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->join('jabatan', 'staff_jabatan.jabatan_id=jabatan.id_jabatan', 'left')->where('jabatan.nama_jabatan', $id)->get()->row_array();
   }
 
-  public function kesiswaan()
+  public function staff($id)
   {
-    return $this->db->select('*')->from('staff_jabatan')->join('staff', 'staff_jabatan.staff_id=staff.id_staff', 'left')->where('jabatan_id', 1)->get()->row_array();
-  }
-
-  public function Kurikulum()
-  {
-    return $this->db->select('*')->from('staff_jabatan')->join('staff', 'staff_jabatan.staff_id=staff.id_staff', 'left')->where('jabatan_id', 2)->get()->row_array();
-  }
-
-  public function Tatausaha()
-  {
-    return $this->db->select('*')->from('staff_jabatan')->join('staff', 'staff_jabatan.staff_id=staff.id_staff', 'left')->where('jabatan_id', 3)->get()->row_array();
-  }
-
-  public function Prasarana()
-  {
-    return $this->db->select('*')->from('staff_jabatan')->join('staff', 'staff_jabatan.staff_id=staff.id_staff', 'left')->where('jabatan_id', 4)->get()->row_array();
-  }
-
-  public function sKurikulum()
-  {
-    return $this->db->select('*')->from('staff')->join('jabatan', 'staff.id_jabatan=jabatan.id_jabatan', 'left')->join('users', 'staff.email=users.email', 'left')->where('staff.id_jabatan', 2)->get()->result_array();
-  }
-
-  public function sTataUsaha()
-  {
-    return $this->db->select('*')->from('staff')->join('jabatan', 'staff.id_jabatan=jabatan.id_jabatan', 'left')->join('users', 'staff.email=users.email', 'left')->where('staff.id_jabatan', 3)->get()->result_array();
-  }
-
-  public function sPrasarana()
-  {
-    return $this->db->select('*')->from('staff')->join('jabatan', 'staff.id_jabatan=jabatan.id_jabatan', 'left')->join('users', 'staff.email=users.email', 'left')->where('staff.id_jabatan', 4)->get()->result_array();
+    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->join('jabatan', 'staff_jabatan.jabatan_id=jabatan.id_jabatan', 'left')->where('jabatan.nama_j  abatan', $id)->get()->result_array();
   }
 
   // ------------------------------------------------------------------------
