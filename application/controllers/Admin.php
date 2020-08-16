@@ -16,6 +16,7 @@ class Admin extends CI_Controller
         $this->load->model('Delete_model', 'delete');
         $this->load->model('Member_model', 'member');
         $this->load->model('Backend_model', 'backend');
+        $this->load->model('Staff_model', 'staff');
          if ($this->session->userdata('role_id') != 1) {
                 redirect('data/user/');
         }
@@ -47,7 +48,7 @@ class Admin extends CI_Controller
         // $this->load->view('admin/data/end', $data);
     }
 
-u    private function _data($data){
+    private function _data($data){
         $data['user'] = $this->user->getUserSession();
         $data['userAktif'] = $this->user->getAllUserActive();
         $data['userNotAktif'] = $this->user->getAllUserNotActive();
@@ -96,8 +97,20 @@ u    private function _data($data){
     public function staff()
     {
         $data = [
-            'user' => $this->user->getUserSession()
+            'title' =>'Data Staff',
+            'user' => $this->user->getUserSession(),
+            'bagkesiswaan' => $this->staff->kabag('kesiswaan'),
+            'bagkurikulum' => $this->staff->kabag('kurikulum'),
+            'bagtatausaha' => $this->staff->kabag('tata usaha'),
+            'bagsarana' => $this->staff->kabag('sarana & prasarana'),
+            'kesiswaan' => $this->staff->staff('kesiswaan'),
+            'kurikulum' => $this->staff->staff('kurikulum'),
+            'tatausaha' => $this->staff->staff('tata usaha'),
+            'sarana' => $this->staff->staff('sarana & prasarana'),
+            'staff' => $this->staff->all(),
         ];
+        // var_dump($data['sarana']);
+        // die;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
