@@ -144,6 +144,7 @@ class Admin extends CI_Controller
        $data['title'] = 'Role';
         $data['user'] = $this->user->getUserSession();
         $data['role'] = $this->user->getRole();
+        $data['jml'] = $this->db->get('user_role')->num_rows();
 
         $this->form_validation->set_rules('role', 'Role', 'required');
 

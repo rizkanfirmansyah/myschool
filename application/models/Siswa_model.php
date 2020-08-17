@@ -11,7 +11,7 @@ class Siswa_model extends CI_Model {
 
   public function all()
   {
-    return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan.jurusan_id=kelas.jurusan_id', 'left')->get()->result_array();
+    return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan.jurusan_id=kelas.jurusan_id', 'left')->join('angkatan', 'siswa.angkatan_id=angkatan.angkatan_id')->get()->result_array();
   }
   public function allsiswa()
   {

@@ -107,6 +107,8 @@
                       <th>Nama Ayah</th>
                       <th>Nama Ibu</th>
                       <th>Agama</th>
+                      <th>Angkatan</th>
+                      <th>Tahun Ajaran</th>
                       <!-- <th>Alumni</th> -->
                       <th>Action</th>
                     </tr>
@@ -125,6 +127,8 @@
                       <td class="text-capitalize"><?= $s['nama_ayah'];?></td>
                       <td class="text-capitalize"><?= $s['nama_ibu'];?></td>
                       <td class="text-capitalize"><?= $s['agama'];?></td>
+                      <td class="text-capitalize"><?= $s['angkatan_nama'];?></td>
+                      <td class="text-capitalize"><?= $s['tahun_ajaran'];?></td>
                       <!-- <td><input type="checkbox" checked data-toggle="toggle" data-status=""></td> -->
                       <td>
                         <a href="<?= base_url('hapus/siswa/'.$s['id']);?>" data-id="<?= $s['id'] ?>" class="fas fa-trash-alt text-danger hapusDataSiswa"></a>

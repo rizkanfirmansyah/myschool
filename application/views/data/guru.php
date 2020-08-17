@@ -4,7 +4,7 @@
     <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="<?= current_url(); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
+            <a href="#" class="btn btn-sm btn-secondary mx-1"  data-toggle="modal" data-target="#tambah-guru-1"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
             <a href="<?= base_url('format/guru'); ?>" class="btn btn-sm btn-danger mx-1" id="formatData" data-text="Apakah anda yakin ingin memformat data guru?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
             <a href="#" class="btn btn-sm btn-success mx-1"  data-toggle="modal" data-target="#modalPoll-1"><i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
             <a href="<?= base_url('export/e_guru'); ?>" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download fa-sm text-white-50"></i> Export</a>

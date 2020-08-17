@@ -29,10 +29,10 @@
                                     <div class="col-sm-10 float-left">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <input type="text" id="cari" name="cari" placeholder="Cari Member.." class="form-control">
+                                                <!-- <input type="text" id="cari" name="cari" placeholder="Cari Member.." class="form-control"> -->
                                             </div>
                                             <div class="col-sm-4">
-                                                 <button class="btn btn-primary">Search</button>
+                                                 <!-- <button class="btn btn-primary">Search</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -43,29 +43,34 @@
                                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                      <thead>
                                          <tr>
-                                             <th>ID</th>
+                                             <th>No</th>
                                              <th>Role Akses</th>
+                                             <th>ID</th>
                                              <th>Action</th>
                                          </tr>
                                      </thead>
                                      <tfoot>
                                          <tr>
                                              <th>*</th>
+                                             <th>*</th>
                                              <th>Total</th>
-                                             <th class="text-center">4</th>
+                                             <th class="text-center"><?= $jml;?></th>
                                          </tr>
                                      </tfoot>
                                      <tbody>
+                                     <?php $i=1;?>
                                          <?php foreach ($role as $r) : ?>
                                              <tr>
-                                                 <td><?= $r['id']; ?></td>
+                                             <td><?= $i;?></td>
                                                  <td><?= $r['role']; ?></td>
+                                                 <td><?= $r['id']; ?></td>
                                                  <td>
                                                      <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-success">Akses</a>
                                                      <a href="<?= base_url('admin/editrole/') . $r['id']; ?>" class="badge badge-warning">Ubah</a>
                                                      <a href="<?= base_url('admin/deleterole/') . $r['id']; ?>" class="badge badge-danger">Hapus</a>
                                                  </td>
                                              </tr>
+                                             <?php $i++;?>
                                          <?php endforeach; ?>
                                      </tbody>
                                  </table>

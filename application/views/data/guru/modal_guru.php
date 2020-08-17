@@ -50,13 +50,13 @@
 
 
 <!-- Modal: Guru -->
-<div class="modal fade right" id="setas-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade right" id="tambah-guru-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <span class="heading lead">Pengaturan Guru
+        <span class="heading lead">Tambah Guru
             </span>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -67,11 +67,78 @@
       <!--Body-->
       <div class="modal-body">
         <!--Basic textarea-->
-        <div class="row text-center">
-            <a href="<?= base_url('action/make/password');?>" class="my-3 mx-auto px-5 btn btn-warning btm-sm"><i class="fas fa-fw fa-key"></i> Set Password</a>
-            <a href="<?= base_url('action/make/active');?>" class="my-3 mx-auto px-5 btn btn-success btm-sm"><i class="fas fa-fw fa-check"></i> Jadikan Aktif</a>
-            <a href="<?= base_url('action/make/inactive');?>" class="my-3 mx-auto px-4 btn btn-danger btm-sm"><i class="fas fa-fw fa-times"></i> Jadikan Tidak Aktif</a>
-        </div>
+        <form action="<?= base_url('input/guru')?>" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="emailsiswa">Email</label>
+              <input type="email" class="form-control" id="emailsiswa" name="emailsiswa">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="passwordsiswa">Password</label>
+              <input type="password" class="form-control" id="passwordsiswa" name="passwordsiswa">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="namasiswa">Nama Lengkap</label>
+              <input type="text" class="form-control" id="namasiswa" name="namasiswa">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="nissiswa">NIS</label>
+              <input type="number" class="form-control" id="nissiswa" name="nissiswa">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="telepon">Telepon</label>
+              <input type="number" class="form-control" id="telepon" name="telepon">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="agama">Agama</label>
+              <input type="text" class="form-control" id="agama" name="agama">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="ttl">Tanggal Lahir</label>
+              <input type="date" class="form-control" id="ttl" name="ttl">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="tempatlahir">Tempat Lahir</label>
+              <input type="text" class="form-control" id="tempatlahir" name="tempatlahir">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="sertifikasi">Sertifikasi</label>
+            <select class="custom-select" name="sertifikasi" id="sertifikasi">
+              <option selected disabled value> == Pilih ==</option>
+              <option value="ya">ya</option>
+              <option value="tidak">tidak</option>
+            </select>
+            </div>
+            <div class="form-group col-md-6">
+            <label for="jurusan">Jurusan</label>
+              <select class="custom-select" name="jurusan" id="jurusan">
+                <option selected disabled value> == Pilih Jurusan == </option>
+                <?php foreach($jurusan as $a) :?>
+                  <option value="<?= $a['jurusan_id'] ?>"><?= $a['nama_jurusan'] ?></option>
+                  <?php endforeach;?>
+                </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="alamat">Alamat</label>
+              <input type="text" class="form-control" id="alamat" name="alamat">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="tahun_ajar">Tahun Ajar Awal</label>
+              <input type="date" class="form-control" id="tahun_ajar" name="tahun_ajar">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary float-right my-3"><i class="fas fa-send"></i> Daftar</button>
+        </form>
         
         
         <hr>

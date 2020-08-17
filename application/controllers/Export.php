@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-ob_start();
+// ob_start();
 class Export extends CI_Controller
 {
 	public function __construct()
@@ -115,9 +115,10 @@ class Export extends CI_Controller
            
           $objPHPExcel->getActiveSheet()->setTitle('Data Export');
 
+          //   ob_start();
+          ob_end_clean();
           $objPHPExcel->setActiveSheetIndex(0);  
           $filename = urlencode("Data".date("Y-m-d H:i:s").".xls");
-          ob_end_clean();
           header('Content-Type: application/vnd.ms-excel'); //mime type
           header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
           header('Cache-Control: max-age=0'); //no cache
@@ -125,7 +126,7 @@ class Export extends CI_Controller
           $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');                
           $objWriter->save('php://output');
           ob_end_clean();
-      }else{
+        }else{
           redirect('data/siswa');
       }
     }

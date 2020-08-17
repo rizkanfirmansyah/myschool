@@ -2,6 +2,8 @@
 <?php   
     $datatema = $this->db->get_where('tb_developer', ['setting' => 'tema'])->row_array();
     $theme =  $datatema['parameter'];
+    $header = $this->db->get_where('data_homepage', ['jenis' => 'footer'])->row();
+    $title_header = $header->judul;
  ?>
 <ul class="navbar-nav bg-gradient-<?= $theme;?> sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -10,7 +12,7 @@
         <div class="sidebar-brand-icon rotate-n-">
             <i class="fas fa-chart-line"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">DITC App</div>
+        <div class="sidebar-brand-text mx-3"><?= $title_header;?></div>
     </a>
 
     <!-- Divider -->

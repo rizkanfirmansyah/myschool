@@ -13,7 +13,7 @@ class Insert_model extends CI_Model
                     <span aria-hidden="true">&times;</span>
                 </button>
                  </div>');
-        redirect('root/role');
+        redirect('admin/role');
 	}
 
 
