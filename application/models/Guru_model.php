@@ -17,7 +17,7 @@ class Guru_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function all()
   {
-    return $this->db->select('*, guru.nama as nama_guru, guru.status as status_guru')->from('guru')->join('users', 'guru.nip=users.nama', 'left')->join('jurusan', 'guru.id_jurusan=jurusan.jurusan_id', 'left')->get()->result_array();
+    return $this->db->select('*, guru.nama as nama_guru, guru.status as status_guru')->from('guru')->join('jurusan', 'guru.id_jurusan=jurusan.jurusan_id', 'left')->get()->result_array();
   }
 
   public function guru()

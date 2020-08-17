@@ -67,12 +67,12 @@ class Import_model extends CI_Model {
 
             $this->db->insert('users', $user);
             
-            $guru = $this->db->get_where('users', ['email' =>$rowData[0][9] ])->row();
+            // $guru = $this->db->get_where('users', ['email' =>$rowData[0][9] ])->row();
             $jurusan = $this->db->get_where('jurusan', ['nama_jurusan' => $rowData[0][4]])->row();
             
             // Sesuaikan key array dengan nama kolom di database                                                         
             $data = [
-              "id_user" => $guru->id,
+              // "id_user" => $guru->id,
               "nip"=> $rowData[0][1],
               "nama"=> $rowData[0][2],
               "status"=> $rowData[0][3],
@@ -83,6 +83,8 @@ class Import_model extends CI_Model {
               "telepon"=> $rowData[0][8],
               "email"=> $rowData[0][9],
               "alamat"=> $rowData[0][10],
+              "agama"=> $rowData[0][11],
+              "tanggal_lahir"=> $rowData[0][12],
             ];
                 
                 $this->db->insert("guru",$data);

@@ -23,6 +23,13 @@ function is_logged_in()
     }
 } 
 
+function count_user($id)
+{
+    $ci = get_instance();
+
+    return $ci->db->where('role_id', $id)->get('users')->num_rows();
+}
+
 function function_status($id, $user){
     if($id == 1){
         return '<a href="'. base_url('edit/statususer/') . $id.'/'. $user .'" class="btn btn-sm text-white btn-success" style="cursor:pointer;">Aktif</a>';

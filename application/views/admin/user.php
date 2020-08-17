@@ -21,7 +21,7 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-<?= functionwarna($sr['role']) ?> text-uppercase mb-1"><?= $sr['role']?></div>
                       <div class="h8 mb-0 font-weight-bold text-gray-800 text-capitalize">
-                        <?= $sr['role_id']; ?>
+                        <?= count_user($sr['role_id']); ?>
                       </div>
                     </div>
                     <div class="col-auto">
