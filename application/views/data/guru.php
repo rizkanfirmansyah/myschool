@@ -104,7 +104,7 @@
                       <th>NIP/NUPTK</th>
                       <th>Nama</th>
                       <th>Alamat</th>
-                      <th>Jurusan</th>
+                      <!-- <th>Jurusan</th> -->
                       <th>Lulusan</th>
                       <th>Awal Mengajar</th>
                       <th>Bergabung</th>
@@ -118,14 +118,13 @@
                         <td><?= $g['nip']?></td>
                         <td><?= $g['nama_guru']?></td>
                         <td><?= $g['alamat']?></td>
-                        <td><?= $g['nama_jurusan']?></td>
                         <td><?= $g['lulusan']?></td>
                         <td><?= $g['tahun_ajar_awal']?></td>
                         <td><?= $g['date_created']?></td>
                         <td><?= $g['status_guru']?></td>
                         <td>
-                          <a href="" class="text"><i class="fas fa-edit"></i></a>
-                          <a href="" class="text"><i class="fas fa-trash"></i></a>
+                          <a href="<?= base_url('edit/guru/'.$g['id']) ?>" class="text-warning"><i class="fas fa-edit"></i></a>
+                          <a href="<?= base_url('hapus/guru/'.$g['id']);?>" class="text-danger"><i class="fas fa-trash"></i></a>
                         </td>
                       </tr>
                     <?php endforeach;?>

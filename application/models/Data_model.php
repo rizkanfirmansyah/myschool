@@ -24,6 +24,11 @@ class Data_model extends CI_Model
 		return $this->db->get('siswa')->row_array();
 	}
 
+	public function getGuru($id)
+	{
+		return $this->db->where('id', $id)->get('guru')->row_array();
+	}
+
 	public function getDataJurusan()
 	{
 		return $this->db->get('data_jurusan')->result_array();

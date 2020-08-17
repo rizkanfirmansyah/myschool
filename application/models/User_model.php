@@ -79,15 +79,28 @@ class User_model extends CI_Model
 		}elseif($sesi == '4'){
 			$this->db->where('nis', $this->session->userdata('nama'));
 			return $this->db->get('siswa')->row_array();
+		}elseif($sesi == '3'){
+			$this->db->where('nip', $this->session->userdata('nama'));
+			return $this->db->get('guru')->row_array();
 		}else{
 			$this->db->where('nip', $this->session->userdata('nama'));
-			return $this->db->get($sesi)->row_array();
+			return $this->db->get('guru')->row_array();
 		}
 	}
 
 	public function all()
 	{
 		return $this->db->select('*, users.id as user_id')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->get()->result_array();
+	}
+
+	public function siswa()
+	{
+		return $this->db->select('*, users.id as user_id, users.nama as username')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('siswa', 'users.nama=nis', 'left')->where('role_id', 4)->get()->result_array();
+	}
+
+	public function guru()
+	{
+		return $this->db->select('*, users.id as user_id, users.nama as username')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('guru', 'users.nama=nip', 'left')->where('role_id', 3)->get()->result_array();
 	}
 
 	public function alumni()

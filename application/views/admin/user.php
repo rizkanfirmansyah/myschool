@@ -14,7 +14,7 @@
             <?php foreach($segmentuser as $sr) : ?>
               <!-- Jumlah Guru -->
              
-              <div class="col-xl-3 col-md-6 mb-4">
+              <div class="col-xl-3 col-md-6 mb-4" data-toggle="collapse" href="#<?= $sr['role'] ?>" role="button" aria-expanded="false" aria-controls="<?= $sr['role'] ?>">
               <div class="card border-left-<?= functionwarna($sr['role']) ?> shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -35,9 +35,9 @@
           </div>
 
           <!-- Data Guru -->
-          <div class="card shadow mb-4">
+          <div class="card shadow mb-4 collapse" id="siswa">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><?= $title;?></h6>
+              <h6 class="m-0 font-weight-bold text-primary"><?= $title;?> Siswa</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -46,6 +46,7 @@
                     <tr>
                       <th>#</th>
                       <th>Username</th>
+                      <th>Nama</th>
                       <th>Email</th>
                       <th>Role</th>
                       <th>Status</th>
@@ -54,9 +55,54 @@
                   </thead>
                   <tbody>
                     <?php $i=1;?>
-                    <?php foreach($userall as $s) : ?>
+                    <?php foreach($siswa as $s) : ?>
                     <tr>
                       <td><?= $i; ?></td>
+                      <td><?= $s['username'];?></td>
+                      <td><?= $s['nama'];?></td>
+                      <td><?= $s['email'];?></td>
+                      <td><?= $s['role'];?></td>
+                      <td>
+                        <?= function_status($s['status'], $s['user_id']) ?>
+                      </td>
+                      <td>
+                        <a href="<?= base_url('hapus/staffjabatan/'. $s['user_id'])?>" class="fas fa-trash-alt text-danger"></a>
+                        <a href="" class="fas fa-edit text-warning"></a>
+                      </td>
+                    </tr>
+                    <?php $i++;?>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Guru -->
+          <div class="card shadow mb-4 collapse" id="guru">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><?= $title;?> Guru</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Username</th>
+                      <th>Nama</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i=1;?>
+                    <?php foreach($guru as $s) : ?>
+                    <tr>
+                      <td><?= $i; ?></td>
+                      <td><?= $s['username'];?></td>
                       <td><?= $s['nama'];?></td>
                       <td><?= $s['email'];?></td>
                       <td><?= $s['role'];?></td>

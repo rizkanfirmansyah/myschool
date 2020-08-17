@@ -16,9 +16,7 @@ class Edit extends CI_Controller
 
         }
         $this->load->model('User_model', 'user');
-        $this->load->model('Data_model', 'data
-
-            ');
+        $this->load->model('Data_model', 'data');
     }
 
     public function wakasek()
@@ -102,7 +100,42 @@ class Edit extends CI_Controller
         
     }
 
+    public function guru($id)
+    {
+        $data['title'] = 'Edit Data Guru';
+    	$data['user'] = $this->user->getUserSession();
+        $data['guru'] = $this->data->getGuru($id);
+        $data['idguru'] = $id;
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('edit/guru', $data);
+        $this->load->view('templates/footer');
+        
+    }
+
+    public function dataguru($id)
+    {
+        $data = [
+            'nama' => htmlspecialchars($this->input->post('nama')),
+            'lulusan' => htmlspecialchars($this->input->post('lulusan')),
+            'alamat' => htmlspecialchars($this->input->post('alamat')),
+            'tanggal_lahir' => htmlspecialchars($this->input->post('ttl')),
+            'tahun_ajar_awal' => htmlspecialchars($this->input->post('taa')),
+            'status' => htmlspecialchars($this->input->post('status')),
+            'agama' => htmlspecialchars($this->input->post('agama')),
+            'sertifikasi' => htmlspecialchars($this->input->post('sertifikasi')),
+        ];
+        
+        $this->db->where('id', $id)->set($data)->update('guru');
+        $swal =[
+            'tipe' => 'success',
+            'pesan' => 'Guru '. $data['nama'] . ' berhasil diubah',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/guru');
+    }
 
     public function user($id, $role_id)
     {

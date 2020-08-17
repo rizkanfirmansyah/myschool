@@ -70,22 +70,22 @@
         <form action="<?= base_url('input/guru')?>" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="emailsiswa">Email</label>
-              <input type="email" class="form-control" id="emailsiswa" name="emailsiswa">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email">
             </div>
             <div class="form-group col-md-6">
-              <label for="passwordsiswa">Password</label>
-              <input type="password" class="form-control" id="passwordsiswa" name="passwordsiswa">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="namasiswa">Nama Lengkap</label>
-              <input type="text" class="form-control" id="namasiswa" name="namasiswa">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" class="form-control" id="nama" name="nama">
             </div>
             <div class="form-group col-md-6">
-              <label for="nissiswa">NIS</label>
-              <input type="number" class="form-control" id="nissiswa" name="nissiswa">
+              <label for="nip">NIP/NUPTK</label>
+              <input type="number" class="form-control" id="nip" name="nip">
             </div>
           </div>
           <div class="form-row">
@@ -104,8 +104,12 @@
               <input type="date" class="form-control" id="ttl" name="ttl">
             </div>
             <div class="form-group col-md-6">
-              <label for="tempatlahir">Tempat Lahir</label>
-              <input type="text" class="form-control" id="tempatlahir" name="tempatlahir">
+            <label for="status">Status</label>
+            <select class="custom-select" name="status" id="status">
+              <option selected disabled value> == Pilih ==</option>
+              <option class="text-uppercase" value="pns">pns</option>
+              <option class="text-capitalize" value="honorer">honorer</option>
+            </select>
             </div>
           </div>
           <div class="form-row">
@@ -118,14 +122,9 @@
             </select>
             </div>
             <div class="form-group col-md-6">
-            <label for="jurusan">Jurusan</label>
-              <select class="custom-select" name="jurusan" id="jurusan">
-                <option selected disabled value> == Pilih Jurusan == </option>
-                <?php foreach($jurusan as $a) :?>
-                  <option value="<?= $a['jurusan_id'] ?>"><?= $a['nama_jurusan'] ?></option>
-                  <?php endforeach;?>
-                </select>
-            </div>
+            <label for="lulusan">Lulusan Perguruan Tinggi </label>
+            <input type="text" name="lulusan" id="lulusan" class="form-control">  
+          </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">

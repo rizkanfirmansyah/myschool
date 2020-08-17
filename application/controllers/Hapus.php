@@ -221,6 +221,23 @@ class Hapus extends CI_Controller
         redirect('data/siswa');
     }
 
+    public function guru($id)
+    {
+        $users = $this->db->get_where('guru', ['id' => $id])->row();
+        
+        $this->db->where('nama', $users->nip);
+        $this->db->delete('users');
+        $this->db->where('id', $id);
+        $this->db->delete('guru');
+
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Guru Berhasil Dihapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/guru');
+    }
+
     public function jurusan()
     {
         $id = $this->input->post('hapus');

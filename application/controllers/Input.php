@@ -155,7 +155,7 @@ class Input extends CI_Controller
         $this->db->insert('users', $user);
         $swal= [
             'tipe' => 'success',
-            'pesan' => 'User' . $siswa['nama'] . 'berhasil ditambahkan'
+            'pesan' => 'User ' . $siswa['nama'] . ' berhasil ditambahkan'
         ];
         $this->session->set_flashdata($swal);
         redirect('data/siswa');
@@ -205,6 +205,51 @@ class Input extends CI_Controller
                  </div>');
             redirect('input/materi');
 	    }
+    }
+
+    public function guru()
+    {
+        $guru =[
+            'nama' => htmlspecialchars($this->input->post('nama')),
+            'email' => htmlspecialchars($this->input->post('email')),
+            'telepon' => htmlspecialchars($this->input->post('telepon')),
+            'agama' => htmlspecialchars($this->input->post('agama')),
+            'nip' => htmlspecialchars($this->input->post('nip')),
+            'tanggal_lahir' => htmlspecialchars($this->input->post('ttl')),
+            'status' => htmlspecialchars($this->input->post('status')),
+            'sertifikasi' => htmlspecialchars($this->input->post('sertifikasi')),
+            'lulusan' => htmlspecialchars($this->input->post('lulusan')),
+            'tahun_ajar_awal' => substr($this->input->post('tahun_ajar'), 0, 4),
+            'sertifikasi' => htmlspecialchars($this->input->post('sertifikasi')),
+            'alamat' => htmlspecialchars($this->input->post('alamat')),
+            'date_created' => date('Y-m-d'),
+        ];
+
+
+        if(empty($this->input->post('password'))){
+            $password = $this->input->post('nip');
+        }else{
+            $password = $this->input->post('password');
+        }
+        $user = [
+            'nama' => htmlspecialchars($this->input->post('nip')),
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'email' => htmlspecialchars($this->input->post('email')),
+            'role_id' => 3,
+            'status' => 0,
+            'date_created' => date('Y-m-d'),
+        ];
+        // var_dump($user);
+        // die;
+
+        $this->db->insert('guru', $guru);
+        $this->db->insert('users', $user);
+        $swal= [
+            'tipe' => 'success',
+            'pesan' => 'User ' . $guru['nama'] . ' berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/guru');
     }
 
 

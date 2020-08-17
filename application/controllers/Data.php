@@ -82,6 +82,23 @@ class Data extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function ruangan()
+    {
+        $data = [
+            'title' => 'Data Guru',
+            'jml' => $this->guru->jml(),
+            'guru' => $this->guru->all(),
+            'jurusan' => $this->db->get_where('jurusan', ['jurusan_id !=' => 1])->result_array(),
+            'user' => $this->user->getUserSession()
+        ];
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('data/ruangan', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function jurusan()
     {
         $data = [

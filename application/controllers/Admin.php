@@ -127,7 +127,8 @@ class Admin extends CI_Controller
         $data = [
             'title' =>'Data User',
             'user' => $this->user->getUserSession(),
-            'userall' => $this->user->all(),
+            'siswa' => $this->user->siswa(),
+            'guru' => $this->user->guru(),
             'segmentuser' => $this->user->segmentuser()
         ];
         // var_dump($data['segmentuser']);
