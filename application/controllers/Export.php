@@ -28,7 +28,7 @@ class Export extends CI_Controller
 
     public function E_siswa()
     {
-      $ambildata = $this->siswa->siswa()->result();
+      $ambildata = $this->siswa->allsiswa();
             
       if(count($ambildata)>0){
           $objPHPExcel = new PHPExcel();
@@ -42,7 +42,7 @@ class Export extends CI_Controller
           
           $objget->setTitle('Sample Sheet'); //sheet title
            
-          $objget->getStyle("A1:D1")->applyFromArray(
+          $objget->getStyle("A1:N1")->applyFromArray(
               array(
                   'fill' => array(
                       'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -55,11 +55,11 @@ class Export extends CI_Controller
                   );
                   
       //table header
-          $cols = array("A","B","C", "D");
+          $cols = array("A","B","C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 'N');
           
-          $val = array("No","Nama","NIS", 'Email');
+          $val = array("No","Nama","NIS", 'NISN', 'Jurusan', 'Kelas', 'Telepon', 'Email', 'tempat lahir', 'tanggal lahir', 'asal sekolah', 'nama ayah', 'nama ibu', 'alamat');
           
-          for ($a=0;$a<4; $a++) 
+          for ($a=0;$a<14; $a++) 
           {
               $objset->setCellValue($cols[$a].'1', $val[$a]);
               
@@ -67,6 +67,17 @@ class Export extends CI_Controller
               $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(25); // NAMA
               $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25); // ALAMAT
               $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(25); // Kontak
+              $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(25); // Kontak
               
               $style = array(
                   'alignment' => array(
@@ -83,7 +94,17 @@ class Export extends CI_Controller
               $objset->setCellValue("A".$baris, $kolom); //membaca data nama
               $objset->setCellValue("B".$baris, $frow->nama); //membaca data alamat
               $objset->setCellValue("C".$baris, $frow->nis); //membaca data alamat
-              $objset->setCellValue("D".$baris, $frow->email); //membaca data kontak
+              $objset->setCellValue("D".$baris, $frow->nisn); //membaca data kontak
+              $objset->setCellValue("E".$baris, $frow->nama_jurusan); //membaca data kontak
+              $objset->setCellValue("F".$baris, $frow->nama_kelas); //membaca data kontak
+              $objset->setCellValue("G".$baris, $frow->telepon); //membaca data kontak
+              $objset->setCellValue("H".$baris, $frow->email); //membaca data kontak
+              $objset->setCellValue("I".$baris, $frow->tempat_lahir); //membaca data kontak
+              $objset->setCellValue("J".$baris, $frow->ttl); //membaca data kontak
+              $objset->setCellValue("K".$baris, $frow->asal_sekolah); //membaca data kontak
+              $objset->setCellValue("L".$baris, $frow->nama_ayah); //membaca data kontak
+              $objset->setCellValue("M".$baris, $frow->nama_ibu); //membaca data kontak
+              $objset->setCellValue("N".$baris, $frow->alamat); //membaca data kontak
                
           //Set number value
               $objPHPExcel->getActiveSheet()->getStyle('C1:C'.$baris)->getNumberFormat()->setFormatCode('0');

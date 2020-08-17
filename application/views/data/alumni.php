@@ -4,10 +4,6 @@
     <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="<?= current_url(); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
-            <a href="<?= base_url('format/guru'); ?>" class="btn btn-sm btn-danger mx-1" id="formatData" data-text="Apakah anda yakin ingin memformat data guru?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
-            <a href="#" class="btn btn-sm btn-success mx-1"  data-toggle="modal" data-target="#modalPoll-1"><i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
-            <a href="<?= base_url('export/e_guru'); ?>" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download fa-sm text-white-50"></i> Export</a>
           </div>
           
           <!-- Content Row -->
@@ -101,28 +97,26 @@
                 <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>NIP/NUPTK</th>
+                      <th>NIS</th>
                       <th>Nama</th>
                       <th>Alamat</th>
                       <th>Jurusan</th>
-                      <th>Lulusan</th>
-                      <th>Awal Mengajar</th>
+                      <th>Angkatan</th>
                       <th>Bergabung</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($guru as $g):?>
+                    <?php foreach($alumni as $a):?>
                       <tr>
-                        <td><?= $g['nip']?></td>
-                        <td><?= $g['nama_guru']?></td>
-                        <td><?= $g['alamat']?></td>
-                        <td><?= $g['nama_jurusan']?></td>
-                        <td><?= $g['lulusan']?></td>
-                        <td><?= $g['tahun_ajar_awal']?></td>
-                        <td><?= $g['date_created']?></td>
-                        <td><?= $g['status_guru']?></td>
+                        <td><?= $a['nis']?></td>
+                        <td><?= $a['nama']?></td>
+                        <td><?= $a['alamat']?></td>
+                        <td><?= $a['nama_jurusan']?></td>
+                        <td><?= $a['angkatan_nama']?></td>
+                        <td><?= $a['date_created']?></td>
+                        <td><?= $a['status']?></td>
                         <td>
                           <a href="" class="text"><i class="fas fa-edit"></i></a>
                           <a href="" class="text"><i class="fas fa-trash"></i></a>
@@ -139,4 +133,4 @@
           <?php $this->load->view('data/guru/modal_guru'); ?>
         </div>
         </div>
-        </div>
+        </div>  

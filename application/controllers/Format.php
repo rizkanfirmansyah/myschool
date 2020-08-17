@@ -19,10 +19,24 @@ class Format extends CI_Controller
 
     }
 
+    public function user()
+    {
+        $this->db->where('role_id !=', 1)->empty_table('users');
+        $this->db->empty_table('siswa');
+        $this->db->empty_table('guru');
+        $this->db->empty_table('staff_jabatan');
+        $swal = [
+            'tipe' => 'icon',
+            'pesan' => 'Data Siswa Berhasil di Hapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('admin/user');
+    }
+
     public function guru()
     {
         $this->db->where('role_id', 3);
-        $this->db->empty_table('user');
+        $this->db->empty_table('users');
         $this->db->empty_table('guru');
         // $this->db->empty_table('siswa');
         $swal = [

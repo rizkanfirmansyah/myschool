@@ -5,7 +5,7 @@
         <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="<?= base_url('format/staff'); ?>" class="btn btn-sm btn-danger mx-1 " id="formatData" data-text="Apakah anda yakin ingin memformat data staff?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
+            <a href="<?= base_url('format/user'); ?>" class="btn btn-sm btn-danger mx-1 " id="formatData" data-text="Apakah anda yakin ingin memformat data users?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
           </div>
 
           <!-- Content Row -->

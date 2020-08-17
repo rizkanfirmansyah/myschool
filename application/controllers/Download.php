@@ -42,7 +42,7 @@ class Download extends CI_Controller
 
     public function template($id)
     {
-        $excel = $id.'.xlsx';
+        $excel = $id.'.xls';
         force_download('assets/template/excel/'.$excel, NULL);
     }
 

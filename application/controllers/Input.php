@@ -92,6 +92,19 @@ class Input extends CI_Controller
 
     public function siswa()
     {
+        $now = date('Y')-3;
+        $jurusan =$this->db->get('kelas', ['kelas_id' => $this->input->post('kelassiswa')])->row();
+        $angkatan = $this->db->get_where('angkatan', ['angkatan_id' => $this->input->post('angkatansiswa')])->row();
+
+        if($angkatan->angkatan_nama < $now){
+            $status = 'alumni';
+        }else{
+            $status = 'pelajar';
+        }
+        
+        $angkatan_next = $angkatan->angkatan_nama - 1;
+        $tahun_ajaran = $angkatan_next .'/'.$angkatan->angkatan_nama;
+
         $siswa = [
             'nama' => htmlspecialchars($this->input->post('namasiswa'), true),
             'nis' => htmlspecialchars($this->input->post('nissiswa'), true),
@@ -99,12 +112,20 @@ class Input extends CI_Controller
             'angkatan_id' => $this->input->post('angkatansiswa'),
             'nama_ayah' => htmlspecialchars($this->input->post('ayahsiswa'), true),
             'nama_ibu' => htmlspecialchars($this->input->post('ibusiswa'), true),
+            'alamat' => htmlspecialchars($this->input->post('alamatsiswa'), true),
+            'agama' => htmlspecialchars($this->input->post('agamasiswa'), true),
             'kelas_id' => $this->input->post('kelassiswa'),
+            'tahun_ajaran' => $this->input->post('kelassiswa'),
             'tempat_lahir' => htmlspecialchars($this->input->post('tempatlahir'), true),
             'asal_sekolah' => htmlspecialchars($this->input->post('sekolahsiswa'), true),
             'ttl' => $this->input->post('ttlsiswa'),
             'email' => $this->input->post('emailsiswa'),
+            'jurusan' => $jurusan->jurusan_id,
+            'status' => $status,
+            'tahun_ajaran' => $tahun_ajaran,
         ];
+    //   var_dump($siswa);
+    //     die;
 
         if(empty($siswa['nama']) || empty($siswa['nis']) || empty($siswa['nisn']) || $siswa['angkatan_id'] == null || $siswa['kelas_id'] == null){
             $swal= [

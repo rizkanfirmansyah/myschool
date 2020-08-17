@@ -49,6 +49,22 @@ class Data extends CI_Controller
         }
     }
 
+    public function alumni()
+    {
+        $data = [
+            'title' => 'Data Alumni',
+            'jml' => $this->guru->jml(),
+            'alumni' => $this->user->alumni(),
+            'user' => $this->user->getUserSession()
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('data/alumni', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function guru()
     {
         $data = [
