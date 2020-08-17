@@ -43,5 +43,16 @@ class Format extends CI_Controller
         }
     }
 
+    public function staff()
+    {
+        $this->db->empty_table('staff_jabatan');
+        $swal = [
+            'tipe' => 'icon',
+            'pesan' => 'Data Staff Berhasil di Hapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('admin/staff');
+    }
+
 }
 

@@ -235,5 +235,21 @@ class Hapus extends CI_Controller
         $this->db->delete('kelas');
     }
 
+    public function jabatan($id)
+    {
+        $this->db->where('id_jabatan', $id)->delete('jabatan');
+        $swal=['tipe'=>'success', 'pesan' => 'Data Jabatan berhasil dihapus'];
+        $this->session->set_flashdata($swal);
+        redirect('admin/staff');
+
+    }
+
+    public function staffjabatan($id)
+    {
+        $this->db->where('staff_jabatan_id', $id)->delete('staff_jabatan');
+        $swal=['tipe'=>'success', 'pesan' => 'Data Staff Jabatan berhasil dihapus'];
+        $this->session->set_flashdata($swal);
+        redirect('admin/staff');
+    }
 
 }

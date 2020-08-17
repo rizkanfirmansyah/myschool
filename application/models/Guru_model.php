@@ -17,12 +17,12 @@ class Guru_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function all()
   {
-    return $this->db->select('*, guru.nama as nama_guru, guru.status as status_guru')->from('guru')->join('users', 'guru.id_user=users.id', 'left')->join('jurusan', 'guru.id_jurusan=jurusan.jurusan_id', 'left')->get()->result_array();
+    return $this->db->select('*, guru.nama as nama_guru, guru.status as status_guru')->from('guru')->join('users', 'guru.nip=users.nama', 'left')->join('jurusan', 'guru.id_jurusan=jurusan.jurusan_id', 'left')->get()->result_array();
   }
 
   public function guru()
   {
-    return $this->db->select('*')->from('guru')->join('kelas', 'guru.id_user=kelas.guru_id', 'left')->group_by('nama')->get()->result_array();
+    return $this->db->select('*')->from('guru')->join('kelas', 'guru.id=kelas.guru_id', 'left')->group_by('nama')->get()->result_array();
   }
 
   // ------------------------------------------------------------------------

@@ -1,175 +1,81 @@
 <!-- Modal: kesiswaan -->
-<div class="modal fade right" id="kesiswaan-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade right" id="tambahJabatan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <span class="heading lead">Detail Data
+        <span class="heading lead">Tambah Jabatan
             </span>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="white-text">×</span>
             </button>
         </div>
-    <?= form_open_multipart('data/import/staff');?>
+    <?= form_open_multipart('input/jabatan');?>
 
       <!--Body-->
       <div class="modal-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataAdmin" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nama</th>
-                      <th>Jabatan</th>
-                      <th>Status</th>
-                      <th class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i=1;?>
-                    <?php foreach($kesiswaan as $k) : ?>
-                        <tr>
-                            <td><?= $i?></td>
-                            <td><?= $k['nama'] ?></td>
-                            <td><?= $k['nama_jabatan'] ?></td>
-                            <td><?= $k['status'] ?></td>
-                            <td><a href="" data-toggle="toggle"></a></td>
-                        </tr>
-                    <?php $i++;?>
-                    <?php endforeach;?>
-                  </tbody>
-                </table>
-              </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal: kesiswaan -->
-
-
-<!-- Modal: kurikulum -->
-<div class="modal fade right" id="kurikulum-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <span class="heading lead">Detail Data
-            </span>
-            
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" class="white-text">×</span>
-            </button>
+          <div class="form-row">
+              <label for="jabatan">Nama Jabatan</label>
+              <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan nama jabatan baru" required autofocus autocomplete >
+          </div>
         </div>
-    <?= form_open_multipart('data/import/staff');?>
 
-      <!--Body-->
-      <div class="modal-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataAdmin" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nama</th>
-                      <th>Jabatan</th>
-                      <th>Status</th>
-                      <th class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                  </tbody>
-                </table>
-              </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal: kurikulum -->
-
-
-<!-- Modal: tatausaha -->
-<div class="modal fade right" id="tatausaha-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <span class="heading lead">Detail Data
-            </span>
-            
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" class="white-text">×</span>
-            </button>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-success">Tambah</button>
         </div>
-    <?= form_open_multipart('data/import/staff');?>
 
-      <!--Body-->
-      <div class="modal-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataAdmin" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nama</th>
-                      <th>Jabatan</th>
-                      <th>Status</th>
-                      <th class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                  </tbody>
-                </table>
-              </div>
-
-      </div>
+    <?= form_close(); ?>
     </div>
   </div>
 </div>
-<!-- Modal: tatausaha -->
+<!-- Modal: sarana -->
 
 
 <!-- Modal: sarana -->
-<div class="modal fade right" id="sarana-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade right" id="tambahStaff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <span class="heading lead">Detail Data
+        <span class="heading lead">Tambah Staff
             </span>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="white-text">×</span>
             </button>
         </div>
-    <?= form_open_multipart('data/import/staff');?>
-
+    
+        <form action="<?= base_url('input/staff')?>" method="post" class="formStaffJabatan">
       <!--Body-->
       <div class="modal-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataAdmin" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nama</th>
-                      <th>Jabatan</th>
-                      <th>Status</th>
-                      <th class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                   
-                  </tbody>
-                </table>
-              </div>
+          <div class="form-row">
+              <div class="col">
+                  <select name="posisiStaffJabatan" id="posisiStaffJabatan" class="form-control" required>
+                      <option selected disabled value="">Pilih Posisi</option>
+                      <?php foreach($staffbag as $sb):?>
+                        <option value="<?= $sb['id_jabatan'];?>"><?= $sb['nama_jabatan'] ?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+                <div class="col">
+                    <select name="posisiGuruJabatan" id="posisiGuruJabatan" class="form-control" required>
+                        <option selected disabled value="">Pilih Guru</option>
+                        <?php foreach($guru as $sb):?>
+                            <option value="<?= $sb['id'];?>"><?= $sb['nama'] ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <input type="hidden" name="url" id="urlInputStaff" value="<?= current_url() ?>">
+          </div>
+    </div>
 
-      </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-sm btn-success tambahInputDataStaff">Tambah</button>
+    </div>
+    </form>
     </div>
   </div>
 </div>

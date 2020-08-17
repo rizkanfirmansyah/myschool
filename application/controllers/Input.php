@@ -59,6 +59,37 @@ class Input extends CI_Controller
         $this->db->where('jurusan_id', $this->input->post('id'))->update('jurusan', $data);
     }
 
+    public function staff()
+    {
+        $data = [
+            'jabatan_id' => $this->input->post('jabatan'),
+            'guru_id' => $this->input->post('guru'),
+            'kepala_jabatan' => 'tidak' 
+        ];
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Data staff berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        $this->db->insert('staff_jabatan', $data);
+    
+    }
+
+    public function jabatan()
+    {
+        $data = [
+            'nama_jabatan' => htmlspecialchars(strtolower($this->input->post('jabatan')))
+        ];
+        $this->db->insert('jabatan', $data);
+
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'jabatan baru berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('admin/staff');
+    }
+
     public function siswa()
     {
         $siswa = [
@@ -363,5 +394,6 @@ class Input extends CI_Controller
             $this->load->view('input/hasilujian', $data);
             $this->load->view('templates/footer');
     }
+
 
 }

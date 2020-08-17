@@ -28,7 +28,22 @@ class Staff_model extends CI_Model {
 
   public function staff($id)
   {
-    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->join('jabatan', 'staff_jabatan.jabatan_id=jabatan.id_jabatan', 'left')->where('jabatan.nama_j  abatan', $id)->get()->result_array();
+    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->join('jabatan', 'staff_jabatan.jabatan_id=jabatan.id_jabatan', 'left')->where('jabatan.nama_jabatan', $id)->get()->result_array();
+  }
+
+  public function staffbag()
+  {
+    return $this->db->get('jabatan')->result_array();
+  }
+
+  public function guru()
+  {
+    return $this->db->select('*')->from('guru')->join('staff_jabatan', 'guru.id=staff_jabatan.guru_id', 'left')->where('guru_id', null)->get()->result_array();
+  }
+
+  public function staffjabatan()
+  {
+    return $this->db->get('jabatan')->result_array();
   }
 
   // ------------------------------------------------------------------------

@@ -29,7 +29,7 @@ $(document).ready(function(){
             if (willDelete) {
                 document.location.href = href;   
             } else {
-              swal("Tidak jadi format, data masih terdaftar di database!");
+              swal("Tidak jadi format, data masih terdaftar di database!", "", "info");
             }
           });
           

@@ -36,3 +36,4 @@
 <script src="<?= base_url('assets/'); ?>js/deletescript.js"></script>
 <script src="<?= base_url('assets/public/js/my-data-jurusan.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-data-siswa.js') ?>"></script>
+<script src="<?= base_url('assets/public/js/my-toogle.js') ?>"></script>

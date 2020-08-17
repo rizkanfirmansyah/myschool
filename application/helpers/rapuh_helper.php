@@ -23,12 +23,58 @@ function is_logged_in()
     }
 } 
 
+function function_status($id, $user){
+    if($id == 1){
+        return '<a href="'. base_url('edit/statususer/') . $id.'/'. $user .'" class="btn btn-sm text-white btn-success" style="cursor:pointer;">Aktif</a>';
+    }else{
+        return '<a href="'. base_url('edit/statususer/') . $id.'/'. $user .'" class="btn btn-sm text-white btn-danger" style="cursor:pointer;">Tidak Aktif</a>';
+    }
+}
+
 function check_kepala_jabatan($id)
 {
     if($id == 'ya'){
-        return '<a class="btn btn-sm btn-success text-white">Kepala Bagian</a>';
+        return '<a class="btn btn-sm btn-success text-white">Wakasek</a>';
     }else{
         return '<a class="btn btn-sm btn-warning text-white">Staff</a>';
+    }
+}
+
+function checked_wakasek($id)
+{
+    if($id == 'ya'){
+        return 'checked';
+    }else{
+        return '';
+    }
+}
+
+function staff_jabatan($id)
+{
+    $ci = get_instance();
+    $data = $ci->db->select('*')->from('staff_jabatan')->join('guru', 'staff_jabatan.guru_id=guru.id', 'left')->where('jabatan_id', $id)->where('kepala_jabatan', 'ya')->get()->row_array();
+
+    if($data){
+        return $data['nama'];
+    }else{
+        return 'Posisi Kosong';
+    }
+
+    
+}
+
+function functionwarna($id)
+{
+    if($id == 'staff'){
+        return 'warning';
+    }elseif($id == 'guru'){
+        return 'primary';
+    }elseif($id == 'siswa'){
+        return 'danger';
+    }elseif($id == 'user    '){
+        return 'success';
+    }else{
+        return 'secondary';
     }
 }
 

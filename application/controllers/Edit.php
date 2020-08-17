@@ -21,6 +21,57 @@ class Edit extends CI_Controller
             ');
     }
 
+    public function wakasek()
+    {
+        $id = $this->input->post('id');
+        $jabatan = $this->input->post('jabatan');
+        $cek = $this->db->get_where('staff_jabatan', ['jabatan_id' => $jabatan, 'kepala_jabatan' => 'ya'])->row_array();
+
+        if($cek['guru_id'] == $id){
+            $this->db->set('kepala_jabatan', 'tidak')->where('guru_id', $id)->update('staff_jabatan');
+            $swal =[
+                'tipe' => 'success',
+                'pesan' => 'Posisi Wakasek telah dikosongkan'
+            ];
+            $this->session->set_flashdata($swal);
+        }elseif($cek['guru_id'] != $id && $cek['kepala_jabatan'] == 'ya'){
+            $swal =[
+                'tipe' => 'warning',
+                'pesan' => 'Posisi Wakasek telah ada, mohon periksa kembali data staff'
+            ];
+            $this->session->set_flashdata($swal);
+        }else{
+            $this->db->set('kepala_jabatan', 'ya')->where('guru_id', $id)->update('staff_jabatan');
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Posisi Wakasek telah ditetapkan'
+            ];
+            $this->session->set_flashdata($swal);
+        }
+
+    }
+
+    public function statususer($status, $user)
+    {
+        if($status == 1){
+            $this->db->where('id', $user)->set('status', 0)->update('users');
+            $swal = [
+                'tipe' => 'error',
+                'pesan' => 'User tidak aktif sekarang'
+            ];
+            $this->session->set_flashdata($swal);
+            redirect('admin/user');
+        }else{
+            $this->db->where('id', $user)->set('status', 1)->update('users');
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'User aktif sekarang'
+            ];
+            $this->session->set_flashdata($swal);
+            redirect('admin/user');
+        }
+    }
+
     public function e_siswa()
     {
         $data = [

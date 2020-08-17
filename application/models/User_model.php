@@ -85,6 +85,16 @@ class User_model extends CI_Model
 		}
 	}
 
+	public function all()
+	{
+		return $this->db->select('*, users.id as user_id')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->get()->result_array();
+	}
+
+	public function segmentuser()
+	{
+		return $this->db->select('*, COUNT(role_id)')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->group_by('role_id')->where('role_id !=', 1)->get()->result_array();
+	}
+
 	public function getAllUserActive()
 	{
 		$this->db->where('status', 1);

@@ -99,6 +99,7 @@ class Admin extends CI_Controller
         $data = [
             'title' =>'Data Staff',
             'user' => $this->user->getUserSession(),
+            'staffjabatan' => $this->staff->staffjabatan(),
             'bagkesiswaan' => $this->staff->kabag('kesiswaan'),
             'bagkurikulum' => $this->staff->kabag('kurikulum'),
             'bagtatausaha' => $this->staff->kabag('tata usaha'),
@@ -108,6 +109,8 @@ class Admin extends CI_Controller
             'tatausaha' => $this->staff->staff('tata usaha'),
             'sarana' => $this->staff->staff('sarana & prasarana'),
             'staff' => $this->staff->all(),
+            'staffbag' => $this->staff->staffbag(),
+            'guru' => $this->staff->guru(),
         ];
         // var_dump($data['sarana']);
         // die;
@@ -117,6 +120,23 @@ class Admin extends CI_Controller
         $this->load->view('admin/staff', $data);
         $this->load->view('templates/footer');
 
+    }
+
+    public function user()
+    {
+        $data = [
+            'title' =>'Data User',
+            'user' => $this->user->getUserSession(),
+            'userall' => $this->user->all(),
+            'segmentuser' => $this->user->segmentuser()
+        ];
+        // var_dump($data['segmentuser']);
+        // die;
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/user', $data);
+        $this->load->view('templates/footer');
     }
 
     public function role()
@@ -262,79 +282,79 @@ class Admin extends CI_Controller
     }
 
 
-    public function user($id, $role_id)
-    {
-        $data['title'] = 'Edit Data Member';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['edit'] = $this->db->get_where('user', ['id' => $id])->row_array();
-        $this->db->where('role !=', 'admin');
-        $data['Edit'] = $this->db->get('user_role')->result_array();
-        $data['member'] = $this->db->get_where('data_member', ['id' => $id])->row_array();
+    // public function user($id, $role_id)
+    // {
+    //     $data['title'] = 'Edit Data Member';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    //     $data['edit'] = $this->db->get_where('user', ['id' => $id])->row_array();
+    //     $this->db->where('role !=', 'admin');
+    //     $data['Edit'] = $this->db->get('user_role')->result_array();
+    //     $data['member'] = $this->db->get_where('data_member', ['id' => $id])->row_array();
 
-        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+    //     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    //     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 
-        if ($this->form_validation->run() == false) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('edit/user', $data);
-        $this->load->view('templates/footer');
-        }else{
-            $data = [
-                'email' => htmlspecialchars($this->input->post('email')),
-                'name' => htmlspecialchars($this->input->post('name')),
-                'role_id' => htmlspecialchars($this->input->post('role')),
-                'is_active' => $this->input->post('is_active')
-            ];
+    //     if ($this->form_validation->run() == false) {
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('edit/user', $data);
+    //     $this->load->view('templates/footer');
+    //     }else{
+    //         $data = [
+    //             'email' => htmlspecialchars($this->input->post('email')),
+    //             'name' => htmlspecialchars($this->input->post('name')),
+    //             'role_id' => htmlspecialchars($this->input->post('role')),
+    //             'is_active' => $this->input->post('is_active')
+    //         ];
 
-            // var_dump($data);
-            // die;
+    //         // var_dump($data);
+    //         // die;
             
-            // cek jika gambar diperbarui
-            $upload_image = $_FILES['image']['name'];
+    //         // cek jika gambar diperbarui
+    //         $upload_image = $_FILES['image']['name'];
 
-            if ($upload_image) {
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '256';
-                $config['upload_path'] = './assets/img/member/';
+    //         if ($upload_image) {
+    //             $config['allowed_types'] = 'gif|jpg|png';
+    //             $config['max_size'] = '256';
+    //             $config['upload_path'] = './assets/img/member/';
 
-                $this->load->library('upload', $config);
+    //             $this->load->library('upload', $config);
 
-                if ($this->upload->do_upload('image')) {
-                    $old_image = $data['user']['image'];
-                    if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/img/member/' . $old_image);
-                    }
+    //             if ($this->upload->do_upload('image')) {
+    //                 $old_image = $data['user']['image'];
+    //                 if ($old_image != 'default.jpg') {
+    //                     unlink(FCPATH . 'assets/img/member/' . $old_image);
+    //                 }
 
-                    $new_image = $this->upload->data('file_name');  
-                    $this->db->set('image', $new_image);  
-                }else{
-                      $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert"> Ukuran gambar terlalu besar atau ekstensi gambar tidak diperbolehkan <br><i> Catatan :<b>' 
-                            . $this->upload->display_errors() .
-                            '</b></i><button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>');
-                redirect('admin/datauser/' . $role_id);
-                }
-              }
+    //                 $new_image = $this->upload->data('file_name');  
+    //                 $this->db->set('image', $new_image);  
+    //             }else{
+    //                   $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert"> Ukuran gambar terlalu besar atau ekstensi gambar tidak diperbolehkan <br><i> Catatan :<b>' 
+    //                         . $this->upload->display_errors() .
+    //                         '</b></i><button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    //                             <span aria-hidden="true">&times;</span>
+    //                         </button>
+    //                         </div>');
+    //             redirect('admin/datauser/' . $role_id);
+    //             }
+    //           }
 
-            $this->db->set('name', $name);
-            $this->db->where('id', $id);
-            $this->db->update('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert"> 
-            Data User sudah berhasil diperbarui!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+    //         $this->db->set('name', $name);
+    //         $this->db->where('id', $id);
+    //         $this->db->update('user', $data);
+    //         $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert"> 
+    //         Data User sudah berhasil diperbarui!
+    //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    //             <span aria-hidden="true">&times;</span>
+    //         </button>
+    //         </div>');
           
-                redirect('admin/datauser/' . $role_id);
+    //             redirect('admin/datauser/' . $role_id);
 
-            }
+    //         }
 
-        }
+    //     }
         
 
 
