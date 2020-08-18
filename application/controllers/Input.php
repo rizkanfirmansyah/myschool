@@ -269,6 +269,23 @@ class Input extends CI_Controller
         redirect('data/ruangan');
     }
 
+    public function mapel()
+    {
+        $data = [
+            'id_angkatan' => $this->input->post('angkatan'),
+            'id_guru' => $this->input->post('guru'),
+            'nama_mapel' => $this->input->post('mapel'),
+        ];
+
+        $this->db->insert('mapel', $data);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Mapel baru ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/mapel');
+    }
+
 
     public function list($user_id)
     {

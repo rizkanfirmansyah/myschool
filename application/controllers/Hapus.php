@@ -251,6 +251,19 @@ class Hapus extends CI_Controller
         redirect('data/ruangan');
     }
 
+    public function mapel($id)
+    {
+        $this->db->where('mapel_id', $id);
+        $this->db->delete('mapel');
+
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Mapel Berhasil Dihapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/mapel');
+    }
+
     public function jurusan()
     {
         $id = $this->input->post('hapus');

@@ -56,9 +56,8 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nama Ruangan</th>
-                      <th>Payload</th>
-                      <th>Kategori Ruangan</th>
+                      <th>Nama Mapel</th>
+                      <th>Nama Guru</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -67,11 +66,10 @@
                       <?php foreach($mapel as $k):?>
                         <tr>
                             <td><?= $i;?></td>
-                            <td><?= $k['nama_ruangan'] ?></td>   
-                            <td><?= $k['payload'] ?></td>   
-                            <td><?= $k['kategori_gedung'] ?></td>   
+                            <td><?= $k['nama_mapel'] ?></td>   
+                            <td><?= $k['nama'] ?></td>   
                             <td>
-                                <a href="<?= base_url('hapus/ruangan/'.$k['ruangan_id']) ?>" ><i class="fas fa-trash text-danger"></i></a> 
+                                <a href="<?= base_url('hapus/mapel/'.$k['mapel_id']) ?>" ><i class="fas fa-trash text-danger"></i></a> 
                             </td>   
                         </tr>
                         <?php $i++;?>
@@ -83,7 +81,7 @@
           </div>
 
           <!-- SCRIPT INCLUDE INTERNAL -->
-          <?php $this->load->view('data/ruangan/modal_ruangan'); ?>
+          <?php $this->load->view('data/mapel/mapel_modal.php'); ?>
         </div>
         </div>
         </div>

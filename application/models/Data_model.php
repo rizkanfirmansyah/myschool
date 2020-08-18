@@ -56,7 +56,7 @@ class Data_model extends CI_Model
 
 	public function mapel()
 	{
-		return $this->db->get('mapel');
+		return $this->db->select('*')->from('mapel')->join('guru', 'mapel.id_guru=guru.id', 'left')->get();
 	}
 
 	public function getDataNotCompleted()

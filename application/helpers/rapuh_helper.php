@@ -77,7 +77,7 @@ function functionwarna($id)
     }elseif($id == 'guru'){
         return 'primary';
     }elseif($id == 'siswa'){
-        return 'danger';
+        return 'warning';
     }elseif($id == 'user    '){
         return 'success';
     }else{

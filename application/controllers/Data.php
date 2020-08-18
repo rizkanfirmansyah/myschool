@@ -106,8 +106,8 @@ class Data extends CI_Controller
             'title' => 'Data Mapel',
             'mapel' => $this->data->mapel()->result_array(),
             'jml' => $this->data->mapel()->num_rows(),
-            // 'avg' => $this->data->avgmapel(),
-            // 'sum' => $this->data->jmlmapel(),
+            'guru' => $this->guru->allmapel(),
+            'angkatan' => $this->siswa->angkatan()->result_array(),
             'user' => $this->user->getUserSession()
         ];
 

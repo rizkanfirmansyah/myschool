@@ -5,6 +5,7 @@
         <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
+            <a href="<?= base_url('akses/user'); ?>" class="btn btn-sm btn-success mx-1 " ><i class="fas fa-check fa-sm text-white-50"></i> Jadikan Aktif</a>
             <a href="<?= base_url('format/user'); ?>" class="btn btn-sm btn-danger mx-1 " id="formatData" data-text="Apakah anda yakin ingin memformat data users?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
           </div>
 
@@ -32,6 +33,40 @@
               </div>
             </div>
             <?php endforeach; ?>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">User Aktif</div>
+                      <div class="h8 mb-0 font-weight-bold text-gray-800 text-capitalize">
+                      <?= $aktif ?>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <a href="javascript:voip()"><i class="fas fa-users fa-2x text-success"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">User Tidak Aktif</div>
+                      <div class="h8 mb-0 font-weight-bold text-gray-800 text-capitalize">
+                      <?= $inaktif ?>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <a href="javascript:voip()"><i class="fas fa-users fa-2x text-danger"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Data Guru -->
