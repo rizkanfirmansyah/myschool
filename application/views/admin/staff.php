@@ -66,7 +66,7 @@
                             </td>
                       <td>
                         <a href="<?= base_url('hapus/staffjabatan/'. $s['staff_jabatan_id'])?>" class="fas fa-trash-alt text-danger"></a>
-                        <a href="" class="fas fa-edit text-warning"></a>
+                        <a style="cursor: pointer;" class="fas fa-edit text-warning editDataStaffBagian" data-id="<?= $s['guru_id'] ?>" data-nama="<?= $s['nama']?>" data-idjabatan="<?= $s['jabatan_id'] ?>" data-namajabatan="<?= $s['nama_jabatan']?>" data-toggle="modal" data-target="#editStaff"></a>
                       </td>
                     </tr>
                     <?php $i++;?>

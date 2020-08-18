@@ -66,13 +66,16 @@ class Input extends CI_Controller
             'guru_id' => $this->input->post('guru'),
             'kepala_jabatan' => 'tidak' 
         ];
+        $cek = $this->db->get_where('guru', ['id' => $data['guru_id']])->row();
+        
+        $this->db->set('role_id', 2)->where('nama', $cek->nip)->update('users');
         $swal = [
             'tipe' => 'success',
             'pesan' => 'Data staff berhasil ditambahkan'
         ];
-        $this->session->set_flashdata($swal);
         $this->db->insert('staff_jabatan', $data);
-    
+        $this->session->set_flashdata($swal);
+        // redirec
     }
 
     public function jabatan()
@@ -236,7 +239,7 @@ class Input extends CI_Controller
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'email' => htmlspecialchars($this->input->post('email')),
             'role_id' => 3,
-            'status' => 0,
+            'status' => 1,
             'date_created' => date('Y-m-d'),
         ];
         // var_dump($user);

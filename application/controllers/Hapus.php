@@ -55,24 +55,6 @@ class Hapus extends CI_Controller
     }  
 
 
-     public function user($id, $role_id)
-    {
-        $this->db->where('id', $id);
-        $this->db->delete('user');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            Data user telah berhasil dihapus
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>');
-
-            if ($this->session->userdata('role_id') == 2) {
-                redirect('admin/user/');
-            } else {
-                redirect('root/datauser/' . $role_id);
-            }
-    }
-
     public function materi($user_id)
     {
         $this->db->where('user_id', $user_id);
@@ -262,6 +244,17 @@ class Hapus extends CI_Controller
         ];
         $this->session->set_flashdata($swal);
         redirect('data/mapel');
+    }
+
+    public function user($id)
+    {
+        $this->db->where('id', $id)->delete('users');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'User Berhasil Dihapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('admin/user');
     }
 
     public function jurusan()

@@ -128,6 +128,8 @@ class Admin extends CI_Controller
             'title' =>'Data User',
             'user' => $this->user->getUserSession(),
             'siswa' => $this->user->siswa(),
+            'useraktif' => $this->user->useraktif(),
+            'userinaktif' => $this->user->userinaktif(),
             'guru' => $this->user->guru(),
             'aktif' => $this->db->get_where('users', ['status' => 1])->num_rows(),
             'inaktif' => $this->db->get_where('users', ['status' => 0])->num_rows(),

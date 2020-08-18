@@ -93,14 +93,24 @@ class User_model extends CI_Model
 		return $this->db->select('*, users.id as user_id')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->get()->result_array();
 	}
 
+	public function useraktif()
+	{
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->where('status', 1)->get()->result_array();
+	}
+
+	public function userinaktif()
+	{
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->where('status', 0)->get()->result_array();
+	}
+
 	public function siswa()
 	{
-		return $this->db->select('*, users.id as user_id, users.nama as username')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('siswa', 'users.nama=nis', 'left')->where('role_id', 4)->get()->result_array();
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('siswa', 'users.nama=nis', 'left')->where('role_id', 4)->get()->result_array();
 	}
 
 	public function guru()
 	{
-		return $this->db->select('*, users.id as user_id, users.nama as username')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('guru', 'users.nama=nip', 'left')->where('role_id', 3)->get()->result_array();
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('guru', 'users.nama=nip', 'left')->where('role_id', 3)->get()->result_array();
 	}
 
 	public function alumni()

@@ -38,6 +38,30 @@ function function_status($id, $user){
     }
 }
 
+function nama_user_check($email)
+{
+    $ci = get_instance();
+
+    $siswa = $ci->db->get_where('siswa', ['email' => $email])->row();
+    $guru = $ci->db->get_where('guru', ['email' => $email])->row();
+    $user = $ci->db->get_where('users', ['email' => $email])->row();
+
+    if($siswa != null){
+        return $siswa->nama;
+    }elseif($guru != null)
+    {
+        return $guru->nama;
+    }else{
+        if($user->role_id == 2){
+            return 'Staff';
+        }elseif($user->role_id ==5){
+            return 'Kepala Sekolah';
+        }else{
+            return 'Guest';
+        }
+    }
+}
+
 function check_kepala_jabatan($id)
 {
     if($id == 'ya'){

@@ -75,4 +75,45 @@ $(document).ready(function() {
           });
     });
 
+    $('.editDataStaffBagian').on('click', function(){
+        const id = $(this).data('id');
+        const nama = $(this).data('nama');
+        const idjabatan = $(this).data('idjabatan');
+        const namajabatan = $(this).data('namajabatan');
+
+        $('.posisiStaff').val(idjabatan);
+        $('.posisiStaff').text(namajabatan);
+        $('.pilihStaffGuru').val(id);
+        $('.pilihStaffGuru').text(nama);
+    });
+
+    $('.editInputDataStaff').on('click', function(e){
+        e.preventDefault();
+        // const coba = $('.posisiStaff').val();
+        const posisi = $('.posisiJabatanStaff').val();
+        const guru = $('.pilihStaffGuru').val();
+        const url = $('.formEditStaffJabatan').attr('action');
+        const href = $('#urlEditInputStaff').val();
+
+        // alert(posisi);
+        
+        $.ajax({
+            type:'POST',
+            url:url,
+            data:{
+                jabatan_id:posisi,
+                guru_id:guru,
+            },
+            success:function()
+            {
+                // swal('SUKSES', 'Data Staff berhasil ditambahkan', 'success');
+                document.location.href = href;
+            },
+            error:function()
+            {
+                swal('ERROR', '502 internal Server Error or 404 Not Found', 'error');
+            }
+        });
+    });
+
 });

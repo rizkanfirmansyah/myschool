@@ -3,8 +3,14 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#dataPemasukan').DataTable();
+    $('#datatable1').DataTable();
 });
+
+
+$(document).ready(function () {
+    $('#datatable2').DataTable();
+});
+
 
 $(document).ready(function () {
     $('#dataPemasukanPerBulan').DataTable({
@@ -35,7 +41,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#datatables2').DataTable();
+    $('#datatable3').DataTable();
 });
 
 $(document).ready(function () {

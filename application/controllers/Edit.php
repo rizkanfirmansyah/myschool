@@ -70,6 +70,26 @@ class Edit extends CI_Controller
         }
     }
 
+    public function staff()
+    {
+        $guru = $this->input->post('guru_id');
+        $jabatan = $this->input->post('jabatan_id');
+        if($jabatan == null){
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Staff berhasil diubah'
+            ];
+            $this->session->set_flashdata($swal);
+            die;
+        }
+        $this->db->where('guru_id', $guru)->set('jabatan_id', $jabatan)->update('staff_jabatan');
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Staff berhasil diubah'
+            ];
+            $this->session->set_flashdata($swal);
+    }
+
     public function e_siswa()
     {
         $data = [
