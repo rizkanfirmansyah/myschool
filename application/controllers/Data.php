@@ -85,17 +85,36 @@ class Data extends CI_Controller
     public function ruangan()
     {
         $data = [
-            'title' => 'Data Guru',
-            'jml' => $this->guru->jml(),
-            'guru' => $this->guru->all(),
-            'jurusan' => $this->db->get_where('jurusan', ['jurusan_id !=' => 1])->result_array(),
+            'title' => 'Data Ruangan',
+            'ruangan' => $this->data->ruangan()->result_array(),
+            'jml' => $this->data->ruangan()->num_rows(),
+            'avg' => $this->data->avgruangan(),
+            'sum' => $this->data->jmlruangan(),
             'user' => $this->user->getUserSession()
         ];
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('data/ruangan', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function mapel()
+    {
+        $data = [
+            'title' => 'Data Mapel',
+            'mapel' => $this->data->mapel()->result_array(),
+            'jml' => $this->data->mapel()->num_rows(),
+            // 'avg' => $this->data->avgmapel(),
+            // 'sum' => $this->data->jmlmapel(),
+            'user' => $this->user->getUserSession()
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('data/mapel', $data);
         $this->load->view('templates/footer');
     }
 

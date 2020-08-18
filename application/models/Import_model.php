@@ -19,7 +19,7 @@ class Import_model extends CI_Model {
     $fileName = $_FILES['fileAdmin']['name'];
         
         $config['upload_path'] = './assets/data/guru/excel/'; //path upload
-        $config['file_name'] = date('dmY-').$fileName;  // nama file
+        $config['file_name'] = date('dmYHis-').$fileName;  // nama file
         $config['allowed_types'] = 'xls|xlsx|csv'; //tipe file yang diperbolehkan
         $config['max_size'] = 10000; // maksimal sizze
         
@@ -30,7 +30,7 @@ class Import_model extends CI_Model {
             echo $this->upload->display_errors();exit();
         }
         
-        $inputFileName = './assets/data/guru/excel/'.date('dmY-').$fileName;
+        $inputFileName = './assets/data/guru/excel/'.date('dmYHis-').$fileName;
         
         try {
             $inputFileType = PHPExcel_IOFactory::identify($inputFileName);

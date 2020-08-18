@@ -39,6 +39,26 @@ class Data_model extends CI_Model
 		return $this->db->get('data_jurusan')->num_rows();
 	}
 
+	public function ruangan()
+	{
+		return $this->db->get('ruangan');
+	}
+
+	public function jmlruangan()
+	{
+		return $this->db->select_sum('payload')->get('ruangan')->row_array();
+	}
+
+	public function avgruangan()
+	{
+		return $this->db->select_avg('payload')->get('ruangan')->row_array();
+	}
+
+	public function mapel()
+	{
+		return $this->db->get('mapel');
+	}
+
 	public function getDataNotCompleted()
 	{
 		$this->db->where('nisn', ' ');

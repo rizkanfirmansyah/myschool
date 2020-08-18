@@ -252,6 +252,23 @@ class Input extends CI_Controller
         redirect('data/guru');
     }
 
+    public function ruangan()
+    {
+        $data = [
+            'nama_ruangan' => htmlspecialchars($this->input->post('ruangan'), true),
+            'kategori_gedung' => htmlspecialchars($this->input->post('kategori'), true),
+            'payload' => htmlspecialchars($this->input->post('payload'), true),
+        ];
+
+        $this->db->insert('ruangan', $data);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Data ruangan berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/ruangan');
+    }
+
 
     public function list($user_id)
     {

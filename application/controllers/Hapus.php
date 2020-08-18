@@ -238,6 +238,19 @@ class Hapus extends CI_Controller
         redirect('data/guru');
     }
 
+    public function ruangan($id)
+    {
+        $this->db->where('ruangan_id', $id);
+        $this->db->delete('ruangan');
+
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Ruangan Berhasil Dihapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/ruangan');
+    }
+
     public function jurusan()
     {
         $id = $this->input->post('hapus');
