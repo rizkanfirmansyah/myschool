@@ -103,7 +103,7 @@
                       </td>
                       <td>
                         <a href="<?= base_url('hapus/user/'. $s['user_id'])?>" class="fas fa-trash-alt text-danger"></a>
-                        <!-- <a href="" class="fas fa-edit text-warning"></a> -->
+                        <a href="" class="fas fa-edit text-warning"></a>
                       </td>
                     </tr>
                     <?php $i++;?>
@@ -147,7 +147,7 @@
                       </td>
                       <td>
                         <a href="<?= base_url('hapus/user/'. $s['user_id'])?>" class="fas fa-trash-alt text-danger"></a>
-                        <a href="" class="fas fa-edit text-warning"></a>
+                        <!-- <a href="" class="fas fa-edit text-warning"></a> -->
                       </td>
                     </tr>
                     <?php $i++;?>
@@ -193,7 +193,7 @@
                       </td>
                       <td>
                         <a href="<?= base_url('hapus/user/'. $s['user_id'])?>" class="fas fa-trash-alt text-danger"></a>
-                        <a href="" class="fas fa-edit text-warning"></a>
+                        <!-- <a href="" class="fas fa-edit text-warning"></a> -->
                       </td>
                     </tr>
                     <?php $i++;?>
@@ -239,7 +239,7 @@
                       </td>
                       <td>
                         <a href="<?= base_url('hapus/user/'. $s['user_id'])?>" class="fas fa-trash-alt text-danger"></a>
-                        <a href="" class="fas fa-edit text-warning"></a>
+                        <!-- <a href="" class="fas fa-edit text-warning"></a> -->
                       </td>
                     </tr>
                     <?php $i++;?>

@@ -4,7 +4,7 @@
     <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahKelas"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
+            <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahJadwal"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
           </div>
           
           <!-- Content Row -->
@@ -16,11 +16,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Jumlah Kelas</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jml;?></div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tanggal</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= date('d-M-Y H:i');?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-chalkboard fa-2x text-gray-300"></i>
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -33,8 +33,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Maks Daya Tampung</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $totalpayload['payload'];?></div>
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Data Ruangan</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ruangan;?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -50,15 +50,10 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Daya Tampung</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Kelas</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= substr($payload['payload']*100/$totalpayload['payload'], 0, 4);?>%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: <?= $payload['payload']*100/$totalpayload['payload'];?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $kelas;?></div>
                         </div>
                       </div>
                     </div>
@@ -76,8 +71,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Kepala Sekolah</div>
-                      <div style="font-size:12px; margin-right:-20px;" class="h7 mb-0 font-weight-bold text-gray-800">Riezkan Aprianda Firmansyah</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data Guru</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $guru; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-school  fa-2x text-gray-300"></i>
@@ -91,7 +86,7 @@
           <!-- Data Kelas -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Data Kelas</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -99,26 +94,30 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nama Kelas</th>
-                      <th>Jurusan</th>
+                      <th>Nama Pelajaran</th>
+                      <th>Nama Guru</th>
+                      <th>Kelas</th>
                       <th>Ruangan</th>
-                      <th>Wali Kelas</th>
+                      <th>Jam Masuk</th>
+                      <th>Jam keluar</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                       <?php $i=1;?>
-                      <?php foreach($kelas as $k):?>
+                      <?php foreach($all as $k):?>
                         <tr>
                             <td><?= $i;?></td>
+                            <td><?= $k['nama_mapel'] ?></td>   
+                            <td class="text-capitalize"><?= $k['nama'] ?></td>   
                             <td><?= $k['nama_kelas'] ?></td>   
-                            <td class="text-capitalize"><?= $k['nama_jurusan'] ?></td>   
                             <td><?= $k['nama_ruangan'] ?></td>   
-                            <td><?= $k['nama'] ?></td>   
+                            <td><?= $k['jam_masuk'] ?></td>   
+                            <td><?= $k['jam_keluar'] ?></td>   
+                            <td><?= status_jadwal($k['jadwal_status']) ?></td>   
                             <td>
-                                <!-- <a href="#" data-toggle="modal" data-target="#editDataKelas" class="editKelas" data-namakelas="<?= $k['nama_kelas']?>" data-ruangan="<?= $k['ruangan_id'] ?>" data-namaruangan="<?= $k['nama_ruangan']?>" data-guru="<?= $k['guru_id'] ?>" data-namaguru="<?= $k['nama'] ?>" data-jurusan="<?= $k['jurusan_id'] ?>" data-namajurusan="<?= $k['nama_jurusan'] ?>"><i class="fas fa-edit text-warning"></i></a>  -->
-                                
-                                <a href="<?= base_url('hapus/kelas/') ?>" id="hapusDataKelas" data-hapus="<?= $k['kelas_id'] ?>" class="hapusDataKelas"><i class="fas fa-trash text-danger"></i></a> 
+                                <!-- <a href="<?= base_url('hapus/kelas/') ?>" id="hapusDataKelas" data-hapus="<?= $k['kelas_id'] ?>" class="hapusDataKelas"><i class="fas fa-trash text-danger"></i></a>  -->
                             </td>   
                         </tr>
                         <?php $i++;?>
@@ -129,8 +128,9 @@
             </div>
           </div>
 
+
           <!-- SCRIPT INCLUDE INTERNAL -->
-          <?php $this->load->view('data/kelas/modal_kelas'); ?>
+          <?php $this->load->view('kurikulum/jadwal/modal_jadwal'); ?>
         </div>
         </div>
         </div>

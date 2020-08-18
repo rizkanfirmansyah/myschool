@@ -60,14 +60,15 @@
 </div>
 <!-- Modal: user -->
 
+
 <!-- Modal: Guru -->
-<div class="modal fade right" id="kelasEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade right" id="editDataKelas" tabindex="-1" role="dialog" aria-labelledby="editDataKelas"
   aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <span class="heading lead">Tambah Data Kelas
+        <span class="heading lead">Pengaturan Guru
             </span>
             
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -81,12 +82,12 @@
         <form action="<?= base_url('input/kelas') ?>" method="post">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="namakelas">Nama Kelas</label>
-            <input type="text" class="form-control" id="namakelas" name="namakelas" placeholder="12 tkj 2">
+            <label for="editkelasnama">Nama Kelas</label>
+            <input type="text" class="form-control" id="editkelasnama" name="editkelasnama" placeholder="12 tkj 2">
           </div>
           <div class="form-group col-md-6">
-            <label for="Guru">Guru</label>
-              <select id="Guru" name="guru" class="form-control">
+            <label for="editgurunama">Guru</label>
+              <select id="editgurunama" name="editgurunama" class="form-control">
                 <option selected disabled value=""> ==Pilih Guru== </option>
                 <?php foreach($guru as $j):?>
                   <option value="<?= $j['id'];?>"><?= $j['nama'] ?></option>
@@ -96,8 +97,8 @@
         </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-            <label for="Jurusan">Jurusan</label>
-              <select id="Jurusan" name="jurusan" class="form-control">
+            <label for="editjurusannama">Jurusan</label>
+              <select id="editjurusannama" name="jurusannama" class="form-control">
                 <option selected disabled value=""> ==Pilih Jurusan== </option>
                 <?php foreach($jurusan as $j):?>
                   <option value="<?= $j['jurusan_id'];?>"><?= $j['nama_jurusan'] ?></option>
@@ -105,8 +106,8 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="Ruangan">Ruangan</label>
-              <select id="Ruangan" name="ruangan" class="form-control">
+              <label for="editruangannama">Ruangan</label>
+              <select id="editruangannama" name="editruangannama" class="form-control">
                 <option selected disabled value=""> ==Pilih Ruangan== </option>
                 <?php foreach($ruangan as $j):?>
                   <option value="<?= $j['ruangan_id'];?>"><?= $j['nama_ruangan'] ?></option>
@@ -121,3 +122,4 @@
   </div>
 </div>
 <!-- Modal: user -->
+

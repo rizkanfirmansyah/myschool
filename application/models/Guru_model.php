@@ -49,6 +49,11 @@ class Guru_model extends CI_Model {
     return $this->db->select('*')->from('guru')->join('mapel', 'guru.id!=mapel.id_guru', 'left')->get()->result_array();
   }
 
+  public function gurumapel()
+  {
+    return $this->db->select('*')->from('guru')->join('mapel', 'guru.id=mapel.id_guru', 'right')->get();
+  }
+
 }
 
 /* End of file Guru_model.php */

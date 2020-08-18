@@ -62,6 +62,15 @@ function nama_user_check($email)
     }
 }
 
+function status_jadwal($id)
+{
+    if($id == 1){
+        return ' <a href="'. base_url('akses/jadwal/0') .'" class="btn btn-sm btn-success text-white">Aktif</a>';
+    }else{
+        return ' <a href="'. base_url('akses/jadwal/1') .'" class="btn btn-sm btn-danger text-white">Tidak Aktif</a>';
+    }
+}
+
 function check_kepala_jabatan($id)
 {
     if($id == 'ya'){
