@@ -9,6 +9,11 @@ class Siswa_model extends CI_Model {
     parent::__construct();
   }
 
+  public function store()
+  {
+    
+  }
+
   public function all()
   {
     return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan.jurusan_id=kelas.jurusan_id', 'left')->join('angkatan', 'siswa.angkatan_id=angkatan.angkatan_id')->get()->result_array();

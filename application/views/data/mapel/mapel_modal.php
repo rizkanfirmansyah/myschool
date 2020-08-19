@@ -24,28 +24,15 @@
             <input type="text" class="form-control" id="mapel" name="mapel" placeholder="Masukkan Nama Mapel">
           </div>
           <div class="form-group col-md-6">
-            <label for="guru" class="text-capitalize">guru</label>
-           <select name="guru" id="guru" class="form-control">
-               <option value="" selected disabled>== Pilih Guru ==</option>
-               <?php foreach($guru as $g):?>
-                <option value="<?= $g['id'] ?>"><?= $g['nama'] ?></option>
+            <label for="jenjang" class="text-capitalize">Angkatan</label>
+           <select name="jenjang" id="jenjang" class="form-control">
+               <option value="" selected disabled>== Pilih Jenjang ==</option>
+               <?php foreach($jenjang as $g):?>
+                <option value="<?= $g['jenjang_id'] ?>">Kelas <?= $g['nama_jenjang'] ?></option>
                <?php endforeach;?>
            </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-          <label for="angkatan" class="text-capitalize">angkatan</label>
-           <select name="angkatan" id="angkatan" class="form-control">
-               <option value="" selected disabled>== Pilih angkatan siswa ==</option>
-               <?php foreach($angkatan as $g):?>
-                <option value="<?= $g['angkatan_id'] ?>"><?= $g['angkatan_nama'] ?></option>
-               <?php endforeach;?>
-           </select>
-            </div>
-            <div class="form-group col-md-6">
-            </div>
-          </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Tambah</button>
             </div>

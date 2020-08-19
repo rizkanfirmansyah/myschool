@@ -46,12 +46,39 @@ class Guru_model extends CI_Model {
 
   public function allmapel()
   {
-    return $this->db->select('*')->from('guru')->join('mapel', 'guru.id!=mapel.id_guru', 'left')->get()->result_array();
+    return $this->db->select('*')->from('mapel')->get()->result_array();
   }
 
   public function gurumapel()
   {
-    return $this->db->select('*')->from('guru')->join('mapel', 'guru.id=mapel.id_guru', 'right')->get();
+    return $this->db->select('*')->from('guru')->get();
+  }
+
+  public function siswaToday()
+  {
+    $hari = date('D');
+    if($hari == 'Mon'){
+      $day = 'senin';
+    }elseif($hari == 'Tue'){
+      $day = 'selasa';
+    }elseif($hari == 'Wed'){
+      $day = 'rabu';
+    }elseif($hari == 'Thu'){
+      $day = 'kamis';
+    }elseif($hari == 'Fri'){
+      $day = 'jumat';
+    }elseif($hari == 'Sat'){
+      $day = 'sabtu';
+    }elseif($hari == 'Sun'){
+      $day = 'minggu';
+    }
+    // $data['jam_masuk'] <= $cek_jadwal->jam_keluar && $data['jam_masuk'] >= $cek_jadwal->jam_masuk;
+    return $this->db->select('*, siswa.nama as nama_siswa')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jadwal', 'kelas.kelas_id=id_kelas')->join('mapel', 'jadwal.id_mapel=mapel.mapel_id')->join('ruangan', 'jadwal.id_ruangan=ruangan.ruangan_id')->join('guru', 'jadwal.id_guru=guru.id')->where('hari', $day)->get()->result_array();
+  }
+
+  public function kepalasekolah()
+  {
+    return $this->db->select('*')->from('kepala_sekolah')->join('guru', 'id_guru=guru.id', 'left')->get()->row_array();
   }
 
 }

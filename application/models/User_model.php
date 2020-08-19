@@ -29,6 +29,32 @@ class User_model extends CI_Model
 						$this->session->set_flashdata($swal);
 						$this->session->set_userdata($data);
 						redirect('admin');
+					}elseif($user['role_id'] == 3){
+						$data = [
+							'nama' => $nama,
+							'role' => 'users',
+							'role_id' => $user['role_id']
+						];
+						$swal =[
+							'tipe' =>'success',
+							'pesan' => 'Login Berhasil, Selamat datang '.$data['nama']
+						];
+						$this->session->set_flashdata($swal);
+						$this->session->set_userdata($data);
+						redirect('guru/siswa');
+					}elseif($user['role_id'] == 4){
+						$data = [
+							'nama' => $nama,
+							'role' => 'users',
+							'role_id' => $user['role_id']
+						];
+						$swal =[
+							'tipe' =>'success',
+							'pesan' => 'Login Berhasil, Selamat datang '.$data['nama']
+						];
+						$this->session->set_flashdata($swal);
+						$this->session->set_userdata($data);
+						redirect('siswa/dashboard');
 					}else{
 						$data = [
 							'nama' => $nama,

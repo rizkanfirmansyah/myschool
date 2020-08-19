@@ -62,13 +62,33 @@ function nama_user_check($email)
     }
 }
 
-function status_jadwal($id)
+function status_jadwal($id, $user)
 {
     if($id == 1){
-        return ' <a href="'. base_url('akses/jadwal/0') .'" class="btn btn-sm btn-success text-white">Aktif</a>';
+        return ' <a href="'. base_url('akses/jadwal/0/'.$user) .'" class="btn btn-sm btn-success text-white">Aktif</a>';
     }else{
-        return ' <a href="'. base_url('akses/jadwal/1') .'" class="btn btn-sm btn-danger text-white">Tidak Aktif</a>';
+        return ' <a href="'. base_url('akses/jadwal/1/'. $user) .'" class="btn btn-sm btn-danger text-white">Tidak Aktif</a>';
     }
+}
+
+function hari_function($id)
+{
+    if($id == 'Mon'){
+        return ' Senin';
+    }elseif($id == 'Tue'){
+        return ' Selasa';
+    }elseif($id == 'Wed'){
+        return ' Rabu';
+    }elseif($id == 'Thu'){
+        return ' Kamis';
+    }elseif($id == 'Fri'){
+        return ' Jumat';
+    }elseif($id == 'Sat'){
+        return ' Sabtu';
+    }elseif($id == 'Sun'){
+        return ' Minggu';
+    }
+        
 }
 
 function check_kepala_jabatan($id)

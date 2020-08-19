@@ -72,7 +72,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Kepala Sekolah</div>
-                      <div style="font-size:12px; margin-right:-20px;" class="h7 mb-0 font-weight-bold text-gray-800">Riezkan Aprianda Firmansyah</div>
+                      <div style="font-size:12px; margin-right:-20px;" class="h7 mb-0 font-weight-bold text-gray-800"><?= $kepsek['nama'] ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-school  fa-2x text-gray-300"></i>

@@ -44,9 +44,9 @@ $(document).ready(function(){
                         hapus:hapus
                     },
                     success: function() {
-                        swal('Sukses', 'input data sukses', 'success');
+                        swal('Sukses', 'Hapus data sukses', 'success');
                     },error: function () {
-                        swal('Gagal', 'input data gagal', 'error');
+                        swal('Gagal', 'Hapus data gagal', 'error');
                     }
                 }); 
             } else {
@@ -93,7 +93,7 @@ $(document).ready(function(){
         })
     });
 
-    // $('.editKelas').on('click', function(e){
+    // $('.editJadwal').on('click', function(e){
     //     e.preventDefault();
     //     // alert('oke');
     //     const jurusan = $(this).data('jurusan');
@@ -132,9 +132,44 @@ $(document).ready(function(){
                         hapus:hapus
                     },
                     success: function() {
-                        swal('Sukses', 'input data sukses', 'success');
+                        swal('Sukses', 'Hapus data sukses', 'success');
                     },error: function () {
-                        swal('Gagal', 'input data gagal', 'error');
+                        swal('Gagal', 'Hapus data gagal', 'error');
+                    }
+                }); 
+            } else {
+              swal("Allhamdulillah",'Tidak jadi hapus, data masih terdaftar di database!', 'info');
+            }
+         });
+    });
+
+    $('.hapusDataJadwal').on('click', function(e){
+        e.preventDefault();
+        const url = $('#hapusDataJadwal').attr('href');
+        const hapus = $(this).data('hapus');
+
+        // alert('oke');
+
+        // swal(url);
+        swal({
+            title:'Apakah anda yakin?',
+            text: 'Apakah anda ingin menghapus Jadwal ini!',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type:'POST',
+                    url:url,
+                    data:{
+                        hapus:hapus
+                    },
+                    success: function() {
+                        swal('Sukses', 'Hapus data sukses', 'success');
+                    },error: function () {
+                        swal('Gagal', 'Hapus data gagal', 'error');
                     }
                 }); 
             } else {

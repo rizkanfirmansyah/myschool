@@ -55,7 +55,8 @@ class Data extends CI_Controller
             'title' => 'Data Alumni',
             'jml' => $this->guru->jml(),
             'alumni' => $this->user->alumni(),
-            'user' => $this->user->getUserSession()
+            'user' => $this->user->getUserSession(),
+            'kepsek' => $this->guru->kepalasekolah(),
         ];
 
         $this->load->view('templates/header', $data);
@@ -72,7 +73,8 @@ class Data extends CI_Controller
             'jml' => $this->guru->jml(),
             'guru' => $this->guru->all(),
             'jurusan' => $this->db->get_where('jurusan', ['jurusan_id !=' => 1])->result_array(),
-            'user' => $this->user->getUserSession()
+            'user' => $this->user->getUserSession(),
+            'kepsek' => $this->guru->kepalasekolah(),
         ];
 
         $this->load->view('templates/header', $data);
@@ -90,6 +92,7 @@ class Data extends CI_Controller
             'jml' => $this->data->ruangan()->num_rows(),
             'avg' => $this->data->avgruangan(),
             'sum' => $this->data->jmlruangan(),
+            'kepsek' => $this->guru->kepalasekolah(),
             'user' => $this->user->getUserSession()
         ];
 
@@ -106,8 +109,9 @@ class Data extends CI_Controller
             'title' => 'Data Mapel',
             'mapel' => $this->data->mapel()->result_array(),
             'jml' => $this->data->mapel()->num_rows(),
-            'guru' => $this->guru->allmapel(),
+            'jenjang' => $this->data->jenjang()->result_array(),
             'angkatan' => $this->siswa->angkatan()->result_array(),
+            'kepsek' => $this->guru->kepalasekolah(),
             'user' => $this->user->getUserSession()
         ];
 
@@ -127,6 +131,7 @@ class Data extends CI_Controller
             'totalpayload' => $this->jurusan->totalpayload(),
             'jurusan' => $this->jurusan->all(),
             'angkatan' => $this->siswa->angkatan()->result_array(),
+            'kepsek' => $this->guru->kepalasekolah(),
             'kelas' => $this->siswa->kelas()->result_array(),
             'user' => $this->user->getUserSession()
         ];
@@ -148,6 +153,7 @@ class Data extends CI_Controller
             'jurusan' => $this->jurusan->all(),
             'guru' => $this->guru->guru(),
             'ruangan' => $this->jurusan->ruangan(),
+            'kepsek' => $this->guru->kepalasekolah(),
             'angkatan' => $this->siswa->angkatan()->result_array(),
             'kelas' => $this->kelas->all()->result_array(),
             'user' => $this->user->getUserSession()

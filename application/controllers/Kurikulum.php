@@ -21,10 +21,15 @@ class Kurikulum extends CI_Controller
         $data= [
             'title' => 'Data Jadwal',
             'user' => $this->user->getUserSession(),
-            'ruangan' => $this->data->ruangan()->num_rows(),
-            'kelas' => $this->siswa->kelas()->num_rows(),
-            'guru' => $this->guru->gurumapel()->num_rows(),
+            'jmlruangan' => $this->data->ruangan()->num_rows(),
+            'jmlkelas' => $this->siswa->kelas()->num_rows(),
+            'jmlguru' => $this->guru->gurumapel()->num_rows(),
+            'ruangan' => $this->data->ruangan()->result_array(),
+            'kelas' => $this->siswa->kelas()->result_array(),
+            'guru' => $this->guru->gurumapel()->result_array(),
             'all' => $this->Kurikulum->jadwal()->result_array(),
+            'mapel' => $this->Kurikulum->mapel()->result_array(),
+            'jmlmapel' => $this->Kurikulum->mapel()->num_rows(),
         ];
 
         // echo"<pre>";

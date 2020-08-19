@@ -12,15 +12,38 @@ class Akses extends CI_Controller
         log_history();
 	}
 	
-	public function user()
+	public function user($id)
 	{
-		$this->db->set('status', 1)->where('status', 0)->update('users');
+		if($id == 'aktif')
+		{
+			$this->db->set('status', 1)->where('status', 0)->update('users');
+			$swal = [
+				'tipe' => 'success',
+				'pesan' => 'User Aktif Sekarang'
+			];
+			$this->session->set_flashdata($swal);
+			redirect('admin/user');
+		}else{
+			$this->db->set('status', 0)->where('status', 1)->update('users');
+			$swal = [
+				'tipe' => 'success',
+				'pesan' => 'User Tidak Aktif Sekarang'
+			];
+			$this->session->set_flashdata($swal);
+			redirect('admin/user');
+		}
+		
+	}
+
+	public function jadwal($status, $id)
+	{
+		$this->db->set('status', $status)->where('jadwal_id', $id)->update('jadwal');
 		$swal = [
-			'tipe' => 'success',
-			'pesan' => 'User Aktif Sekarang'
+				'tipe' => 'success',
+				'pesan' => 'Status jadwal berhasil diubah'
 		];
 		$this->session->set_flashdata($swal);
-		redirect('admin/user');
+		redirect('kurikulum/jadwal');
 	}
 
     public function tugas($id, $batas_waktu, $jenis_file, $file)

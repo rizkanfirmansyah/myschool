@@ -3,7 +3,8 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
-            <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
+            <a href="<?= current_url(); ?>" class="btn btn-sm btn-primary ml-auto mx-1"><i class="fas fa-calendar fa-sm text-white-50"></i> <?php date_default_timezone_set("Asia/Bangkok"); echo date('d-M-Y H:i').','.hari_function(date('D')) ;?></a>
+            <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
             <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahJadwal"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
           </div>
           
@@ -16,8 +17,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tanggal</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= date('d-M-Y H:i');?></div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Mapel</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlmapel ;?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -34,10 +35,10 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Data Ruangan</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ruangan;?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlruangan;?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                      <i class="fas fa-store fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -53,12 +54,12 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Kelas</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $kelas;?></div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $jmlkelas;?></div>
                         </div>
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-user fa-2x text-gray-300"></i>
+                      <i class="fas fa-chalkboard fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -72,10 +73,10 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data Guru</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $guru; ?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlguru; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-school  fa-2x text-gray-300"></i>
+                      <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -94,8 +95,9 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nama Pelajaran</th>
-                      <th>Nama Guru</th>
+                      <th>Hari</th>
+                      <th>Pelajaran</th>
+                      <th>Guru</th>
                       <th>Kelas</th>
                       <th>Ruangan</th>
                       <th>Jam Masuk</th>
@@ -109,15 +111,16 @@
                       <?php foreach($all as $k):?>
                         <tr>
                             <td><?= $i;?></td>
-                            <td><?= $k['nama_mapel'] ?></td>   
+                            <td><?= $k['hari'];?></td>
+                            <td><?= $k['nama_mapel'] ?> (Kelas <?= $k['nama_jenjang'];?>)</td>   
                             <td class="text-capitalize"><?= $k['nama'] ?></td>   
                             <td><?= $k['nama_kelas'] ?></td>   
                             <td><?= $k['nama_ruangan'] ?></td>   
                             <td><?= $k['jam_masuk'] ?></td>   
                             <td><?= $k['jam_keluar'] ?></td>   
-                            <td><?= status_jadwal($k['jadwal_status']) ?></td>   
+                            <td><?= status_jadwal($k['jadwal_status'], $k['jadwal_id']) ?></td>   
                             <td>
-                                <!-- <a href="<?= base_url('hapus/kelas/') ?>" id="hapusDataKelas" data-hapus="<?= $k['kelas_id'] ?>" class="hapusDataKelas"><i class="fas fa-trash text-danger"></i></a>  -->
+                                <a href="<?= base_url('hapus/jadwal/') ?>" id="hapusDataJadwal" data-hapus="<?= $k['jadwal_id'] ?>" class="hapusDataJadwal"><i class="fas fa-trash text-danger"></i></a> 
                             </td>   
                         </tr>
                         <?php $i++;?>

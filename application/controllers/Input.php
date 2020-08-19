@@ -78,6 +78,49 @@ class Input extends CI_Controller
         // redirec
     }
 
+    public function jadwal()
+    {
+        $data = [
+            'id_guru' => $this->input->post('guru'),
+            'id_mapel' => $this->input->post('mapel'),
+            'hari' => $this->input->post('hari'),
+            'id_kelas' => $this->input->post('kelas'),
+            'id_ruangan' => $this->input->post('ruangan'),
+            'jam_masuk' => $this->input->post('masuk'),
+            'jam_keluar' => $this->input->post('keluar'),
+            'status' => 1
+        ];
+
+        $cek_jadwal = $this->db->where('id_ruangan',  $data['id_ruangan'])->where('hari', $data['hari'])->get('jadwal')->row();
+
+        // var_dump($cek_jadwal);
+        // die;
+        if($data['jam_masuk'] <= $cek_jadwal->jam_keluar && $data['jam_masuk'] >= $cek_jadwal->jam_masuk){
+            $swal = [
+                'tipe' => 'warning',
+                'pesan' => 'Ruangan telah diisi, periksa kembali jadwal jam pelajaran'
+            ];
+            $this->session->set_flashdata($swal);
+            redirect('kurikulum/jadwal');
+        }elseif( $data['jam_keluar'] <= $cek_jadwal->jam_keluar && $data['jam_keluar'] >= $cek_jadwal->jam_masuk){
+            $swal = [
+                'tipe' => 'warning',
+                'pesan' => 'Ruangan telah diisi, periksa kembali jadwal jam pelajaran'
+            ];
+            $this->session->set_flashdata($swal);
+            redirect('kurikulum/jadwal');
+        }
+
+        $this->db->insert('jadwal', $data);
+
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Jadwal pelajaran berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('kurikulum/jadwal');
+    }
+
     public function jabatan()
     {
         $data = [
@@ -275,10 +318,20 @@ class Input extends CI_Controller
     public function mapel()
     {
         $data = [
-            'id_angkatan' => $this->input->post('angkatan'),
-            'id_guru' => $this->input->post('guru'),
-            'nama_mapel' => $this->input->post('mapel'),
+            'id_jenjang' => $this->input->post('jenjang'),
+            'nama_mapel' => htmlspecialchars($this->input->post('mapel')),
         ];
+
+        $mapel = $this->db->get_where('mapel', ['nama_mapel' => $data['nama_mapel'], 'id_jenjang' => $data['id_jenjang']])->row();
+
+        if($mapel){
+            $swal = [
+                'tipe' => 'warning',
+                'pesan' => 'Mapel sudah ada, silahkan coba mapel lain'
+            ];
+            $this->session->set_flashdata($swal);
+            redirect('data/mapel');
+        }
 
         $this->db->insert('mapel', $data);
         $swal = [

@@ -16,10 +16,12 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
+		$header = $this->db->get_where('data_homepage', ['jenis' => 'footer'])->row();
+    	$title_header = $header->judul;
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == false) {
-			$data['title'] = 'Halaman Login IT Club';
+			$data['title'] = 'Halaman Login '. $title_header;
 			$data['footer'] = $this->home->getDataHomePageFooter();
 			$this->load->view('templates/auth_header', $data);
 			$this->load->view('auth/login', $data);

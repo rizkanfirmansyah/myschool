@@ -148,7 +148,7 @@ class Export extends CI_Controller
           
           $objget->setTitle('Sample Sheet'); //sheet title
            
-          $objget->getStyle("A1:J1")->applyFromArray(
+          $objget->getStyle("A1:M1")->applyFromArray(
               array(
                   'fill' => array(
                       'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -161,11 +161,11 @@ class Export extends CI_Controller
                   );
                   
       //table header
-          $cols = array("A","B","C", "D", "E", "F", "G", "H", "I", "J");
+          $cols = array("A","B","C", "D", "E", "F", "G", "H", "I", "J", 'K', 'L', 'M');
           
-          $val = array("No","NIP","Nama", 'Status', 'Jurusan', 'tahun ajar awal', 'lulusan', 'telepon', 'email', 'alamat');
+          $val = array("No","NIP","Nama", 'Status', 'Jurusan', 'tahun ajar awal', 'lulusan', 'password', 'telepon', 'email', 'alamat', 'agama', 'tanggal lahir');
           
-          for ($a=0;$a<4; $a++) 
+          for ($a=0;$a<13; $a++) 
           {
               $objset->setCellValue($cols[$a].'1', $val[$a]);
               
@@ -193,9 +193,12 @@ class Export extends CI_Controller
               $objset->setCellValue("E".$baris, $frow->nama_jurusan); //membaca data kontak
               $objset->setCellValue("F".$baris, $frow->tahun_ajar_awal); //membaca data kontak
               $objset->setCellValue("G".$baris, $frow->lulusan); //membaca data kontak
-              $objset->setCellValue("H".$baris, $frow->telepon); //membaca data kontak
-              $objset->setCellValue("I".$baris, $frow->email); //membaca data kontak
-              $objset->setCellValue("J".$baris, $frow->alamat); //membaca data kontak
+              $objset->setCellValue("H".$baris, 'password rahasia'); //membaca data kontak
+              $objset->setCellValue("I".$baris, $frow->telepon); //membaca data kontak
+              $objset->setCellValue("J".$baris, $frow->email); //membaca data kontak
+              $objset->setCellValue("K".$baris, $frow->alamat); //membaca data kontak
+              $objset->setCellValue("L".$baris, $frow->agama); //membaca data kontak
+              $objset->setCellValue("M".$baris, $frow->tanggal_lahir); //membaca data kontak
                
           //Set number value
               $objPHPExcel->getActiveSheet()->getStyle('C1:C'.$baris)->getNumberFormat()->setFormatCode('0');

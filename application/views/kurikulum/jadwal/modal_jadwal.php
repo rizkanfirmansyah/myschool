@@ -18,27 +18,42 @@
         <!--Basic textarea-->
         <form action="<?= base_url('input/jadwal') ?>" method="post">
         <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="namaJadwal">Nama Jadwal</label>
-            <input type="text" class="form-control" id="namaJadwal" name="namaJadwal" placeholder="12 tkj 2">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="Jadwal">Jadwal</label>
-              <select id="Jadwal" name="Jadwal" class="form-control">
-                <option selected disabled value=""> ==Pilih Jadwal== </option>
-                <?php foreach($Jadwal as $j):?>
+          <div class="form-group col-md-4">
+            <label for="guru">Guru</label>
+              <select id="guru" name="guru" class="form-control">
+                <option selected disabled value=""> ==Pilih Guru== </option>
+                <?php foreach($guru as $j):?>
                   <option value="<?= $j['id'];?>"><?= $j['nama'] ?></option>
+                <?php endforeach;?>
+              </select>
+            </div>
+          <div class="form-group col-md-4">
+            <label for="mapel">Mapel</label>
+              <select id="mapel" name="mapel" class="form-control text-capitalize">
+                <option selected disabled value=""> ==Pilih Mapel== </option>
+                <?php foreach($mapel as $h):?>
+                  <option class="text-capitalize" value="<?= $h['mapel_id'];?>"><?= $h['nama_mapel'] ?> *Kelas <?= $h['nama_jenjang']?></option>
+                <?php endforeach;?>
+              </select>
+            </div>
+          <div class="form-group col-md-4">
+            <label for="hari">Hari</label>
+              <select id="hari" name="hari" class="form-control text-capitalize">
+                <option selected disabled value=""> ==Pilih Hari== </option>
+                <?php $hari = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']; ?>
+                <?php foreach($hari as $h):?>
+                  <option class="text-capitalize" value="<?= $h;?>"><?= $h ?></option>
                 <?php endforeach;?>
               </select>
             </div>
         </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-            <label for="Jurusan">Jurusan</label>
-              <select id="Jurusan" name="jurusan" class="form-control">
-                <option selected disabled value=""> ==Pilih Jurusan== </option>
-                <?php foreach($jurusan as $j):?>
-                  <option value="<?= $j['jurusan_id'];?>"><?= $j['nama_jurusan'] ?></option>
+            <label for="kelas" class="text-capitalize">kelas</label>
+              <select id="kelas" name="kelas" class="form-control">
+                <option selected disabled value=""> ==Pilih Kelas== </option>
+                <?php foreach($kelas as $j):?>
+                  <option value="<?= $j['kelas_id'];?>"><?= $j['nama_kelas'] ?></option>
                 <?php endforeach;?>
               </select>
             </div>
@@ -52,6 +67,16 @@
               </select>
             </div>
         </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="masuk">Jam Masuk</label>
+            <input type="time" name="masuk" id="waktuMasuk" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="Ruangan">Jam Keluar</label>
+              <input type="time" name="keluar" id="waktuKeluar" required class="form-control">
+            </div>
+        </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Tambah</button>
         </div>
@@ -61,3 +86,4 @@
   </div>
 </div>
 <!-- Modal: user -->
+
