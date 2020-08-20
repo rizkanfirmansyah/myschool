@@ -14,7 +14,7 @@
 <!-- Chart JS -->
 <script src="<?= base_url('assets/vendor/'); ?>chart.js/Chart.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/demo/chart-area-demo.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/js/bootstrap-toggle.js"></script>
 
 <!-- SweetAlert -->
 <script src="<?= base_url('assets/vendor/');?>sweetalert/sweetalert.min.js"></script>
@@ -37,3 +37,4 @@
 <script src="<?= base_url('assets/public/js/my-data-jurusan.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-data-siswa.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-toogle.js') ?>"></script>
+<script src="<?= base_url('assets/public/js/absensi-siswa.js') ?>"></script>

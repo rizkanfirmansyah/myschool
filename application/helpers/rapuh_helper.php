@@ -38,6 +38,34 @@ function function_status($id, $user){
     }
 }
 
+function absen_siswa($ket, $nis, $mapel)
+{
+    $rizkan = get_instance();
+    $rizkan->db->where('id_siswa', $nis);
+    $rizkan->db->where('id_mapel', $mapel);
+    $rizkan->db->where('keterangan', $ket);
+    $rizkan->db->where('date', date('d-M-Y'));
+    $check = $rizkan->db->get('data_absen')->row();
+
+    if($check){
+        return 'checked';
+    }
+}
+
+function count_absen_siswa($ket, $kelas)
+{
+    $rizkan = get_instance();
+    $rizkan->db->where('keterangan', $ket);
+    $rizkan->db->where('id_kelas', $kelas);
+    $cek= $rizkan->db->select('*, count(keterangan) as jml')->from('data_absen')->group_by('keterangan')->get()->row();
+
+    if($cek->jml){
+        return $cek->jml;
+    }else{
+        return 0;
+    }
+}
+
 function nama_user_check($email)
 {
     $ci = get_instance();
@@ -69,6 +97,36 @@ function status_jadwal($id, $user)
     }else{
         return ' <a href="'. base_url('akses/jadwal/1/'. $user) .'" class="btn btn-sm btn-danger text-white">Tidak Aktif</a>';
     }
+}
+
+function hitung_siswa($id)
+{
+    $rizkan = get_instance();
+    return $rizkan->db->get_where('siswa', ['kelas_id' => $id])->num_rows();
+}
+
+function hitung_absen_siswa($id, $kelas, $ket)
+{
+    $rizkan = get_instance();
+    $total = $rizkan->db->get_where('data_absen', ['id_siswa' => $id, 'id_kelas' => $kelas])->num_rows();
+
+    $absen = $rizkan->db->get_where('data_absen', ['id_siswa' => $id, 'id_kelas' => $kelas, 'keterangan' => $ket])->num_rows();
+
+    if($ket == 'hadir'){
+        $color = 'success';
+    }elseif($ket == 'sakit'){
+        $color = 'warning';
+    }elseif($ket == 'izin'){
+        $color = 'info';
+    }elseif($ket == 'alfa'){
+        $color = 'danger';
+    }else{
+        $color = 'secondary';
+    }
+
+    return '<button type="button" class="btn btn-'. $color .'" data-toggle="tooltip" data-placement="top" title="Sebanyak '. $absen .'x">
+    '. $absen * 100 / $total .'%
+    </button>';
 }
 
 function hari_function($id)
@@ -131,8 +189,23 @@ function functionwarna($id)
         return 'primary';
     }elseif($id == 'siswa'){
         return 'warning';
-    }elseif($id == 'user    '){
+    }elseif($id == 'user'){
         return 'success';
+    }else{
+        return 'secondary';
+    }
+}
+
+function warna_absen($id)
+{
+    if($id == 'hadir'){
+        return 'success';
+    }elseif($id == 'sakit'){
+        return 'warning';
+    }elseif($id == 'izin'){
+        return 'info';
+    }elseif($id == 'alfa'){
+        return 'danger';
     }else{
         return 'secondary';
     }

@@ -20,15 +20,13 @@
 
             <?php 
                 $berita = [
-                    'so beautiful in white tonight rilis malam ini tunggu ya gaes',
-                    'nanananana so beautiful in white so love a leabing you',
-                    'hehehe nyanyio bentar gaes oke jangan marah yaa'
+                    'SELAMAT DATANG DI WEB APLIKASI SMK SAMUDRA',
                 ];
              ?>
 
             <marquee behavior="100" direction="">
                 <?php foreach ($berita as $b): ?>
-                    <?= $b; ?> |
+                   | <?= $b; ?> |
                 <?php endforeach; ?>
             </marquee>
                 

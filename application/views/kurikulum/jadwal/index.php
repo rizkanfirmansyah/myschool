@@ -120,7 +120,7 @@
                             <td><?= $k['jam_keluar'] ?></td>   
                             <td><?= status_jadwal($k['jadwal_status'], $k['jadwal_id']) ?></td>   
                             <td>
-                                <a href="<?= base_url('hapus/jadwal/') ?>" id="hapusDataJadwal" data-hapus="<?= $k['jadwal_id'] ?>" class="hapusDataJadwal"><i class="fas fa-trash text-danger"></i></a> 
+                                <a href="<?= base_url('hapus/jadwal/') ?>" id="hapusDataJadwal" data-href="<?= current_url() ?>" data-hapus="<?= $k['jadwal_id'] ?>" class="hapusDataJadwal"><i class="fas fa-trash text-danger"></i></a> 
                             </td>   
                         </tr>
                         <?php $i++;?>

@@ -147,6 +147,7 @@ $(document).ready(function(){
         e.preventDefault();
         const url = $('#hapusDataJadwal').attr('href');
         const hapus = $(this).data('hapus');
+        const href = $(this).data('href');
 
         // alert('oke');
 
@@ -168,6 +169,7 @@ $(document).ready(function(){
                     },
                     success: function() {
                         swal('Sukses', 'Hapus data sukses', 'success');
+                        document.location.href = href;
                     },error: function () {
                         swal('Gagal', 'Hapus data gagal', 'error');
                     }

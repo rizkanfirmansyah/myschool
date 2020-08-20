@@ -121,6 +121,49 @@ class Input extends CI_Controller
         redirect('kurikulum/jadwal');
     }
 
+    public function absen()
+    {
+        $nis = $this->input->post('nis');
+        $mapel = $this->input->post('mapel');
+        $kelas = $this->input->post('kelas');
+        $keterangan = $this->input->post('absen');
+        $absen = [
+            'id_siswa' => $nis,
+            'id_mapel' => $mapel,
+            'id_kelas' => $kelas,
+            'keterangan' => $keterangan,
+            'date' => date('d-M-Y'),
+        ];
+        $this->db->where('id_siswa', $nis);
+        $this->db->where('id_mapel', $mapel);
+        $this->db->where('date', date('d-M-Y'));
+        $check = $this->db->get('data_absen')->row();
+
+        if($check->keterangan == $keterangan){
+            $this->db->where('id', $check->id)->delete('data_absen');
+            $swal=[
+                'tipe' => 'warning',
+                'pesan' => 'Siswa dengan NIS '.$nis.' tidak jadi absen'
+            ];
+            $this->session->set_flashdata($swal);
+            die;
+        }elseif($check){
+            $swal=[
+                'tipe' => 'error',
+                'pesan' => 'Siswa dengan NIS '.$nis.' sudah absen'
+            ];
+            $this->session->set_flashdata($swal);
+            die;
+        }
+
+        $this->db->insert('data_absen', $absen);
+        $swal=[
+            'tipe' => 'success',
+            'pesan' => 'Siswa dengan NIS '.$nis.' berhasil absen'
+        ];
+        $this->session->set_flashdata($swal);
+    }
+
     public function jabatan()
     {
         $data = [
