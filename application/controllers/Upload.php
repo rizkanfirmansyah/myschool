@@ -7,7 +7,7 @@ class Upload extends CI_Controller
       public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('email')) {
+        if (!$this->session->userdata('nama')) {
             redirect('auth');
         }
          maintanance_check();
@@ -15,6 +15,52 @@ class Upload extends CI_Controller
 
         $this->load->model('Member_model', 'member');
         $this->load->model('User_model', 'user');
+    }
+
+    public function file($id)
+    {
+        if($id == 'materi'){
+            $this->_uploadMateri();
+        }
+    }
+
+    private function _uploadMateri()
+    {
+        $image = $_FILES['filemateri']['name'];
+        $data = [
+            'id_materi' => $this->input->post('fileid'),
+            'lokasi_file' => '/assets/data/guru/materi/',
+            'date' => date('d-m-Y'),
+        ];
+        
+        if ($image) {
+            $config['allowed_types'] = 'xls|xlsx|docx|txt|pdf|jpeg|jpg|png';
+            $config['max_size'] = '2048';
+            $config['overwrite'] = TRUE;
+            $config['upload_path'] = './assets/data/guru/materi/';
+            // $config['encrypt_name'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('filemateri')) {
+                $new_image = $this->upload->data('file_name');  
+                $this->db->set('nama_file', $new_image);  
+            }else{
+                $swal = [
+                    'tipe' => 'error',
+                    'pesan' => 'File gagal di Upload'.$this->upload->display_errors()
+                ];
+                $this->session->set_flashdata($swal);
+            redirect('guru');
+            }
+        }
+        $this->db->insert('data_file', $data);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'File berhasil di Upload'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru/index');
     }
 
 

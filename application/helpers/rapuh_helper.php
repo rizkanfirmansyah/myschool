@@ -129,6 +129,14 @@ function hitung_absen_siswa($id, $kelas, $ket)
     </button>';
 }
 
+function function_status_materi($status, $id){
+    if ($status == 1) {
+        return '<a href="'.base_url('materi/status/0/'.$id).'" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Active</a>';       
+    }else{
+        return '<a href="'.base_url('materi/status/1/'.$id).'" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i> Inactive</a>';
+    }
+}
+
 function hari_function($id)
 {
     if($id == 'Mon'){

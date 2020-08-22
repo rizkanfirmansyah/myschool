@@ -254,46 +254,26 @@ class Input extends CI_Controller
 
     public function materi()
     {
-        $data['title'] = 'Materi';
-        $data['user'] = $this->user->getUserSession();
+        $mapel = $this->input->post('mapel');
+        $guru = $this->db->get_where('guru', ['nip' => $this->session->userdata('nama')])->row();
+        $data = [
+            'id_guru' => $guru->id,
+            'id_mapel' => $mapel,
+            'id_kelas' => $this->input->post('kelas'),
+            'id_kd' =>  $this->input->post('kdmateri'),
+            'nama_materi' => htmlspecialchars($this->input->post('materi'), true),
+            'deskripsi' => htmlspecialchars($this->input->post('deskripsi'), true),
+            'status' => 1,
+            'date' => date('d-m-Y')
+        ];
 
-        $this->db->group_by('pengajar');
-        $this->db->order_by('tingkatan', 'asc');
-        $data['materi'] = $this->db->get('data_materi')->result_array();
-
-        $data['khusus'] = $this->db->get('data_materi')->row_array();
-
-        $this->form_validation->set_rules('pengajar', 'Pengajar', 'required|is_unique[data_materi.pengajar]');
-        $this->form_validation->set_rules('user_id', 'User_id', 'required|is_unique[data_materi.user_id]', [
-		'is_unique' => 'Anda telah terdaftar di materi yang lain'
-        	]);
-
-        if ($this->form_validation->run() == false) {
-	        $this->load->view('templates/header', $data);
-	        $this->load->view('templates/sidebar', $data);
-	        $this->load->view('templates/topbar', $data);
-	        $this->load->view('input/materi', $data);
-	        $this->load->view('templates/footer');
-	    }else{
-	    	$data = [
-        		'user_id' => $this->input->post('user_id'),
-        		'materi' => 'contoh',
-                'bab' => 0,
-        		'jurusan' => $this->input->post('jurusan'),
-        		'tingkatan' => $this->input->post('tingkatan'),
-        		'pengajar' => htmlspecialchars($this->input->post('pengajar')),
-        		'waktu' => 1
-        	];
-
-        	$this->db->insert('data_materi', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> 
-                Pengajar materi berhasil di tambahkan
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                 </div>');
-            redirect('input/materi');
-	    }
+        $this->db->insert('data_materi', $data);
+        $swal= [
+            'tipe' => 'success',
+            'pesan' => 'Materi berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
     }
 
     public function guru()

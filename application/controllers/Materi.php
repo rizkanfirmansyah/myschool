@@ -7,45 +7,57 @@ class Materi extends CI_Controller
       public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('email')) {
+        if (!$this->session->userdata('nama')) {
             redirect('auth');
         }
          maintanance_check();
         log_history();
     }
 
-    public function daftar($id)
+    public function aksi()
     {
-        if ($this->db->get_where('data_jurusan', ['email' => $this->session->userdata('email')])->row_array() > 1) {
-            redirect('auth/blocked');
+        $cek = $_GET['action'];
+        if($cek == 'hapus'){
+            $this->_hapusMateri();
         }
-
-        $data['title'] = 'Daftar Jurusan IT Club';
-        $data['member'] = $this->db->get_where('data_member', ['email' => $this->session->userdata('email')])->row_array();
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['keahlian'] = $this->db->get_where('bidang_keahlian', ['id' => $id])->row_array();
-        $data['jurusan'] = $this->db->get_where('data_jurusan', ['email' => $this->session->userdata('email')])->row_array();
-
-        $this->load->view('member/templates/header', $data);
-        $this->load->view('member/materi/index', $data);
-        $this->load->view('member/templates/footer', $data);
-        
     }
 
-    public function tambah()
+    private function _hapusMateri()
     {
-    	$data = [
-                'email' => $this->session->userdata('email'),
-                'keahlian' => $this->input->post('keahlian'),
-                'angkatan' => $this->input->post('angkatan'),
-                'user_id' => $this->input->post('user_id'),
-                'nama' => $this->input->post('nama'),
-                'kelas' => $this->input->post('kelas'),
-            ];
+        $id = $cek = $_GET['id'];
+        $materi = $this->db->get_where('data_file', ['id_materi' => $id])->result();
 
-            $this->db->insert('data_jurusan', $data);
-            $this->session->set_flashdata('message', '<script> alert("Data Berhasil Ditambahkan"); </script>');
-            redirect('member/dashboard');
+        foreach ($materi as $file ) {
+            unlink($file->lokasi_file.$file->nama_file);
+        }
+
+        $this->db->where('id_materi', $id)->delete('data_file');
+        $this->db->where('id', $id)->delete('data_materi');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Data materi berhasil dihapus',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
+    }
+
+    public function status($status, $id)
+    {
+        $this->db->where('id', $id)->set('status', $status)->update('data_materi');
+        if($status == 1){
+            $tipe = 'success';
+            $pesan = 'Materi berhasil diaktifkan';
+        }else{
+            $tipe = 'error';
+            $pesan = 'Materi berhasil dinonaktifkan';
+        }
+
+        $swal = [
+            'tipe' => $tipe,
+            'pesan' => $pesan,
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
     }
 
 }

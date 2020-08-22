@@ -112,6 +112,22 @@ class Guru_model extends CI_Model {
     return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->where('siswa.kelas_id', $id)->get();
   }
 
+  public function getDataMateri()
+  {
+    $guru_id = $this->session->userdata('nama');
+    $guru = $this->db->get_where('guru', ['nip' => $guru_id])->row();
+    $this->db->where('data_materi.id_guru', $guru->id);
+    return $this->db->select('*, count(data_file.id_materi) as jmlfile, data_materi.date as tgl, data_materi.id as idmateri, data_materi.status as status_materi')->from('data_materi')->join('guru', 'data_materi.id_guru=guru.id', 'left')->join('mapel', 'data_materi.id_mapel=mapel.mapel_id', 'left')->join('data_file', 'data_materi.id=data_file.id_materi', 'left')->join('kelas', 'data_materi.id_kelas=kelas.kelas_id', 'left')->group_by('data_file.id_materi')->get();
+  }
+
+  public function getDataMapel()
+  {
+    $guru_id = $this->session->userdata('nama');
+    $guru = $this->db->get_where('guru', ['nip' => $guru_id])->row();
+    $this->db->where('jadwal.id_guru', $guru->id);
+    return $this->db->select('*')->from('mapel')->join('jadwal', 'mapel.mapel_id=jadwal.id_mapel', 'left')->group_by('mapel_id')->get();
+  }
+
 }
 
 /* End of file Guru_model.php */

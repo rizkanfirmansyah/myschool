@@ -1,4 +1,10 @@
 <?php $this->load->view('templates/copyright');?>
+<?php   
+    $datatema = $this->db->get_where('tb_developer', ['setting' => 'tema'])->row_array();
+    $theme =  $datatema['parameter'];
+    $header = $this->db->get_where('data_homepage', ['jenis' => 'footer'])->row();
+    $title_header = $header->judul;
+ ?>
 </div>
 <!-- End of Content Wrapper -->
 
@@ -6,7 +12,7 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
+<a class="scroll-to-top bg-<?= $theme; ?> rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
 

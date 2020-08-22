@@ -27,9 +27,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
         'absen' => $this->Guru->absenSiswa(),
         'kelas' => $this->Guru->siswaKelas()->result_array(),
         'jmlkelas' => $this->Guru->siswaKelas()->num_rows(),
+        'materi' => $this->Guru->getDataMateri()->result_array(),
+        'mapel' => $this->Guru->getDataMapel()->result_array(),
+        'jmlmateri' => $this->Guru->getDataMateri()->num_rows()
       ];
 
-      // var_dump($data['kelas']);
+      // var_dump($data['mapel']);
       // die;
 
       $this->load->view('templates/header', $data);

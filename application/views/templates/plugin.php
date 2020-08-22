@@ -37,4 +37,5 @@
 <script src="<?= base_url('assets/public/js/my-data-jurusan.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-data-siswa.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-toogle.js') ?>"></script>
+<script src="<?= base_url('assets/public/js/my-file-input.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/absensi-siswa.js') ?>"></script>
