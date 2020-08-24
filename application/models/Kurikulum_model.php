@@ -26,6 +26,12 @@ class Kurikulum_model extends CI_Model {
     return $this->db->select('*')->from('mapel')->join('data_jenjang', 'id_jenjang=jenjang_id', 'left')->get();
   }
 
+  public function getEditJadwal($id)
+  {
+    $this->db->where('jadwal_id', $id);
+    return $this->db->select('*, jadwal.status as jadwal_status')->from('jadwal')->join('mapel', 'id_mapel=mapel_id', 'left')->join('ruangan', 'id_ruangan=ruangan_id', 'left')->join('kelas', 'id_kelas=kelas_id', 'left')->join('guru', 'jadwal.id_guru=guru.id', 'left')->join('data_jenjang', 'id_jenjang=jenjang_id', 'left')->get();
+  }
+
   // ------------------------------------------------------------------------
 
 }

@@ -17,6 +17,11 @@ class Edit extends CI_Controller
         }
         $this->load->model('User_model', 'user');
         $this->load->model('Data_model', 'data');
+        $this->load->model('Kurikulum_model', 'Kurikulum');
+        $this->load->model('Siswa_model', 'siswa');
+        $this->load->model('Kelas_model', 'Kelas');
+        $this->load->model('Jurusan_model', 'jurusan');
+        $this->load->model('Guru_model', 'guru');
     }
 
     public function wakasek()
@@ -47,6 +52,42 @@ class Edit extends CI_Controller
             $this->session->set_flashdata($swal);
         }
 
+    }
+
+    public function kelas($id)
+    {
+        $data= [
+            'title' => 'Edit Data Kelas',
+            'user' => $this->user->getUserSession(),
+            'kelas' => $this->Kelas->Kelas($id)->row_array(),
+            'jurusan' => $this->jurusan->all(),
+            'guru' => $this->guru->guru(),
+            'ruangan' => $this->jurusan->ruangan(),
+        ];
+
+        $this->load->view('templates/header', $data);
+    	$this->load->view('templates/sidebar', $data);
+    	$this->load->view('templates/topbar', $data);
+    	$this->load->view('data/kelas/edit/index');
+    	$this->load->view('templates/footer', $data);
+    }
+
+    public function class($id)
+    {
+        $data = [
+            'guru_id' => $this->input->post('wakel'),
+            'jurusan_id' => $this->input->post('jurusan'),
+            'ruangan_id' => $this->input->post('ruangan'),
+            'nama_kelas' => htmlspecialchars($this->input->post('nama_kelas')),
+        ];
+
+        $this->db->where('kelas_id', $id)->set($data)->update('kelas');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Kelas berhasil dirubah'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('data/kelas');
     }
 
     public function statususer($status, $user)
@@ -88,6 +129,44 @@ class Edit extends CI_Controller
                 'pesan' => 'Staff berhasil diubah'
             ];
             $this->session->set_flashdata($swal);
+    }
+
+    public function jadwal($id)
+    {
+        $data= [
+            'title' => 'Edit Data Jadwal',
+            'user' => $this->user->getUserSession(),
+            'edit' => $this->Kurikulum->getEditJadwal($id)->row_array(),
+            'kelas' => $this->siswa->kelas()->result_array(),
+            'ruangan' => $this->data->ruangan()->result_array(),
+        ];
+
+        // var_dump($data['edit']);
+        // die;
+        $this->load->view('templates/header', $data);
+    	$this->load->view('templates/sidebar', $data);
+    	$this->load->view('templates/topbar', $data);
+    	$this->load->view('kurikulum/jadwal/edit/index');
+    	$this->load->view('templates/footer', $data);
+    }
+
+    public function schedule($id)
+    {
+        $data = [
+            'hari' => $this->input->post('hari'),
+            'id_kelas' => $this->input->post('kelas'),
+            'id_ruangan' => $this->input->post('ruangan'),
+            'jam_masuk' => $this->input->post('jam_masuk'),
+            'jam_keluar' => $this->input->post('jam_keluar'),
+        ];
+
+        $this->db->where('jadwal_id', $id)->set($data)->update('jadwal');
+        $swal =[
+            'tipe' => 'success',
+            'pesan' => 'Jadwal berhasil diubah',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('kurikulum/jadwal');
     }
 
     public function e_siswa()

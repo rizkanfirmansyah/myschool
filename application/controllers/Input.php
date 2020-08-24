@@ -18,10 +18,27 @@ class Input extends CI_Controller
     public function jurusan()
     {
         $data = [
-                'nama_jurusan' => htmlspecialchars(strtolower($this->input->post('nama')), true),
+                'nama_jurusan' => htmlspecialchars($this->input->post('nama'), true),
                 'payload' => htmlspecialchars($this->input->post('payload'), true),
         ];
+        $cek = $this->db->select_sum('payload')->where('jurusan_id !=', 1)->get('jurusan')->row_array();
+        $max = $this->db->get_where('jurusan', ['jurusan_id' => 1])->row();
+        if($cek['payload'] + $data['payload'] > $max->payload){
+            $swal = [
+                'tipe' =>  'warning',
+                'pesan' => 'Input Data Jurusan Gagal, Data tampung sudah maksimal'.$cek['payload'] . $data['payload']
+            ];
+            $this->session->set_flashdata($swal);
+            // redirect('data/jurusan');
+            // die;
+        }else{
             $this->db->insert('jurusan', $data);
+            $swal = [
+                'tipe' =>  'success',
+                'pesan' => 'Input Data Jurusan Berhasil'
+            ];
+            $this->session->set_flashdata($swal);
+        }   
     }
 
     public function payload()
@@ -61,20 +78,36 @@ class Input extends CI_Controller
 
     public function staff()
     {
-        $data = [
-            'jabatan_id' => $this->input->post('jabatan'),
-            'guru_id' => $this->input->post('guru'),
-            'kepala_jabatan' => 'tidak' 
-        ];
-        $cek = $this->db->get_where('guru', ['id' => $data['guru_id']])->row();
-        
-        $this->db->set('role_id', 2)->where('nama', $cek->nip)->update('users');
-        $swal = [
-            'tipe' => 'success',
-            'pesan' => 'Data staff berhasil ditambahkan'
-        ];
-        $this->db->insert('staff_jabatan', $data);
-        $this->session->set_flashdata($swal);
+        $jabatan = $this->input->post('jabatan');
+        $cek = $this->db->get_where('jabatan', ['id_jabatan' => $jabatan])->row();
+        $kepsek = $this->db->get_where('staff_jabatan', ['jabatan_id' => 1])->num_rows();
+        if($cek->nama_jabatan == 'Kepala Sekolah'){
+            $status = 'ya';
+        }else{
+            $status = 'tidak';
+        }
+        if($cek->nama_jabatan == 'Kepala Sekolah' && $kepsek > 0){
+            $swal = [
+                'tipe' => 'warning',
+                'pesan' => 'Posisi kepala sekolah sudah ada',
+            ];
+            $this->session->set_flashdata($swal);
+        }else{
+            $data = [
+                'jabatan_id' => $jabatan,
+                'guru_id' => $this->input->post('guru'),
+                'kepala_jabatan' => $status, 
+            ];
+            $cek = $this->db->get_where('guru', ['id' => $data['guru_id']])->row();
+            
+            $this->db->set('role_id', 2)->where('nama', $cek->nip)->update('users');
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Data staff berhasil ditambahkan'
+            ];
+            $this->db->insert('staff_jabatan', $data);
+            $this->session->set_flashdata($swal);
+        }
         // redirec
     }
 
@@ -167,7 +200,7 @@ class Input extends CI_Controller
     public function jabatan()
     {
         $data = [
-            'nama_jabatan' => htmlspecialchars(strtolower($this->input->post('jabatan')))
+            'nama_jabatan' => htmlspecialchars($this->input->post('jabatan'))
         ];
         $this->db->insert('jabatan', $data);
 

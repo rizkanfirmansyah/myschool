@@ -59,13 +59,12 @@ class Import_model extends CI_Model {
             $user = [
               'nama' => $rowData[0][1],
               "email"=> $rowData[0][9],
-              'status' => 0,
+              'status' => 1,
               "role_id"=> 3,
               "date_created"=> date('Y-m-d'),
               'password' => password_hash($userPass, PASSWORD_DEFAULT)
             ];
 
-            $this->db->insert('users', $user);
             
             // $guru = $this->db->get_where('users', ['email' =>$rowData[0][9] ])->row();
             $jurusan = $this->db->get_where('jurusan', ['nama_jurusan' => $rowData[0][4]])->row();
@@ -86,9 +85,38 @@ class Import_model extends CI_Model {
               "agama"=> $rowData[0][11],
               "tanggal_lahir"=> $rowData[0][12],
             ];
-                
-                $this->db->insert("guru",$data);
-                
+            
+            $check = $this->db->get_where('users', ['role_id'=> 3])->num_rows();
+            if($check < 1){
+              $pengguna = 0;
+              $siswadata = 0;
+            }else{
+              $pengguna = $this->db->get_where('users', ['nama' => $rowData[0][1]])->row();
+              $siswadata = $this->db->get_where('guru', ['nip' => $rowData[0][1]])->row();
+
+              if($pengguna != 0 || $siswadata != 0){
+                $swal = [
+                  'tipe' => 'warning',
+                  'pesan' => 'Import Data GAGAL! NIP atau NUPTK '. $rowData[0][1] .' sudah ada, Mohon periksa kembali data guru'
+                ];
+                $this->session->set_flashdata($swal);
+                redirect('data/guru');
+              }
+            }
+
+            if($rowData[0][1] == null && $rowData[0][2] == null && $rowData[0][3] == null ){
+              $swal = [
+                'tipe' => 'error',
+                'pesan' => 'Import Data Guru Gagal pada row '.$rowData
+              ];
+              $this->session->set_flashdata($swal);
+              redirect('data/guru');
+            }else{
+              
+              $this->db->insert('users', $user);
+              $this->db->insert("guru",$data);
+            }
+            
             }
             $swal = [
               'tipe' => 'success',

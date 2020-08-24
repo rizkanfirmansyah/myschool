@@ -30,8 +30,8 @@
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="payload">Payload</label>
-            <input type="payload" class="form-control" id="payload" name="payload" placeholder="Masukkan Payload Ruangan">
+            <label for="payload">Daya Tampung</label>
+            <input type="payload" class="form-control" id="payload" name="payload" placeholder="Masukkan Daya Tampung Ruangan">
             </div>
             <div class="form-group col-md-6">
             </div>

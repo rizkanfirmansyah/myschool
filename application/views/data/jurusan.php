@@ -4,7 +4,7 @@
     <div class="d-sm-flex align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning ml-auto mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
-            <a href="#" class="btn btn-sm btn-success mx-1" data-toggle="modal" data-target="#setPayload"><i class="fas fa-users fa-sm text-white"></i> Set Payload</a>
+            <a href="#" class="btn btn-sm btn-success mx-1" data-toggle="modal" data-target="#setPayload"><i class="fas fa-users fa-sm text-white"></i> Set Daya Tampung</a>
             <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahJurusan"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
             <!-- <a class="btn btn-sm btn-info mx-1 text-white" data-toggle="modal" data-target="#setas-1"><i class="fas fa-users fa-sm text-white"></i> Set As</a>
             <a href="<?= base_url('format/guru'); ?>" class="btn btn-sm btn-danger mx-1" id="formatData" data-text="Apakah anda yakin ingin memformat data guru?"><i class="fas fa-trash-alt fa-sm text-white-50"></i> Format</a>
@@ -118,7 +118,7 @@
                             <td><?= $j['payload'] ?></td>   
                             <td>
                                 <a href="#" data-toggle="modal" data-target="#editJurusanData" class="editDataJurusan" data-jurusan="<?= $j['nama_jurusan'] ?>" data-id="<?= $j['jurusan_id'] ?>" data-payload="<?= $j['payload'] ?>"><i class="fas fa-edit text-warning"></i></a> 
-                                <a href="<?= base_url('hapus/jurusan/') ?>" id="hapusDataJurusan" data-hapus="<?= $j['jurusan_id'] ?>" class="hapusDataJurusan"><i class="fas fa-trash text-danger"></i></a> 
+                                <a href="<?= base_url('hapus/jurusan/'.$j['jurusan_id']) ?>" id="hapusDataJurusan" data-hapus="<?= $j['jurusan_id'] ?>" class="hapusDataJurusan"><i class="fas fa-trash text-danger"></i></a> 
                             </td>   
                         </tr>
                         <?php $i++;?>

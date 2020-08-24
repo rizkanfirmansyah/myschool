@@ -66,13 +66,13 @@ function count_absen_siswa($ket, $kelas)
     }
 }
 
-function nama_user_check($email)
+function nama_user_check($id)
 {
     $ci = get_instance();
 
-    $siswa = $ci->db->get_where('siswa', ['email' => $email])->row();
-    $guru = $ci->db->get_where('guru', ['email' => $email])->row();
-    $user = $ci->db->get_where('users', ['email' => $email])->row();
+    $siswa = $ci->db->get_where('siswa', ['nis' =>$id])->row();
+    $guru = $ci->db->get_where('guru', ['nip' =>$id])->row();
+    $user = $ci->db->get_where('users', ['nama' =>$id])->row();
 
     if($siswa != null){
         return $siswa->nama;
@@ -82,11 +82,86 @@ function nama_user_check($email)
     }else{
         if($user->role_id == 2){
             return 'Staff';
-        }elseif($user->role_id ==5){
+        }elseif($user->role_id == 5){
             return 'Kepala Sekolah';
         }else{
             return 'Guest';
         }
+    }
+}
+
+function cert_guru_aktif($id)
+{
+    $rizkan = get_instance();
+    if($id == 0){
+        $idd =1 ;
+    }else{
+        $idd = $id;
+    }
+
+    $cert = $rizkan->db->get_where('guru', ['sertifikasi' => 'ya'])->num_rows();
+    if($cert < 1){
+        $value = 0;
+    }else{
+        $value = $cert;
+    }
+    return $value*100/$idd;
+}
+
+function value_cert()
+{
+    $rizkan = get_instance();
+
+    $cert = $rizkan->db->get_where('guru', ['sertifikasi' => 'ya'])->num_rows();
+    return $cert;
+}
+
+function guru_pns_cek()
+{
+    $rizkan = get_instance();
+
+    $pns = $rizkan->db->get_where('guru', ['status' => 'pns'])->num_rows();
+    return $pns;
+}
+
+function guru_honorer_cek()
+{
+    $rizkan = get_instance();
+
+    $honorer = $rizkan->db->get_where('guru', ['status' => 'honorer'])->num_rows();
+    return $honorer;
+}
+
+function checked_materi_siswa($id)
+{
+    $rizkan = get_instance();
+
+    $cek = $rizkan->db->where('id_materi', $id)->where('id_siswa', $rizkan->session->userdata('nama'))->get('materi_siswa')->row();
+
+    if($cek == null){
+        return 'belum';
+    }elseif($cek->selesai == 2){
+        return '<a href="'. base_url('materi/siswa/'.$id.'/1') .'"><i class="fa fa-2x fa-square"></i></a>';
+    }else{
+        return '<a href="'. base_url('materi/siswa/'.$id.'/2') .'"><i class="fa fa-2x fa-check-square"></i></a>';
+    }
+}
+
+function siswa_checked_download($id)
+{
+    $rizkan = get_instance();
+    $cek = $rizkan->db->where('id_materi', $id)->where('id_siswa', $rizkan->session->userdata('nama'))->get('materi_siswa')->row();
+
+    if($cek == null){
+        $data = [
+            'id_materi' => $id,
+            'id_siswa' => $rizkan->session->userdata('nama'),
+            'selesai' => 2,
+            'tgl_pengumpulan' => date('d-m-Y'),
+        ];
+        $rizkan->db->insert('materi_siswa', $data);
+    }else{
+        return false;
     }
 }
 
@@ -137,6 +212,35 @@ function function_status_materi($status, $id){
     }
 }
 
+function function_selesai($id)
+{
+    if($id == 1){
+        return 'Selesai';
+    }else{
+        return 'Belum Selesai';
+    }
+}
+
+function function_selesai_warna($id)
+{
+    if($id == 1){
+        return 'success';
+    }else{
+        return 'danger';
+    }
+}
+
+function function_status_materi_siswa($id)
+{
+    if ($id == 1) {
+        return '<a" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Selesai</a>';       
+    }elseif($id == 2){
+        return '<a" class="btn btn-sm btn-warning"><i class="fas fa-hourglass"></i> Sedang mengerjakan</a>';
+    }else{
+        return '<a" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i>  Belum </a>';
+    }
+}
+
 function hari_function($id)
 {
     if($id == 'Mon'){
@@ -157,9 +261,11 @@ function hari_function($id)
         
 }
 
-function check_kepala_jabatan($id)
+function check_kepala_jabatan($id, $jabatan)
 {
-    if($id == 'ya'){
+    if($id == 'ya' && $jabatan == 'Kepala Sekolah'){
+        return '<a class="btn btn-sm btn-primary text-white">Kepsek</a>';
+    }elseif($id == 'ya'){
         return '<a class="btn btn-sm btn-success text-white">Wakasek</a>';
     }else{
         return '<a class="btn btn-sm btn-warning text-white">Staff</a>';
@@ -216,6 +322,21 @@ function warna_absen($id)
         return 'danger';
     }else{
         return 'secondary';
+    }
+}
+
+function icon_absen($id)
+{
+    if($id == 'hadir'){
+        return 'check-square';
+    }elseif($id == 'sakit'){
+        return 'tired';
+    }elseif($id == 'izin'){
+        return 'clock';
+    }elseif($id == 'alfa'){
+        return 'user-times';
+    }else{
+        return 'times';
     }
 }
 

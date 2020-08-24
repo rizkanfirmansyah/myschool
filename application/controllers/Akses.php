@@ -24,7 +24,7 @@ class Akses extends CI_Controller
 			$this->session->set_flashdata($swal);
 			redirect('admin/user');
 		}else{
-			$this->db->set('status', 0)->where('status', 1)->update('users');
+			$this->db->set('status', 0)->where('role_id !=', 1)->where('status', 1)->update('users');
 			$swal = [
 				'tipe' => 'success',
 				'pesan' => 'User Tidak Aktif Sekarang'

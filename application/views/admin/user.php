@@ -185,7 +185,7 @@
                     <tr>
                       <td><?= $i; ?></td>
                       <td><?= $s['username'];?></td>
-                      <td><?= nama_user_check($s['email']);?></td>
+                      <td><?= nama_user_check($s['nama']);?></td>
                       <td><?= $s['email'];?></td>
                       <td><?= $s['role'];?></td>
                       <td>
@@ -231,7 +231,7 @@
                     <tr>
                       <td><?= $i; ?></td>
                       <td><?= $s['username'];?></td>
-                      <td><?= nama_user_check($s['email']);?></td>
+                      <td><?= nama_user_check($s['nama']);?></td>
                       <td><?= $s['email'];?></td>
                       <td><?= $s['role'];?></td>
                       <td>

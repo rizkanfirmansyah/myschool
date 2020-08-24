@@ -6,16 +6,28 @@ class Download extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-          
     }
 
     public function materi($id)
     {
-         $materi = $this->db->get_where('data_file', ['id_materi' => $id])->result_array();
-         foreach ($materi as $m ) {
-          $cek = $m['lokasi_file'].$m['nama_file'];
-              force_download($cek, NULL);
+         siswa_checked_download($id);
+         $materi = $this->db->get_where('data_file', ['id_materi' => $id]);
+         if($materi->num_rows() == 1){
+              $down = $materi->row();
+              $file =$down->lokasi_file.$down->nama_file;
+          force_download($file, NULL);
+         }else{
+              $file_id = $materi->row();
+              redirect('guru/download/materi/'.$file_id->id_materi);
          }
+    }
+
+    public function file($type, $id)
+    {
+          if ($type == 'guru') {
+               $data = $this->db->get_where('data_file', ['id' => $id])->row();
+               force_download($data->lokasi_file.$data->nama_file, NULL);
+          }
     }
 
     public function excel($id)

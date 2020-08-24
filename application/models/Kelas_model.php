@@ -23,6 +23,17 @@ class Kelas_model extends CI_Model {
             ->get();
   }
 
+
+  public function kelas($id)
+  {
+    return $this->db->select('*')->from('kelas')
+            ->join('jurusan', 'kelas.jurusan_id=jurusan.jurusan_id', 'left')
+            ->join('ruangan', 'kelas.ruangan_id=ruangan.ruangan_id', 'left')
+            ->join('guru', 'kelas.guru_id=guru.id', 'left')
+            ->where('kelas_id', $id)
+            ->get();
+  }
+
   // ------------------------------------------------------------------------
 
 }

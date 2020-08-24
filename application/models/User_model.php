@@ -54,7 +54,7 @@ class User_model extends CI_Model
 						];
 						$this->session->set_flashdata($swal);
 						$this->session->set_userdata($data);
-						redirect('siswa/dashboard');
+						redirect('siswa');
 					}else{
 						$data = [
 							'nama' => $nama,
@@ -126,12 +126,12 @@ class User_model extends CI_Model
 
 	public function userinaktif()
 	{
-		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->where('role_id !=', 1)->where('status', 0)->get()->result_array();
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'right')->where('role_id !=', 1)->where('status', 0)->get()->result_array();
 	}
 
 	public function siswa()
 	{
-		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('siswa', 'users.nama=nis', 'left')->where('role_id', 4)->get()->result_array();
+		return $this->db->select('*, users.id as user_id, users.nama as username, users.status as status_user')->from('users')->join('user_role', 'users.role_id=user_role.id', 'left')->join('siswa', 'users.nama=nis', 'right')->where('role_id', 4)->get()->result_array();
 	}
 
 	public function guru()

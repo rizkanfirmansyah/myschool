@@ -42,6 +42,61 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $this->load->view('templates/footer');
     }
 
+    public function download($id, $file_id)
+    {
+      if($id == 'materi'){
+        $this->_materi_download($file_id);
+      }
+    }
+
+    public function materi($id, $kelas)
+    {
+      if($id == 'kelas'){
+        $this->_kelas_siswa($kelas);
+      }
+    }
+
+    public function _kelas_siswa($kelas_id)
+    {
+      $kelas = $this->db->get_where('kelas', ['kelas_id' => $kelas_id])->row()->nama_kelas;
+      $data = [
+        'user' => $this->user->getUserSession(),
+        'guru' => $this->Guru->guruSession(),
+        'siswakelas' => $this->Guru->getDataKelasMateri($kelas_id)->result_array(),
+        'jmlsiswa' => $this->Guru->getDataKelasMateri($kelas_id)->num_rows(),
+        'jmlsiswamengerjakan' => $this->Guru->getDataSiswaMengerjakan($kelas_id)->num_rows(),
+        'siswamengerjakan' => $this->Guru->getSiswaMengerjakan($kelas_id)->result_array(),
+        'title' => 'Data Siswa Kelas '. $kelas,
+      ];
+
+      // var_dump($data['siswa']);
+      // die;
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('guru/materi/kelas', $data);
+      $this->load->view('templates/footer');
+    }
+
+    public function _materi_download($file_id)
+    {
+      $materi = $this->db->get_where('data_materi', ['id' => $file_id])->row();
+      $data = [
+        'user' => $this->user->getUserSession(),
+        'guru' => $this->Guru->guruSession(),
+        'title' => 'File Materi '. $materi->nama_materi,
+        'file' => $this->db->get_where('data_file', ['id_materi' => $file_id])->result_array(),
+        'jmlfile' => $this->db->get_where('data_file', ['id_materi' => $file_id])->num_rows()
+      ];
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('guru/download/materi', $data);
+      $this->load->view('templates/footer');
+    }
+
     public function siswa()
     {
       $data = [

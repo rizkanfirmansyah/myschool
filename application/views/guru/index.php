@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
-  <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+  <!-- <a href="<?= base_url('guru') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i> Kembali</a> -->
 </div>
 
 <!-- Content Row -->
@@ -176,7 +176,7 @@
                           <tr>
                             <td><?= $i;?></td>
                             <td><?= $m['nama_materi'];?></td>
-                            <td class="text-uppercase"><a href="" class="btn btn-sm btn-primary"><?= $m['nama_kelas'];?></a></td>
+                            <td class="text-uppercase"><a href="<?= base_url('guru/materi/kelas/'.$m['id_kelas']) ?>" class="btn btn-sm btn-primary"><?= $m['nama_kelas'];?></a></td>
                             <td><?= $m['id_kd'];?></td>
                             <td><?= $m['nama_mapel'];?></td>
                             <td><?= $m['tgl'];?></td>

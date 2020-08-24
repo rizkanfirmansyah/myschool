@@ -26,7 +26,10 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                      <a href="javascript:voip()" data-href="<?= base_url('hapus/jabatan/'.$sj['id_jabatan'])?>" class="hapusDataJabatan"><i class="fas fa-trash fa-2x text-danger"></i></a>
+                      <?php if($sj['nama_jabatan'] == 'Kepala Sekolah') : ?>
+                      <?php else: ?>
+                        <a href="javascript:voip()" data-href="<?= base_url('hapus/jabatan/'.$sj['id_jabatan'])?>" class="hapusDataJabatan"><i class="fas fa-trash fa-2x text-danger"></i></a>
+                        <?php endif; ?>
                     </div>
                   </div>
                 </div>
@@ -60,10 +63,13 @@
                       <td><?= $i; ?></td>
                       <td><?= $s['nama'];?></td>
                       <td><?= $s['nama_jabatan'];?></td>
-                      <td><?= check_kepala_jabatan($s['kepala_jabatan']);?></td>
+                      <td><?= check_kepala_jabatan($s['kepala_jabatan'], $s['nama_jabatan']);?></td>
                       <td> 
-                                <input type="checkbox" <?= checked_wakasek($s['kepala_jabatan']);?> class="checkedWakasek" data-id="<?= $s['guru_id'] ?>" data-url="<?= base_url('edit/wakasek') ?>" data-href="<?= current_url(); ?>" data-jabatan="<?= $s['jabatan_id'] ?>" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-                            </td>
+                        <?php if($s['id_jabatan'] == 1) : ?>
+                        <?php else: ?>
+                          <input type="checkbox" <?= checked_wakasek($s['kepala_jabatan']);?> class="checkedWakasek" data-id="<?= $s['guru_id'] ?>" data-url="<?= base_url('edit/wakasek') ?>" data-href="<?= current_url(); ?>" data-jabatan="<?= $s['jabatan_id'] ?>" >
+                          <?php endif; ?>
+                        </td>
                       <td>
                         <a href="<?= base_url('hapus/staffjabatan/'. $s['staff_jabatan_id'])?>" class="fas fa-trash-alt text-danger"></a>
                         <a style="cursor: pointer;" class="fas fa-edit text-warning editDataStaffBagian" data-id="<?= $s['guru_id'] ?>" data-nama="<?= $s['nama']?>" data-idjabatan="<?= $s['jabatan_id'] ?>" data-namajabatan="<?= $s['nama_jabatan']?>" data-toggle="modal" data-target="#editStaff"></a>

@@ -29,7 +29,7 @@ class Upload extends CI_Controller
         $image = $_FILES['filemateri']['name'];
         $data = [
             'id_materi' => $this->input->post('fileid'),
-            'lokasi_file' => '/assets/data/guru/materi/',
+            'lokasi_file' => 'assets/data/guru/materi/',
             'date' => date('d-m-Y'),
         ];
         

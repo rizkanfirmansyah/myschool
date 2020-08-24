@@ -33,6 +33,7 @@ class Staff_model extends CI_Model {
 
   public function staffbag()
   {
+    // $this->db->where('id_jabatan !=', 1);
     return $this->db->get('jabatan')->result_array();
   }
 

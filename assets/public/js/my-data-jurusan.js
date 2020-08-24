@@ -3,6 +3,7 @@ $(document).ready(function(){
         e.preventDefault();
         const nama = $('#namaJurusan').val();
         const payload = $('#payloadJurusan').val();
+        const href = $('#simpanJurusanData').val();
         const url = $('#formInputJurusan').attr('action');
 
         // swal(nama, payload);
@@ -14,7 +15,7 @@ $(document).ready(function(){
                 payload:payload
             },
             success: function() {
-                swal('Sukses', 'input data sukses', 'success');
+                document.location.href = href;
             },error: function () {
                 swal('Gagal', 'input data gagal', 'error');
             }
@@ -24,7 +25,7 @@ $(document).ready(function(){
         e.preventDefault();
         const url = $('#hapusDataJurusan').attr('href');
         const hapus = $(this).data('hapus');
-
+        const href = $('#simpanJurusanData').val();
         // alert('oke');
 
 // alert(data);        
@@ -45,6 +46,7 @@ $(document).ready(function(){
                     },
                     success: function() {
                         swal('Sukses', 'Hapus data sukses', 'success');
+                        document.location.href = href;
                     },error: function () {
                         swal('Gagal', 'Hapus data gagal', 'error');
                     }
@@ -71,10 +73,11 @@ $(document).ready(function(){
     $('#simpanJurusanData').on('click', function(e){
         e.preventDefault();
         const url = $('#formEditJurusan').attr('action');
+        const href = $('#simpanJurusanData').val();
         const jurusan = $('#jurusanNama').val();
         const payload = $('#jurusanPayload').val();
         const ID = $('#jurusanID').val();
-        // swal(url);
+        // console.log(href);
 
         $.ajax({
             type:'POST',
@@ -82,10 +85,12 @@ $(document).ready(function(){
             data:{
                 jurusan:jurusan,
                 payload:payload,
+                href:href,
                 id:ID
             },
             success:function(){
                 swal('Sukses', 'Data berhasil dirubah', 'success');
+                document.location.href = href;
             },
             error:function(){
                 swal('Gagal', 'Data gagal dirubah, silahkan coba lagi', 'error');

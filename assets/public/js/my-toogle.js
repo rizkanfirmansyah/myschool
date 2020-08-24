@@ -44,7 +44,6 @@ $(document).ready(function() {
             },
             success:function()
             {
-                // swal('SUKSES', 'Data Staff berhasil ditambahkan', 'success');
                 document.location.href = href;
             },
             error:function()

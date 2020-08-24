@@ -77,6 +77,11 @@ class Data extends CI_Controller
             'kepsek' => $this->guru->kepalasekolah(),
         ];
 
+        // echo "<pre>";
+        // var_dump($data['guru']);
+        // echo "</pre>";
+        // die;
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

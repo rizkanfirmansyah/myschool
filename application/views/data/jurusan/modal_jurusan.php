@@ -65,7 +65,7 @@
                     <label for="jurusanPayload">Daya Tampung Jurusan</label>
                     <input type="number" class="form-control" id="jurusanPayload" placeholder="Masukan daya tampung jurusan" name="jurusanPayload">
                 </div>
-                <button type="submit" id="simpanJurusanData" class="btn btn-success float-right"><i class="fas fa-save"></i> Simpan Jurusan</button>
+                <button type="submit" id="simpanJurusanData" value="<?= current_url() ?>" data-url="<?= current_url() ?>" class="btn btn-success float-right"><i class="fas fa-save"></i> Simpan Jurusan</button>
             </form>
         </div>
         
@@ -96,7 +96,7 @@
         <!--Basic textarea-->
             <form id="formInputPayload" action="<?= base_url('input/payload') ?>" method="post">
                 <div class="form-group">
-                    <label for="namaPayload">Payload</label>
+                    <label for="namaPayload">Daya tampung</label>
                     <input type="number" class="form-control" id="namaPayload" name="namapayload" value="<?= $totalpayload['payload'] ?>">
                 </div>
                 <button type="submit" id="simpanDataPayload" class="btn btn-success float-right"><i class="fas fa-save"></i> Simpan</button>

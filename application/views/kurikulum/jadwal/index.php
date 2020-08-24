@@ -5,6 +5,7 @@
             <h1 class="h3 mb-0 text-gray-800"><?= $title;?></h1>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-primary ml-auto mx-1"><i class="fas fa-calendar fa-sm text-white-50"></i> <?php date_default_timezone_set("Asia/Bangkok"); echo date('d-M-Y H:i').','.hari_function(date('D')) ;?></a>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
+            <a href="<?= base_url('format/jadwal'); ?>" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash fa-sm text-white-50"></i> Format</a>
             <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahJadwal"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
           </div>
           
@@ -121,6 +122,7 @@
                             <td><?= status_jadwal($k['jadwal_status'], $k['jadwal_id']) ?></td>   
                             <td>
                                 <a href="<?= base_url('hapus/jadwal/') ?>" id="hapusDataJadwal" data-href="<?= current_url() ?>" data-hapus="<?= $k['jadwal_id'] ?>" class="hapusDataJadwal"><i class="fas fa-trash text-danger"></i></a> 
+                                <a href="<?= base_url('edit/jadwal/'.$k['jadwal_id']) ?>" class="text-warning"><i class="fas fa-edit"></i> </a>
                             </td>   
                         </tr>
                         <?php $i++;?>

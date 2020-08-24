@@ -25,6 +25,7 @@ class Format extends CI_Controller
         $this->db->empty_table('siswa');
         $this->db->empty_table('guru');
         $this->db->empty_table('staff_jabatan');
+        $this->db->empty_table('jadwal');
         $swal = [
             'tipe' => 'icon',
             'pesan' => 'Data Siswa Berhasil di Hapus'
@@ -32,12 +33,16 @@ class Format extends CI_Controller
         $this->session->set_flashdata($swal);
         redirect('admin/user');
     }
-
+    
     public function guru()
     {
         $this->db->where('role_id', 3);
         $this->db->empty_table('users');
+        $this->db->where('role_id', 2);
+        $this->db->empty_table('users');
         $this->db->empty_table('guru');
+        $this->db->empty_table('staff_jabatan');
+        $this->db->empty_table('jadwal');
         // $this->db->empty_table('siswa');
         $swal = [
             'tipe' => 'icon',
@@ -45,6 +50,17 @@ class Format extends CI_Controller
         ];
         $this->session->set_flashdata($swal);
         redirect('data/guru');
+    }
+
+    public function jadwal()
+    {
+        $this->db->empty_table('jadwal');
+        $swal = [
+            'tipe' => 'icon',
+            'pesan' => 'Data Jadwal Berhasil di Hapus'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('kurikulum/jadwal');
     }
 
     public function statususer()

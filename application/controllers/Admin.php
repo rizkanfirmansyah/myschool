@@ -131,8 +131,8 @@ class Admin extends CI_Controller
             'useraktif' => $this->user->useraktif(),
             'userinaktif' => $this->user->userinaktif(),
             'guru' => $this->user->guru(),
-            'aktif' => $this->db->get_where('users', ['status' => 1])->num_rows(),
-            'inaktif' => $this->db->get_where('users', ['status' => 0])->num_rows(),
+            'aktif' => $this->db->where('role_id !=', 1)->get_where('users', ['status' => 1])->num_rows(),
+            'inaktif' => $this->db->where('role_id !=', 1)->get_where('users', ['status' => 0])->num_rows(),
             'segmentuser' => $this->user->segmentuser()
         ];
         // var_dump($data['segmentuser']);

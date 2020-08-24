@@ -93,6 +93,10 @@ $(document).ready(function(){
 
      $(document).ready(function(){
     $('.tooltipped').tooltip();
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
   });
 
 

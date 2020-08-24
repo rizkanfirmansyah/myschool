@@ -60,4 +60,24 @@ class Materi extends CI_Controller
         redirect('guru');
     }
 
+    public function siswa($materi, $id)
+    {
+        $idsiswa = $this->session->userdata('nama');
+        $this->db->where('id_materi', $materi)->where('id_siswa', $idsiswa)->set('selesai', $id)->update('materi_siswa');
+
+        if($id == 1){
+            $swal = [
+                'tipe' => 'success',
+                'pesan' => 'Materi sudah selesai anda pelajari, Selamat!'
+            ];
+        }else{
+            $swal = [
+                'tipe' => 'warning',
+                'pesan' => 'Materi belum selesai anda pelajari, Silahkan Belajar lagi!'
+            ];
+        }
+        $this->session->set_flashdata($swal);
+        redirect('siswa');
+    }
+
 }

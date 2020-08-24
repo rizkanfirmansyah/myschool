@@ -86,7 +86,7 @@ class Guru_model extends CI_Model {
 
   public function kepalasekolah()
   {
-    return $this->db->select('*')->from('kepala_sekolah')->join('guru', 'id_guru=guru.id', 'left')->get()->row_array();
+    return $this->db->select('*')->from('staff_jabatan')->join('guru', 'guru_id=guru.id', 'left')->where('jabatan_id', 1)->get()->row_array();
   }
 
   public function absenSiswa()
@@ -109,6 +109,7 @@ class Guru_model extends CI_Model {
 
   public function getDataKelasSiswa($id)
   {
+    $guru_id = $this->session->userdata('nama');
     return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->where('siswa.kelas_id', $id)->get();
   }
 
@@ -126,6 +127,41 @@ class Guru_model extends CI_Model {
     $guru = $this->db->get_where('guru', ['nip' => $guru_id])->row();
     $this->db->where('jadwal.id_guru', $guru->id);
     return $this->db->select('*')->from('mapel')->join('jadwal', 'mapel.mapel_id=jadwal.id_mapel', 'left')->group_by('mapel_id')->get();
+    
+  }
+  
+  public function getDataKelasMateri($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_materi.id_guru', $idguru);
+    return $this->db->select('*')->from('siswa')->join('materi_siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
+  }
+
+  // public function siswaGetKelas($kelas)
+  // {
+  //   $this->db->where('siswa.kelas_id', $kelas);
+  //   return $this->db->select('*')->from('siswa')->get();
+  // }
+  
+  public function getDataSiswaMengerjakan($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_materi.id_guru', $idguru);
+    return $this->db->select('*')->from('materi_siswa')->join('siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
+  }
+  
+  public function getSiswaMengerjakan($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_materi.id_guru', $idguru);
+    $this->db->group_by('selesai');
+    return $this->db->select('*, count(selesai) as jmlselesai')->from('materi_siswa')->join('siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
   }
 
 }

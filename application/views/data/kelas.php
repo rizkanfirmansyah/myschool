@@ -116,7 +116,7 @@
                             <td><?= $k['nama_ruangan'] ?></td>   
                             <td><?= $k['nama'] ?></td>   
                             <td>
-                                <!-- <a href="#" data-toggle="modal" data-target="#editDataKelas" class="editKelas" data-namakelas="<?= $k['nama_kelas']?>" data-ruangan="<?= $k['ruangan_id'] ?>" data-namaruangan="<?= $k['nama_ruangan']?>" data-guru="<?= $k['guru_id'] ?>" data-namaguru="<?= $k['nama'] ?>" data-jurusan="<?= $k['jurusan_id'] ?>" data-namajurusan="<?= $k['nama_jurusan'] ?>"><i class="fas fa-edit text-warning"></i></a>  -->
+                                <a href="<?= base_url('edit/kelas/'.$k['kelas_id']) ?>"><i class="fas fa-edit text-warning"></i></a> 
                                 
                                 <a href="<?= base_url('hapus/kelas/') ?>" id="hapusDataKelas" data-hapus="<?= $k['kelas_id'] ?>" class="hapusDataKelas"><i class="fas fa-trash text-danger"></i></a> 
                             </td>   

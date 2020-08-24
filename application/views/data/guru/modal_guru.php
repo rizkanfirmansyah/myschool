@@ -105,7 +105,7 @@
             </div>
             <div class="form-group col-md-6">
             <label for="status">Status</label>
-            <select class="custom-select" name="status" id="status">
+            <select class="custom-select text-uppercase" name="status" id="status">
               <option selected disabled value> == Pilih ==</option>
               <option class="text-uppercase" value="pns">pns</option>
               <option class="text-capitalize" value="honorer">honorer</option>
