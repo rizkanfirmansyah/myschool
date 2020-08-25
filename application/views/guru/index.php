@@ -51,7 +51,7 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tugas</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmltugas; ?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -121,17 +121,51 @@
           <div class="collapse" id="Tugas">
               <div class="card shadow mb-4">
                   <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
+              <h6 class="m-0 font-weight-bold text-primary">Data Tugas</h6>
             </div>
             <div class="card-body">
+            <div class="d-sm-flex align-items-center mb-4">
+            <h1 class="h5 mb-0 text-gray-800">Data Materi</h1>
+            <a type="button" class="btn btn-sm btn-primary ml-auto mx-1 text-white"><i class="fas fa-calendar fa-sm "></i> <?php date_default_timezone_set("Asia/Jakarta"); echo date('d-M-Y H:i').','.hari_function(date('D')) ;?></a>
+            <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
+            <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahTugas"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
+            </div>
               <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                         <thead>
+                              <tr>
+                                <td>No</td>
+                                <td>Kelas</td>
+                                <td>Mapel</td>
+                                <td>Nama Tugas</td>
+                                <td>KD</td>
+                                <td>Deskripsi Tugas</td>
+                                <td>Batas Pengumpulan</td>
+                                <td>Download</td>
+                                <td>File</td>
+                                <td>Status</td>
+                                <td>Action</td>
+                              </tr>
+                        </thead>
                             
-                            </thead>
-                            
-                            <tbody>
-                        
+                        <tbody>
+                          <?php $i=1; ?>
+                            <?php foreach($tugas as $t) : ?>
+                            <tr>
+                              <td><?= $i; ?></td>
+                              <td><a href="<?= base_url('guru/tugas/kelas/'.$t['id_kelas']) ?>" class="btn btn-sm btn-primary"><?= $t['nama_kelas'];?></a></td>
+                              <td><?= $t['nama_mapel'] ?></td>
+                              <td><?= $t['nama_tugas'] ?></td>
+                              <td><?= $t['kd'] ?></td>
+                              <td><?= $t['deskripsi'] ?></td>
+                              <td><?= $t['batas_waktu'] ?></td>
+                              <td><a href="<?= base_url('download/tugas/'.$t['idtugas']) ?>" class="btn btn-primary btn-sm text-white"><i class="fas fa-download"></i> Download</a></td>
+                              <td><a type="button" data-toggle="modal" data-target="#uploadTugas" class="btn btn-primary btn-sm text-white uploadDataTugas" id="uploadDataTugas" data-idtugas="<?= $t['idtugas'] ?>" data-tugas="<?= $t['nama_tugas'] ?>"><i class="fas fa-upload"></i> Upload</a></td>
+                              <td><?= function_status_tugas($t['status_tugas'], $t['idtugas']) ?></td>
+                              <td><a href="javascript:" class="btn btn-sm btn-primary detailDataTugas" data-id="<?= $t['idtugas'] ?>" data-tugas="<?= $t['nama_tugas'];?>" data-deskripsi="<?= $t['deskripsi'];?>" data-tanggal="<?= $t['batas_waktu'];?>" data-mapel="<?= $t['nama_mapel'];?>" data-toggle="modal" data-target="#detailTugas" id="detailDataTugas"><i class="fas fa-exclamation-circle"></i> Detail</a></td>
+                            </tr>
+                            <?php $i++;?>
+                          <?php endforeach; ?>
                         </tbody>
                         </table>
                     </div>

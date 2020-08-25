@@ -41,6 +41,18 @@ class Siswa_model extends CI_Model {
     return $this->db->select('*, data_materi.id as idmateri')->from('data_materi')->join('mapel', 'id_mapel=mapel.mapel_id', 'left')->where('data_materi.status', 1)->join('guru', 'id_guru=guru.id', 'left')->where('id_kelas', $siswa->kelas_id)->get();
   }
 
+  public function siswaTugas()
+  {
+    $siswa = $this->db->get_where('siswa', ['nis' => $this->session->userdata('nama')])->row();
+    $this->db->where('batas_waktu >', date('Y-m-d'));
+    return $this->db->select('*, data_tugas.id as idtugas, data_tugas.id as idnilaitugas')->from('data_tugas')->join('mapel', 'id_mapel=mapel.mapel_id', 'left')->where('data_tugas.status', 1)->join('guru', 'id_guru=guru.id', 'left')->where('id_kelas', $siswa->kelas_id)->get();  
+  }
+
+  public function siswaTugasGuru()
+  {
+    return $this->db->select('*, data_tugas.id as idtugas')->from('data_tugas')->join('nilai_tugas', 'data_tugas.id=id_tugas', 'left')->where('id_siswa', null)->where('id_tugas', null)->get();
+  }
+
   public function siswanotcomplete()
   {
     return $this->db->select('*')->from('siswa')->join('profile_siswa', 'siswa.siswa_id=profile_siswa.siswa_id', 'left')->where('nik', null)->where('nisn', null)->get();

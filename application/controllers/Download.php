@@ -22,6 +22,30 @@ class Download extends CI_Controller
          }
     }
 
+    public function tugas($id)
+    {
+     //     siswa_checked_download($id);
+         $tugas = $this->db->get_where('data_file', ['id_materi' => $id]);
+         if($tugas->num_rows() == 1){
+              $down = $tugas->row();
+              $file =$down->lokasi_file.$down->nama_file;
+          force_download($file, NULL);
+         }else{
+              $file_id = $tugas->row();
+          //     var_dump($file_id);
+              redirect('guru/download/tugas/'.$file_id->id_materi);
+         }
+    }
+
+    public function filetugas($id)
+    {
+         $folder = $this->db->get_where('nilai_tugas', ['id' => $id])->row()->lokasi_file;
+         $file = $this->db->get_where('nilai_tugas', ['id' => $id])->row()->nama_file;
+         $download = $folder.$file;
+          force_download($download, NULL);
+          // var_dump($download);
+    }
+
     public function file($type, $id)
     {
           if ($type == 'guru') {
@@ -38,12 +62,6 @@ class Download extends CI_Controller
     public function gallery($coba)
     {
     	 force_download('assets/img/gallery/'.$coba, NULL);
-    }
-
-
-    public function tugas($id)
-    {
-         force_download('assets/member/file-tugas/'.$id, NULL);
     }
 
     public function nilai($id)

@@ -206,9 +206,17 @@ function hitung_absen_siswa($id, $kelas, $ket)
 
 function function_status_materi($status, $id){
     if ($status == 1) {
-        return '<a href="'.base_url('materi/status/0/'.$id).'" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Active</a>';       
+        return '<a href="'.base_url('materi/status/materi/0/'.$id).'" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Active</a>';       
     }else{
-        return '<a href="'.base_url('materi/status/1/'.$id).'" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i> Inactive</a>';
+        return '<a href="'.base_url('materi/status/materi/1/'.$id).'" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i> Inactive</a>';
+    }
+}
+
+function function_status_tugas($status, $id){
+    if ($status == 1) {
+        return '<a href="'.base_url('materi/status/tugas/0/'.$id).'" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Active</a>';       
+    }else{
+        return '<a href="'.base_url('materi/status/tugas/1/'.$id).'" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i> Inactive</a>';
     }
 }
 
@@ -227,6 +235,73 @@ function function_selesai_warna($id)
         return 'success';
     }else{
         return 'danger';
+    }
+}
+
+function cek_spp_siswa($id)
+{
+    $rizkan = get_instance();
+    $idsiswa = $rizkan->session->userdata('nama');
+
+    $check = $rizkan->db->select_sum('nominal')->where('siswa_nis', $idsiswa)->where('bulan', $id)->get('data_spp')->row();
+    $spp = $rizkan->db->get_where('setup_spp', ['tipe' => 'spp'])->row()->nominal;
+    if($check->nominal >= $spp){
+        return 'Lunas';
+    }else{
+        return 'Belum Lunas';
+    }
+}
+
+function cek_spp_warna($id)
+{
+    $rizkan = get_instance();
+    $idsiswa = $rizkan->session->userdata('nama');
+
+    $check = $rizkan->db->select_sum('nominal')->where('siswa_nis', $idsiswa)->where('bulan', $id)->get('data_spp')->row();
+    $spp = $rizkan->db->get_where('setup_spp', ['tipe' => 'spp'])->row()->nominal;
+    if($check->nominal >= $spp){
+        return 'success';
+    }else{
+        return 'danger';
+    }
+}
+
+function cek_spp_logo($id)
+{
+    $rizkan = get_instance();
+    $idsiswa = $rizkan->session->userdata('nama');
+
+    $check = $rizkan->db->select_sum('nominal')->where('siswa_nis', $idsiswa)->where('bulan', $id)->get('data_spp')->row();
+    $spp = $rizkan->db->get_where('setup_spp', ['tipe' => 'spp'])->row()->nominal;
+    if($check->nominal >= $spp){
+        return 'check-circle';
+    }else{
+        return 'ban ';
+    }
+}
+    
+function function_nilai_tugas($id, $status)
+{
+    if($id >= 75 && $status == 1){
+        return '<a class="btn btn-sm text-white btn-success">Selesai</a>';
+    }elseif($id < 75 && $status == 1){
+        return '<a class="btn btn-sm text-white btn-warning">Remedial</a>';
+    }else{
+        return '<a class="btn btn-sm text-white btn-danger">Belum</a>';
+    }
+}
+
+function function_nilai_siswa($nis, $id)
+{
+    $rizkan = get_instance();
+
+    $cek = $rizkan->db->get_where('nilai_tugas', ['id_siswa' => $nis, 'id_tugas' => $id])->row();
+    if($cek == null){
+        return 'belum mengumpulkan';
+    }elseif($cek->nilai == 0){
+        return 'belum dinilai';
+    }else{
+        return $cek->nilai;
     }
 }
 

@@ -21,15 +21,56 @@ class Siswa extends CI_Controller
       'absen' => $this->siswa->siswaAbsen(),
       'materi' => $this->siswa->siswaMateri()->result_array(),
       'jmlmateri' => $this->siswa->siswaMateri()->num_rows(),
+      'tugas' => $this->siswa->siswaTugas()->result_array(),
+      'jmltugas' => $this->siswa->siswaTugas()->num_rows(),
+      'tugasguru' => $this->siswa->siswaTugasGuru()->result_array(),
     ];
 
-    // var_dump($data['materi']);
+    // var_dump($data['tugasguru']);
     // die;
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
     $this->load->view('siswa/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function spp()
+  {
+    $data = [
+      'title' => 'SPP',
+      'siswa' => $this->siswa->store(),
+      'user' => $this->user->getUserSession(),
+      'bulan' => $this->db->get('bulan')->result_array(),
+    ];
+
+    // var_dump($data['tugasguru']);
+    // die;
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('siswa/spp/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function dpp()
+  {
+    $data = [
+      'title' => 'DPP',
+      'siswa' => $this->siswa->store(),
+      'user' => $this->user->getUserSession(),
+      'bulan' => $this->db->get('bulan')->result_array(),
+    ];
+
+    // var_dump($data['tugasguru']);
+    // die;
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('siswa/spp/index', $data);
     $this->load->view('templates/footer');
   }
 

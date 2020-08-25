@@ -19,12 +19,14 @@ class Materi extends CI_Controller
         $cek = $_GET['action'];
         if($cek == 'hapus'){
             $this->_hapusMateri();
+        }elseif($cek == 'hapustugas'){
+            $this->_hapusTugas();
         }
     }
 
     private function _hapusMateri()
     {
-        $id = $cek = $_GET['id'];
+        $id = $_GET['id'];
         $materi = $this->db->get_where('data_file', ['id_materi' => $id])->result();
 
         foreach ($materi as $file ) {
@@ -41,21 +43,56 @@ class Materi extends CI_Controller
         redirect('guru');
     }
 
-    public function status($status, $id)
+    private function _hapusTugas()
     {
-        $this->db->where('id', $id)->set('status', $status)->update('data_materi');
-        if($status == 1){
-            $tipe = 'success';
-            $pesan = 'Materi berhasil diaktifkan';
-        }else{
-            $tipe = 'error';
-            $pesan = 'Materi berhasil dinonaktifkan';
+        $id = $_GET['id'];
+        $materi = $this->db->get_where('data_file', ['id_materi' => $id])->result();
+
+        foreach ($materi as $file ) {
+            unlink($file->lokasi_file.$file->nama_file);
         }
 
+        $this->db->where('id_materi', $id)->delete('data_file');
+        $this->db->where('id', $id)->delete('data_tugas');
         $swal = [
-            'tipe' => $tipe,
-            'pesan' => $pesan,
+            'tipe' => 'success',
+            'pesan' => 'Data tugas berhasil dihapus',
         ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
+    }
+
+    public function status($tipe, $status, $id)
+    {
+        if($tipe == 'materi'){
+            $this->db->where('id', $id)->set('status', $status)->update('data_materi');
+            if($status == 1){
+                $tipe = 'success';
+                $pesan = 'Materi berhasil diaktifkan';
+            }else{
+                $tipe = 'error';
+                $pesan = 'Materi berhasil dinonaktifkan';
+            }
+            
+            $swal = [
+                'tipe' => $tipe,
+                'pesan' => $pesan,
+            ];
+        }elseif($tipe == 'tugas'){
+            $this->db->where('id', $id)->set('status', $status)->update('data_tugas');
+            if($status == 1){
+                $tipe = 'success';
+                $pesan = 'Tugas berhasil diaktifkan';
+            }else{
+                $tipe = 'error';
+                $pesan = 'Tugas berhasil dinonaktifkan';
+            }
+            
+            $swal = [
+                'tipe' => $tipe,
+                'pesan' => $pesan,
+            ];
+        }
         $this->session->set_flashdata($swal);
         redirect('guru');
     }

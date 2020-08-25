@@ -100,6 +100,12 @@ class Guru_model extends CI_Model {
     return $this->db->select('*, COUNT(keterangan) as jml')->from('data_absen')->join('jadwal', 'data_absen.id_mapel=jadwal.id_mapel', 'left')->where('id_guru', $guru->id)->group_by('keterangan')->get()->result_array();
   }
 
+  public function getDataTugas()
+  {
+    $id_guru = $this->db->get_where('guru', ['nip' => $this->session->userdata('nama')])->row();
+    return $this->db->select('*, data_tugas.id as idtugas, data_tugas.status as status_tugas')->from('data_tugas')->join('jadwal', 'jadwal.id_mapel=data_tugas.id_mapel', 'left')->join('mapel', 'mapel_id=data_tugas.id_mapel', 'left')->join('data_file', 'data_tugas.id=data_file.id_materi', 'left')->join('kelas', 'data_tugas.id_kelas=kelas.kelas_id', 'left')->group_by('data_file.id_materi')->where('data_tugas.id_guru', $id_guru->id)->get();
+  }
+
   public function siswaKelas()
   {
     $guru_id = $this->session->userdata('nama');
@@ -138,6 +144,15 @@ class Guru_model extends CI_Model {
     $this->db->where('data_materi.id_guru', $idguru);
     return $this->db->select('*')->from('siswa')->join('materi_siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
   }
+  
+  public function getDataKelasTugas($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_tugas.id_guru', $idguru );
+    return $this->db->select('*, nilai_tugas.lokasi_file as filelokasi, nilai_tugas.nama_file as filename, nilai_tugas.id as idnilaitugas, nilai_tugas.status as statusnilai')->from('siswa')->join('nilai_tugas', 'siswa.nis=nilai_tugas.id_siswa', 'left')->join('data_tugas', 'data_tugas.id=nilai_tugas.id_tugas', 'left')->get();
+  }
 
   // public function siswaGetKelas($kelas)
   // {
@@ -154,6 +169,15 @@ class Guru_model extends CI_Model {
     return $this->db->select('*')->from('materi_siswa')->join('siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
   }
   
+  public function getDataSiswaMengerjakanTugas($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_tugas.id_guru', $idguru);
+    return $this->db->select('*')->from('nilai_tugas')->join('siswa', 'siswa.nis=nilai_tugas.id_siswa', 'left')->join('data_tugas', 'data_tugas.id=nilai_tugas.id_tugas', 'left')->get();
+  }
+  
   public function getSiswaMengerjakan($kelas)
   {
     $guruid = $this->session->userdata('nama');
@@ -162,6 +186,16 @@ class Guru_model extends CI_Model {
     $this->db->where('data_materi.id_guru', $idguru);
     $this->db->group_by('selesai');
     return $this->db->select('*, count(selesai) as jmlselesai')->from('materi_siswa')->join('siswa', 'siswa.nis=materi_siswa.id_siswa', 'left')->join('data_materi', 'data_materi.id=materi_siswa.id_materi', 'left')->get();
+  }
+  
+  public function getSiswaMengerjakanTugas($kelas)
+  {
+    $guruid = $this->session->userdata('nama');
+    $idguru = $this->db->get_where('guru', ['nip' => $guruid])->row()->id;
+    $this->db->where('siswa.kelas_id', $kelas);
+    $this->db->where('data_tugas.id_guru', $idguru);
+    $this->db->group_by('nilai_tugas.status');
+    return $this->db->select('*, count(nilai_tugas.status) as jmlselesai, nilai_tugas.status as status_tugas')->from('nilai_tugas')->join('siswa', 'siswa.nis=nilai_tugas.id_siswa', 'left')->join('data_tugas', 'data_tugas.id=nilai_tugas.id_tugas', 'left')->get();
   }
 
 }

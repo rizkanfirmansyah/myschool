@@ -18,6 +18,15 @@ $(document).ready(function(){
         $('#uploadMateriLabel').text(materi);
     });
 
+    $('.uploadDataTugas').on('click', function(){
+        const idtugas = $(this).data('idtugas');
+        const tugas = $(this).data('tugas');
+        // alert(idmateri + ' ' +  materi);
+
+        $('#idTugas').val(idtugas);
+        $('#uploadTugasLabel').text(tugas);
+    });
+
     $('.detailDataMateri').on('click', function() {
         const deskripsi = $(this).data('deskripsi');
         const materi = $(this).data('materi');
@@ -31,5 +40,27 @@ $(document).ready(function(){
         $('#dataMateriTanggal').text(tanggal);
         $('#idDataMateri').val(id);
     });
+
+    $('.detailDataTugas').on('click', function() {
+        const deskripsi = $(this).data('deskripsi');
+        const tugas = $(this).data('tugas');
+        const mapel = $(this).data('mapel');
+        const tanggal = $(this).data('tanggal');
+        const id = $(this).data('id');
+        // alert(materi);
+        $('#deskripsiTugasData').text(deskripsi);
+        $('#mapelTugasData').text(mapel);
+        $('#subTugasData').text(tugas);
+        $('#dataTugasTanggal').text(tanggal);
+        $('#idDataTugas').val(id);
+    });
+
+    $('.beriNilaiSiswaID').on('click', function(){
+        const id = $(this).data('id');
+        const nama = $(this).data('nama');
+
+        $('#beriNilaiSiswaNama').text(nama);
+        $('#idNilai').val(id);
+    }); 
 
 });

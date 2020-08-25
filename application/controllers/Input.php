@@ -309,6 +309,74 @@ class Input extends CI_Controller
         redirect('guru');
     }
 
+
+    public function tugas()
+    {
+        $mapel = $this->input->post('mapel');
+        $guru = $this->db->get_where('guru', ['nip' => $this->session->userdata('nama')])->row();
+        $data = [
+            'id_guru' => $guru->id,
+            'id_mapel' => $mapel,
+            'id_kelas' => $this->input->post('kelas'),
+            'kd' =>  $this->input->post('kdtugas'),
+            'nama_tugas' => htmlspecialchars($this->input->post('tugas'), true),
+            'deskripsi' => htmlspecialchars($this->input->post('deskripsi'), true),
+            'batas_waktu' => htmlspecialchars($this->input->post('date'), true),
+            'status' => 1,
+            'tanggal' => date('d-m-Y')
+        ];
+
+        $this->db->insert('data_tugas', $data);
+        $swal= [
+            'tipe' => 'success',
+            'pesan' => 'Tugas berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
+    }
+
+    public function kumpulkan()
+    {
+        $image = $_FILES['filetugas']['name'];
+        $data = [
+            'id_tugas' => $this->input->post('tugas'),
+            'id_siswa' => $this->session->userdata('nama'),
+            'lokasi_file' => 'assets/data/siswa/tugas/',
+            'tanggal' => date('d-m-Y'),
+            'nilai' => 0,
+            'status' => 0,
+        ];
+        
+        if ($image) {
+            $config['allowed_types'] = 'xls|xlsx|docx|txt|pdf|jpeg|jpg|png';
+            $config['max_size'] = '2048';
+            $config['overwrite'] = TRUE;
+            $config['upload_path'] = './assets/data/siswa/tugas/';
+            // $config['encrypt_name'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('filetugas')) {
+                $new_file = $this->upload->data('file_name');  
+                $this->db->set('nama_file', $new_file);  
+            }else{
+                $swal = [
+                    'tipe' => 'error',
+                    'pesan' => 'File gagal di Upload'.$this->upload->display_errors()
+                ];
+                $this->session->set_flashdata($swal);
+            redirect('siswa');
+            }
+        }
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'File tugas berhasil di Upload'
+        ];
+        $this->session->set_flashdata($swal);
+        $this->db->insert('nilai_tugas', $data);
+        redirect('siswa/index');
+    }
+
     public function guru()
     {
         $guru =[
@@ -486,65 +554,6 @@ class Input extends CI_Controller
         }
     }
 
-    public function tugas()
-    {
-        $data['title'] = 'Tugas';
-        $data['user'] = $this->user->getUserSession();
-        $data['tugas'] = $this->db->get_where('data_tugas', ['id_pengajar' => 'ITP-' . $this->session->userdata('id')])->result_array();
-        $this->db->where('materi !=', 'contoh');
-        $data['materi'] = $this->db->get_where('data_materi', ['user_id' => 'ITP-' . $this->session->userdata('id')])->result_array();
-        $tugas = $this->db->get_where('data_materi', ['user_id' => 'ITP-' . $this->session->userdata('id')])->row_array();
-        $this->form_validation->set_rules('tugas', 'Tugas', 'required|is_unique[data_tugas.tugas]');
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('input/tugas', $data);
-            $this->load->view('templates/footer');
-        }else{
-            $data = [
-                'tugas' => htmlspecialchars($this->input->post('tugas'),true),
-                'bab' => $this->input->post('bab'),
-                'time' => $this->input->post('waktu'),
-                'batas_waktu' => $this->input->post('date'),
-                'jenis_file' => $this->input->post('jenis_file'),
-                'id_pengajar' => $tugas['user_id'],
-                'nama_pengajar' => $tugas['pengajar']
-            ];
-
-            $upload_file = $_FILES['file']['name'];
-
-            if ($upload_file) {
-                $config['allowed_types'] = 'docx|txt|pkt|jpg|png';
-                $config['max_size'] = '1024';
-                $config['upload_path'] = './assets/member/file-tugas/';
-
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('file')) {
-                    $new_file = $this->upload->data('file_name');  
-                    $this->db->set('file', $new_file);  
-                }else{
-                      $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Ukuran gambar terlalu besar atau ekstensi gambar tidak diperbolehkan <br><i> Catatan :<b>' 
-                            . $this->upload->display_errors() .
-                            '</b></i><button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>');
-                redirect('input/tugas');
-                }
-
-            $this->db->insert('data_tugas', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> 
-                Tugas berhasil di tambahkan!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                 </div>');
-            redirect('input/tugas');
-           }
-        }
-    }
 
     public function nilai()
     {

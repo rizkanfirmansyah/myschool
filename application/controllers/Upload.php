@@ -21,6 +21,8 @@ class Upload extends CI_Controller
     {
         if($id == 'materi'){
             $this->_uploadMateri();
+        }elseif($id == 'tugas'){
+            $this->_uploadTugas();
         }
     }
 
@@ -43,6 +45,72 @@ class Upload extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('filemateri')) {
+                $new_image = $this->upload->data('file_name');  
+                $this->db->set('nama_file', $new_image);  
+            }else{
+                $swal = [
+                    'tipe' => 'error',
+                    'pesan' => 'File gagal di Upload'.$this->upload->display_errors()
+                ];
+                $this->session->set_flashdata($swal);
+            redirect('guru');
+            }
+        }
+        $this->db->insert('data_file', $data);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'File berhasil di Upload'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru/index');
+    }
+
+    public function nilai($id, $kelas)
+    {
+        if($id == 'tugas'){
+            $this->_nilaiTugas($kelas);
+        }
+    }
+
+    private function _nilaiTugas($kelas)
+    {
+        $idnilai = $this->input->post('idnilai');
+        $nilai = $this->input->post('nilai');
+        // var_dump($idnilai.$nilai);
+        $data= [
+            'nilai' => $nilai,
+            'status' => 1,
+        ];
+
+        $this->db->where('id', $idnilai)->set($data)->update('nilai_tugas');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Tugas berhasil dinilai',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru/tugas/kelas/'.$kelas);
+    }
+
+
+    private function _uploadTugas()
+    {
+        $image = $_FILES['filetugas']['name'];
+        $data = [
+            'id_materi' => $this->input->post('fileid'),
+            'lokasi_file' => 'assets/data/guru/tugas/',
+            'date' => date('d-m-Y'),
+        ];
+        
+        if ($image) {
+            $config['allowed_types'] = 'xls|xlsx|docx|txt|pdf|jpeg|jpg|png';
+            $config['max_size'] = '2048';
+            $config['overwrite'] = TRUE;
+            $config['upload_path'] = './assets/data/guru/tugas/';
+            // $config['encrypt_name'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('filetugas')) {
                 $new_image = $this->upload->data('file_name');  
                 $this->db->set('nama_file', $new_image);  
             }else{
