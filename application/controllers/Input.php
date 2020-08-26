@@ -377,6 +377,32 @@ class Input extends CI_Controller
         redirect('siswa/index');
     }
 
+    public function dsp()
+    {
+        $dsp = $this->input->post('dsp');
+
+        $this->db->where('tipe', 'dpp')->set('nominal', $dsp)->update('setup_spp');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'DSP telah berhasil ditetapkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('tu/dsp');
+    }
+
+    public function spp()
+    {
+        $spp = $this->input->post('spp');
+
+        $this->db->where('tipe', 'spp')->set('nominal', $spp)->update('setup_spp');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'SPP telah berhasil ditetapkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('tu/spp');
+    }
+
     public function guru()
     {
         $guru =[

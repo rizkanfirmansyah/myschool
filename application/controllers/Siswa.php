@@ -55,22 +55,25 @@ class Siswa extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function dpp()
+  public function dsp()
   {
     $data = [
-      'title' => 'DPP',
+      'title' => 'DSP',
       'siswa' => $this->siswa->store(),
       'user' => $this->user->getUserSession(),
-      'bulan' => $this->db->get('bulan')->result_array(),
+      'jmldpp' => $this->siswa->getDPPSiswa()->result_array(),
+      'nominaldsp' => $this->db->get_where('data_dpp', ['siswa_nis' => $this->session->userdata('nama')])->row()->nominal,
+      'dpp' => $this->db->get_where('setup_spp', ['tipe' => 'dpp'])->row()->nominal,
+      'spp' => $this->db->get_where('setup_spp', ['tipe' => 'spp'])->row()->nominal,
     ];
 
-    // var_dump($data['tugasguru']);
+    // var_dump($data['jmldpp']);
     // die;
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
-    $this->load->view('siswa/spp/index', $data);
+    $this->load->view('siswa/dpp/index', $data);
     $this->load->view('templates/footer');
   }
 

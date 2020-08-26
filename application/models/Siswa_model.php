@@ -48,6 +48,11 @@ class Siswa_model extends CI_Model {
     return $this->db->select('*, data_tugas.id as idtugas, data_tugas.id as idnilaitugas')->from('data_tugas')->join('mapel', 'id_mapel=mapel.mapel_id', 'left')->where('data_tugas.status', 1)->join('guru', 'id_guru=guru.id', 'left')->where('id_kelas', $siswa->kelas_id)->get();  
   }
 
+  public function getDPPSiswa()
+  {
+    return $this->db->where('siswa_nis', $this->session->userdata('nama'))->get('data_dpp');
+  }
+
   public function siswaTugasGuru()
   {
     return $this->db->select('*, data_tugas.id as idtugas')->from('data_tugas')->join('nilai_tugas', 'data_tugas.id=id_tugas', 'left')->where('id_siswa', null)->where('id_tugas', null)->get();

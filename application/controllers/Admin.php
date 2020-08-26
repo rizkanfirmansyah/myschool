@@ -53,6 +53,9 @@ class Admin extends CI_Controller
         $data['userAktif'] = $this->user->getAllUserActive();
         $data['userNotAktif'] = $this->user->getAllUserNotActive();
         $data['userAll'] = $data['userAktif'] + $data['userNotAktif'];
+        $data['siswa'] = $this->db->get('siswa')->num_rows();
+        $data['guru'] = $this->db->get('guru')->num_rows();
+        $data['keuangan'] = $this->db->select_sum('nominal')->get('data_spp')->row()->nominal + $this->db->select_sum('nominal')->get('data_dpp')->row()->nominal;
 
     // http://stackoverflow.com/a/21409562/1163000
         function get_directory_size($path) {

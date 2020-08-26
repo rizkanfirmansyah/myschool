@@ -305,6 +305,34 @@ function function_nilai_siswa($nis, $id)
     }
 }
 
+function function_siswa_dpp($nis)
+{
+    $rizkan = get_instance();
+
+    $nominal = $rizkan->db->select_sum('nominal')->where('siswa_nis', $nis)->get('data_dpp')->row()->nominal;
+    $dpp = $rizkan->db->get_where('setup_spp', ['tipe' =>'dpp'])->row()->nominal;
+
+    return $dpp - $nominal;
+}
+
+function get_spp_bulan($nis)
+{
+    $rizkan = get_instance();
+
+    $bulan = $rizkan->db->get('bulan')->num_rows();
+    $cek = $rizkan->db->get_where('data_spp', ['siswa_nis' => $nis])->num_rows();
+
+    return $bulan-$cek;
+}
+
+function function_dsp_siswa($dsp)
+{
+    $rizkan = get_instance();
+
+    $cek = $rizkan->db->get_where('setup_spp', ['tipe' => 'dpp'])->row()->nominal;
+    return $cek-$dsp;
+}
+
 function function_status_materi_siswa($id)
 {
     if ($id == 1) {

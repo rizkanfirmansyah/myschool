@@ -143,8 +143,8 @@ class User extends CI_Controller
                 }else{
                     $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
                     $this->db->set('password', $passwordHash);
-                    $this->db->where('email', $this->session->userdata('email'));
-                    $this->db->update('user');
+                    $this->db->where('nama', $this->session->userdata('nama'));
+                    $this->db->update('users');
 
                      $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> 
                     Password berhasil diubah!

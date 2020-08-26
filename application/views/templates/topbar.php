@@ -55,10 +55,10 @@
                             <i class="fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
                             Change Password
                         </a>
-                        <a class="dropdown-item" href="<?= base_url('user/setting'); ?>">
+                        <!-- <a class="dropdown-item" href="<?= base_url('user/setting'); ?>">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
-                        </a>
+                        </a> -->
                         <?php if ($this->session->userdata['role_id'] == 1): ?>
                             <?php if ($this->session->userdata('debug')): ?>
                                 <a class="dropdown-item" href="<?= base_url('developer/developer'); ?>">
@@ -72,10 +72,10 @@
                                 </a>
                             <?php endif ?>
                         <?php endif ?>
-                        <a class="dropdown-item" href="<?= base_url('user/log'); ?>">
+                        <!-- <a class="dropdown-item" href="<?= base_url('user/log'); ?>">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log
-                        </a>
+                        </a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
