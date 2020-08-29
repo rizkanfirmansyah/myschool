@@ -43,6 +43,33 @@ class Kurikulum extends CI_Controller
     	$this->load->view('templates/footer', $data);
     }
 
+    public function jadwalujian()
+    {
+        $data= [
+            'title' => 'Data Jadwal',
+            'user' => $this->user->getUserSession(),
+            'jmlruangan' => $this->data->ruangan()->num_rows(),
+            'jmlkelas' => $this->siswa->kelas()->num_rows(),
+            'jmlguru' => $this->guru->gurumapel()->num_rows(),
+            'ruangan' => $this->data->ruangan()->result_array(),
+            'kelas' => $this->siswa->kelas()->result_array(),
+            'guru' => $this->guru->gurumapel()->result_array(),
+            'all' => $this->Kurikulum->jadwal()->result_array(),
+            'mapel' => $this->Kurikulum->mapel()->result_array(),
+            'jmlmapel' => $this->Kurikulum->mapel()->num_rows(),
+        ];
+
+        // echo"<pre>";
+        // var_dump($data['all']);
+        // echo"</pre>";
+        // die;
+        $this->load->view('templates/header', $data);
+    	$this->load->view('templates/sidebar', $data);
+    	$this->load->view('templates/topbar', $data);
+    	$this->load->view('kurikulum/ujian/jadwal');
+    	$this->load->view('templates/footer', $data);
+    }
+
 
     public function gallery()
     {

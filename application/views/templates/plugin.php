@@ -10,6 +10,7 @@
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/vendor/'); ?>datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/vendor/'); ?>datatables/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url('assets/vendor/'); ?>summernote/summernote-bs4.js"></script>
 
 <!-- Chart JS -->
 <script src="<?= base_url('assets/vendor/'); ?>chart.js/Chart.min.js"></script>
@@ -39,3 +40,4 @@
 <script src="<?= base_url('assets/public/js/my-toogle.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/my-file-input.js') ?>"></script>
 <script src="<?= base_url('assets/public/js/absensi-siswa.js') ?>"></script>
+<script src="<?= base_url('assets/public/js/summernote-cbt.js') ?>"></script>

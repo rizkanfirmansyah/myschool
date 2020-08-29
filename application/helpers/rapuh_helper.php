@@ -333,6 +333,15 @@ function function_dsp_siswa($dsp)
     return $cek-$dsp;
 }
 
+function input_function_soal($id)
+{
+    if($id){
+        return false;
+    }else{
+        return '<input type="file" class="form-control" name="file_soal">';
+    }
+}
+
 function function_status_materi_siswa($id)
 {
     if ($id == 1) {

@@ -28,6 +28,16 @@
 		return '<a href="'.  base_url('hapus/slider/' . $id) .'" class="tombol-hapus" data-hapus="Apakah anda ingin menghapus slider ini?"> <i class="fas fa-trash "></i></a>';
 		}
 	}
+
+	function ujian_status($id, $idujian)
+	{
+		if ($id == 1) {
+			return '<a href="'. base_url('cbt/update/status/'. $idujian) .'/0" class="btn btn-sm btn-success"><i class="fas fa-check"></i></a>';
+		} else {
+			return '<a href="'. base_url('cbt/update/status/'. $idujian .'/1') .'" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></a>';
+		}
+		
+	}
 	
 	function service_row($result)
 	{

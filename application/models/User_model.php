@@ -41,7 +41,7 @@ class User_model extends CI_Model
 						];
 						$this->session->set_flashdata($swal);
 						$this->session->set_userdata($data);
-						redirect('guru/siswa');
+						redirect('guru');
 					}elseif($user['role_id'] == 4){
 						$data = [
 							'nama' => $nama,

@@ -11,7 +11,7 @@ class Menu_model extends CI_Model
 	    $this->db->from('user_menu');
 	    $this->db->join('user_access_menu', 'user_menu.id=user_access_menu.menu_id');
 	    $this->db->where('role_id', $role_id);
-	    $this->db->order_by('menu', 'ASC');
+	    $this->db->order_by('id', 'ASC');
 	    return $this->db->get()->result_array();
     }
 
