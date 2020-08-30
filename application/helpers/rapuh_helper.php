@@ -174,6 +174,15 @@ function status_jadwal($id, $user)
     }
 }
 
+function status_jadwal_ujian($id, $ujian)
+{
+    if($id == 1){
+        return ' <a href="'. base_url('akses/jadwalujian/0/'.$ujian) .'" class="btn btn-sm btn-success text-white">Aktif</a>';
+    }else{
+        return ' <a href="'. base_url('akses/jadwalujian/1/'. $ujian) .'" class="btn btn-sm btn-danger text-white">Tidak Aktif</a>';
+    }
+}
+
 function hitung_siswa($id)
 {
     $rizkan = get_instance();

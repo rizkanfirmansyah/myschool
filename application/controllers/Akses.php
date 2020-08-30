@@ -46,6 +46,17 @@ class Akses extends CI_Controller
 		redirect('kurikulum/jadwal');
 	}
 
+	public function jadwalujian($status, $id)
+	{
+		$this->db->set('status', $status)->where('id', $id)->update('jadwal_ujian');
+		$swal = [
+				'tipe' => 'success',
+				'pesan' => 'Status jadwal ujian berhasil diubah'
+		];
+		$this->session->set_flashdata($swal);
+		redirect('kurikulum/jadwalujian');
+	}
+
     public function tugas($id, $batas_waktu, $jenis_file, $file)
     {
     	$tugas = $this->db->get_where('data_tugas', ['id' => $id])->row_array();

@@ -90,6 +90,14 @@ class Edit extends CI_Controller
         redirect('data/kelas');
     }
 
+    public function jadwalujian($id)
+    {
+        $this->load->view('templates/header', $data);
+    	$this->load->view('templates/sidebar', $data);
+    	$this->load->view('templates/topbar', $data);
+    	$this->load->view('data/kelas/edit/index');
+    	$this->load->view('templates/footer', $data);    }
+
     public function statususer($status, $user)
     {
         if($status == 1){

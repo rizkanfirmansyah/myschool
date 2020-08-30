@@ -286,6 +286,13 @@ class Hapus extends CI_Controller
         $this->db->delete('jadwal');
     }
 
+    public function jadwalujian()
+    {
+        $id = $this->input->post('hapus');
+        $this->db->where('id', $id);
+        $this->db->delete('jadwal_ujian');
+    }
+
     public function jabatan($id)
     {
         $this->db->where('id_jabatan', $id)->delete('jabatan');

@@ -403,6 +403,52 @@ class Input extends CI_Controller
         redirect('tu/spp');
     }
 
+    public function jadwalujian()
+    {
+        $day = date('Y-m-d H:i', strtotime($this->input->post('mulai')));
+        $kelas = $this->input->post('id_kelas');
+        $ruangan = $this->input->post('id_ruangan');
+        $ujian = $this->input->post('id_ujian');
+        $mulai = $this->input->post('mulai');
+        $selesai = $this->input->post('selesai');
+        $cek1 = $this->db->get_where('jadwal_ujian', ['id_ruangan' => $ruangan])->row();
+        $cek2 = $this->db->get_where('jadwal_ujian', ['id_kelas' => $kelas])->row();
+        if(!$cek1){
+            if(!$cek2){
+                $swal = ['tipe'=>'success', 'pesan'=> 'jadwal ujian berhasil ditambahkan'];
+                $this->db->insert('jadwal_ujian', $_POST);
+            }elseif(strtotime($mulai) >= strtotime($cek2->mulai) && strtotime($mulai) <= strtotime($cek2->selesai)){
+                $swal = [
+                    'tipe'=>'warning', 'pesan' => 'Kelas sudah ada jadwal di jam yang sama'
+                ];
+            }elseif(strtotime($selesai) <= strtotime($cek2->selesai) && strtotime($selesai) >= strtotime($cek2->mulai)){
+                $swal = [
+                    'tipe'=>'warning', 'pesan' => 'Kelas sudah ada jadwal di jam yang sama'
+                ];
+            }elseif($cek2->id_ujian == $ujian){
+                $swal = [
+                    'tipe'=>'warning', 'pesan' => 'Mapel ujian sudah ada pada kelas ini'
+                ];
+            }else{
+                $swal = ['tipe'=>'success', 'pesan'=> 'jadwal ujian berhasil ditambahkan'];
+                $this->db->insert('jadwal_ujian', $_POST);
+            }
+        }elseif(strtotime($mulai) >= strtotime($cek1->mulai) && strtotime($mulai) <= strtotime($cek1->selesai)){
+            $swal = [
+                'tipe'=>'warning', 'pesan' => 'Ruangan sudah ada jadwal di jam yang sama'
+            ];
+        }elseif(strtotime($selesai) <= strtotime($cek1->selesai) && strtotime($selesai) >= strtotime($cek1->mulai)){
+            $swal = [
+                'tipe'=>'warning', 'pesan' => 'Ruangan sudah ada jadwal di jam yang sama'
+            ];
+        }else{
+            $swal = ['tipe'=>'success', 'pesan'=> 'jadwal ujian berhasil ditambahkan'];
+            $this->db->insert('jadwal_ujian', $_POST);
+        }  
+        $this->session->set_flashdata($swal);   
+        redirect('kurikulum/jadwalujian');  
+    }
+
     public function guru()
     {
         $guru =[

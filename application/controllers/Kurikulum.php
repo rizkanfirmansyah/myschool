@@ -46,7 +46,7 @@ class Kurikulum extends CI_Controller
     public function jadwalujian()
     {
         $data= [
-            'title' => 'Data Jadwal',
+            'title' => 'Data Jadwal Ujian',
             'user' => $this->user->getUserSession(),
             'jmlruangan' => $this->data->ruangan()->num_rows(),
             'jmlkelas' => $this->siswa->kelas()->num_rows(),
@@ -55,12 +55,13 @@ class Kurikulum extends CI_Controller
             'kelas' => $this->siswa->kelas()->result_array(),
             'guru' => $this->guru->gurumapel()->result_array(),
             'all' => $this->Kurikulum->jadwal()->result_array(),
-            'mapel' => $this->Kurikulum->mapel()->result_array(),
-            'jmlmapel' => $this->Kurikulum->mapel()->num_rows(),
+            'ujian' => $this->Kurikulum->ujian()->result_array(),
+            'jmlujian' => $this->Kurikulum->ujian()->num_rows(),
+            'jadwalujian' => $this->Kurikulum->jadwalujian()->result_array(),
         ];
 
         // echo"<pre>";
-        // var_dump($data['all']);
+        // var_dump($data['ujian']);
         // echo"</pre>";
         // die;
         $this->load->view('templates/header', $data);
