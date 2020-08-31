@@ -183,6 +183,28 @@ function status_jadwal_ujian($id, $ujian)
     }
 }
 
+function jumlah_soal_ujian($id)
+{
+    $rizkan = get_instance();
+    return $rizkan->db->get_where('cbt_soal', ['id_ujian'=> $id])->num_rows();
+}
+
+function status_ujian_siswa($id)
+{
+    $rizkan = get_instance();
+    $nis = $rizkan->session->userdata('nama');
+    $cek = $rizkan->db->where('id_ujian', $id)->where('id_siswa', $nis)->get('data_nilai_ujian')->row();
+    
+    if($cek == null){
+        return 'oke';
+    }elseif($cek->status == 0){
+        return 'sukses';
+    }else{
+        return 'sip';
+    }
+
+}
+
 function hitung_siswa($id)
 {
     $rizkan = get_instance();

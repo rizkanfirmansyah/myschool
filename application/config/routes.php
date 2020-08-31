@@ -52,3 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// CBT UJIAN
+$route['ujian/siswa'] = 'cbt_ujian/siswa_ujian';
+// $route['cbt_ujian/ujian_siswa'] = 'ujian/siswa';

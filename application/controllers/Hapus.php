@@ -299,7 +299,6 @@ class Hapus extends CI_Controller
         $swal=['tipe'=>'success', 'pesan' => 'Data Jabatan berhasil dihapus'];
         $this->session->set_flashdata($swal);
         redirect('admin/staff');
-
     }
 
     public function staffjabatan($id)

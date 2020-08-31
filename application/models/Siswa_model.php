@@ -71,7 +71,7 @@ class Siswa_model extends CI_Model {
   public function kelas()
   {
     return $this->db->get('kelas');
-  }
+  } 
 
   public function jurusan()
   {
@@ -93,6 +93,15 @@ class Siswa_model extends CI_Model {
   {
     $hari = date('d-M-Y');
     return $this->db->get_where('data_absen', ['date' => $hari])->row_array();
+  }
+
+  public function siswaUjian()
+  {
+    $nis = $this->session->userdata('nama');
+    $this->db->where('DAY(mulai)', date('d'));
+    $this->db->where('MONTH(mulai)', date('m'));
+    $this->db->where('YEAR(mulai)', date('Y'));
+    return $this->db->select('*, cbt_ujian.id as idujian')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'right')->join('tipe_ujian', 'tipe=id_tipe_ujian')->join('mapel', 'id_mapel=mapel_id')->get();
   }
 
 }

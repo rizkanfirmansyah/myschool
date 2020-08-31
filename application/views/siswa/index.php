@@ -121,6 +121,23 @@
     </div>
     </div>
 
+  <!-- Earnings Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4"  data-toggle="collapse" data-target="#Ujian" role="button" aria-expanded="false" aria-controls="Ujian">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Ujian</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $jmlUjian; ?></div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-table fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
 </div>
 
 
@@ -133,7 +150,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-sm" id="datatable2" width="100%" cellspacing="0">
                         <thead>
                           <tr>
                             <td>No</td>
@@ -178,7 +195,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-sm" id="datatable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
                             <td>No</td>
@@ -205,6 +222,54 @@
                               <td><?= $m['batas_waktu'] ?></td>
                               <td class="text-center">
                                 <a href="" class="btn btn-primary"><?= function_nilai_siswa($this->session->userdata('nama'), $m['idnilaitugas']) ?></a>
+                              </td>
+                            </tr>
+                              <?php $i++;?>
+                              <?php endforeach; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+      <!-- COLLAPSE -->
+
+
+      <div class="collapse" id="Ujian">
+              <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+              <table class="table table-bordered table-sm" id="datatable1" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <td>No</td>
+                            <td>Mapel</td>
+                            <td>Nama Ujian</td>
+                            <td>Tipe Ujian</td>
+                            <td>Jumlah Soal</td>
+                            <td>KKM</td>
+                            <td>Status</td>
+                            <td>Action</td>
+                          </tr>    
+                        </thead>
+                            
+                        <tbody>
+                          <?php $i=1;?>
+                          <?php foreach($ujian as $m) : ?>
+                            <tr>
+                              <td><?= $i;?></td>
+                              <td><?= $m['nama_mapel']?></td>
+                              <td><?= $m['nama_ujian'] ?></td>
+                              <td><?= $m['tipe_ujian'] ?></td>
+                              <td><?= jumlah_soal_ujian($m['idujian']) ?></td>
+                              <td><?= $m['kkm'] ?></td>
+                              <td><?= status_ujian_siswa($m['idujian']) ?></td>
+                              <td class="text-center">
+                                <a href="<?= base_url('ujian/siswa?id_u='.$m['idujian'].'&nis='.urlencode(base64_encode($this->session->userdata('nama')))) ?>" class="badge badge-primary"><i class="fas fa-table"></i> Ambil ujian</a>
                               </td>
                             </tr>
                               <?php $i++;?>

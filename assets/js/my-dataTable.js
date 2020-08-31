@@ -13,6 +13,11 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
+    $('#datatable3').DataTable();
+});
+
+
+$(document).ready(function () {
     $('#dataPemasukanPerBulan').DataTable({
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print']

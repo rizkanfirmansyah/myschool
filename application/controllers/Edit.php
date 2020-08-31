@@ -90,13 +90,45 @@ class Edit extends CI_Controller
         redirect('data/kelas');
     }
 
+    public function ujian($id)
+    {
+        $mulai = $this->input->post('mulai');
+        $selesai = $this->input->post('selesai');
+        if($mulai == null && $selesai == null){
+            $data = [
+                'id_kelas' => $this->input->post('id_kelas'),
+                'id_ruangan' => $this->input->post('id_ruangan'),
+            ];
+            $this->db->where('id', $id)->set($data)->update('jadwal_ujian');
+            $swal= ['tipe'=>'success', 'pesan'=> 'Jadwal ujian berhasil diperbaharui'];
+        }elseif($mulai == null && $selesai){
+            $swal= ['tipe'=>'error', 'pesan'=> 'Waktu mulai tidak boleh kosong'];
+        }elseif($selesai == null && $mulai){
+            $swal= ['tipe'=>'error', 'pesan'=> 'Waktu selesai tidak boleh kosong'];
+        }else{
+            $swal= ['tipe'=>'success', 'pesan'=> 'Jadwal ujian berhasil diperbaharui'];
+        }
+
+        $this->session->set_flashdata($swal);
+        redirect('kurikulum/jadwalujian');
+    }
+
     public function jadwalujian($id)
     {
+        $data= [
+            'title' => 'Edit Data Kelas',
+            'user' => $this->user->getUserSession(),
+            'editujian' => $this->Kurikulum->editujian($id)->row_array(),
+            'ruangan' => $this->data->ruangan()->result_array(),
+            'kelas' => $this->siswa->kelas()->result_array(),
+        ];
+
         $this->load->view('templates/header', $data);
     	$this->load->view('templates/sidebar', $data);
     	$this->load->view('templates/topbar', $data);
-    	$this->load->view('data/kelas/edit/index');
-    	$this->load->view('templates/footer', $data);    }
+    	$this->load->view('kurikulum/ujian/edit/index');
+        $this->load->view('templates/footer', $data);    
+    }
 
     public function statususer($status, $user)
     {
