@@ -9,6 +9,7 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
+    <meta name="base_url" content="<?= base_url() ?>">
 
 	<!-- Canonical SEO -->
     <link rel="canonical" href="https://www.creative-tim.com/product/paper-bootstrap-wizard"/>

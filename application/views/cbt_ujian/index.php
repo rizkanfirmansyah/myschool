@@ -6,7 +6,8 @@
 
 								<div class="wizard-header">
 									<h3><i class="fa fa-4x fa-home"></i></h3>
-									<h3 class="wizard-title">Find your next desk</h3>
+									<h3 class="wizard-title">Find your next desk
+									</h3>
 		                        	<p class="category">Book from thousands of unique work and meeting spaces.</p>
 		                    	</div>
 
@@ -41,6 +42,10 @@
 										</li>
 			                        </ul>
 								</div>
+								<!-- DATA SISWA -->
+								<input type="hidden" name="idujian" id="id_ujian" value="<?= $ujian['id_ujian'] ?>">
+								<input type="hidden" name="idkelas" id="id_kelas" value="<?= $ujian['id_kelas'] ?>">
+								<!-- DATA SISWA -->
 		                        <div class="tab-content">
 		                            <div class="tab-pane active" id="details">
 		                            	<div class="row">
@@ -88,6 +93,8 @@
 													</div>
 												</div>
 		                                    </div>
+
+											<?= $ujian['waktu_mulai'] ?>
 		                                    <div class="col-sm-4">
 												<div class="form-group">
 													<div class="bgimg">
@@ -163,4 +170,4 @@
 			}
 			}, 1000);
 			</script>
-		             
+		            

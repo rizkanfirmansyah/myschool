@@ -32,9 +32,9 @@
 	function ujian_status($id, $idujian)
 	{
 		if ($id == 1) {
-			return '<a href="'. base_url('cbt/update/status/'. $idujian) .'/0" class="btn btn-sm btn-success"><i class="fas fa-check"></i></a>';
+			return '<a href="'. base_url('cbt/update/status/'. $idujian) .'/0" class="badge badge-sm badge-success"><i class="fas fa-check"></i></a>';
 		} else {
-			return '<a href="'. base_url('cbt/update/status/'. $idujian .'/1') .'" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></a>';
+			return '<a href="'. base_url('cbt/update/status/'. $idujian .'/1') .'" class="badge badge-sm badge-danger"><i class="fas fa-times"></i></a>';
 		}
 		
 	}

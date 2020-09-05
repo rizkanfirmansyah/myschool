@@ -54,8 +54,8 @@
                                                 <td><?= $u['akhir_at'] ?></td>
                                                 <td>
                                                     <?= ujian_status($u['active'], $u['idujian']) ?>
-                                                    <a href="<?= base_url('cbt/delete/ujian/'.$u['idujian']) ?>" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></a>
-                                                    <a href="<?= base_url('cbt/update/pageujian/'.$u['idujian']) ?>" class="btn btn-sm btn-warning"> <i class="fas fa-edit"></i></a>
+                                                    <a href="<?= base_url('cbt/delete/ujian/'.$u['idujian']) ?>" class="badge badge-danger"> <i class="fas fa-trash"></i></a>
+                                                    <a href="<?= base_url('cbt/update/pageujian/'.$u['idujian']) ?>" class="badge badge-warning"> <i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                             <?php $i++;?>   
