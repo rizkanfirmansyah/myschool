@@ -10,6 +10,7 @@ class Siswa extends CI_Controller
     parent::__construct();
     $this->load->model('Siswa_model', 'siswa');
     $this->load->model('User_model', 'user');
+    $this->load->library('pdf');
   }
 
   public function index()
@@ -28,7 +29,9 @@ class Siswa extends CI_Controller
       'tugasguru' => $this->siswa->siswaTugasGuru()->result_array(),
     ];
 
-    // var_dump($data['jmlUjian']);
+    //   echo "<pre>";
+    //   var_dump($data['ujian']);
+    //   echo "</pre>";
     // die;
 
     $this->load->view('templates/header', $data);
@@ -77,6 +80,23 @@ class Siswa extends CI_Controller
     $this->load->view('templates/topbar', $data);
     $this->load->view('siswa/dpp/index', $data);
     $this->load->view('templates/footer');
+  }
+
+  public function cetak_nilai_ujian()
+  {
+    $id = $_GET['id_u'];
+    $nis = base64_decode($_GET['nis']);
+
+    $siswa 	= $this->siswa->getDataDiri($nis);
+		$hasil 	= $this->siswa->HasilUjian($id, $nis);
+		// $ujian 	= $this->siswa->getUjianById($id);
+
+		$data = [
+			'hasil' => $hasil,
+			'siswa'	=> $siswa
+    ];
+    
+    $this->load->view('siswa/cetak/hasil_ujian', $data);
   }
 
 }

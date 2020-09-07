@@ -6,9 +6,9 @@
 
 								<div class="wizard-header">
 									<h3><i class="fa fa-4x fa-home"></i></h3>
-									<h3 class="wizard-title">Find your next desk
+									<h3 class="wizard-title">Konfirmasi Tes
 									</h3>
-		                        	<p class="category">Book from thousands of unique work and meeting spaces.</p>
+		                        	<p class="category">Berdoalah dan kerjakan dengan semaksimal mungkin</p>
 		                    	</div>
 
 								<div class="wizard-navigation">
@@ -94,7 +94,6 @@
 												</div>
 		                                    </div>
 
-											<?= $ujian['waktu_mulai'] ?>
 		                                    <div class="col-sm-4">
 												<div class="form-group">
 													<div class="bgimg">
@@ -119,12 +118,13 @@
 		                        </div>
 		                        <div class="wizard-footer">
 		                        	<div class="pull-right">
+										<a href="<?= base_url('siswa') ?>" class="btn btn-previous btn-default btn-wd disabled" >Keluar</a>
 		                                <input type="button" class="btn btn-next btn-fill btn-primary btn-wd" id="dataSiswaUjian" name="next" value="Next">
-		                                <input type="button" id="mulaiUjianSiswa" class="btn btn-finish btn-fill btn-primary btn-wd" name="finish" value="Finish" style="display: none;" disabled>
+		                                <input type="button" id="mulaiUjianSiswa" class="btn btn-finish btn-fill btn-primary btn-wd" name="finish" value="Mulai" style="display: none;" disabled>
 		                            </div>
 									
 		                            <div class="pull-left">
-		                                <input type="button" class="btn btn-previous btn-default btn-wd disabled" name="previous" value="Previous">
+		                                <input type="button" class="btn btn-previous btn-default btn-wd disabled" name="previous" value="Kembali">
 		                            </div>
 		                            <div class="clearfix"></div>
 		                        </div>

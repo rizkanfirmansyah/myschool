@@ -196,11 +196,11 @@ function status_ujian_siswa($id)
     $cek = $rizkan->db->where('id_ujian', $id)->where('id_siswa', $nis)->get('data_nilai_ujian')->row();
     
     if($cek == null){
-        return 'oke';
+        return '<a class="btn btn-sm text-white btn-secondary">Not</a>';
     }elseif($cek->status == 0){
-        return 'sukses';
+        return '<a class="btn btn-sm text-white btn-warning">Pending</a>';
     }else{
-        return 'sip';
+        return '<a class="btn btn-sm text-white btn-success">Sukses</a>';
     }
 
 }
@@ -494,6 +494,12 @@ function check_access($role_id, $menu_id)
     if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
+}
+
+function nama_sekolah()
+{
+    $rizkan = get_instance();
+    return $rizkan->db->get_where('data_homepage', ['jenis' => 'footer'])->row()->judul;
 }
 
 function maintanance_check()

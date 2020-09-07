@@ -38,6 +38,26 @@
 		}
 		
 	}
+
+	function cek_nilai_ujian($nilai, $idujian){
+		$rizkan = get_instance();
+		$cek = $rizkan->db->select('*, SUM(bobot_nilai) as nilai')->from('cbt_jawaban')->join('cbt_soal', 'id_soal=cbt_soal.id', 'left')->where('id_ujian', $idujian)->get()->result();
+		foreach ($cek as $n ) {
+			return $nilai * 100 / $n->nilai;
+		}
+	}
+
+	function cek_hasil_ujian($id, $siswa)
+	{
+		$rizkan = get_instance();
+		$cek = $rizkan->db->where('nilai !=', null)->get_where('data_nilai_ujian',['id_ujian'=>$id, 'id_siswa' => $siswa])->row();
+
+		if($cek){
+			return '<a href="'.base_url('cetak/nilai_ujian?id_u='.$id.'&nis='.urlencode(base64_encode($siswa))) .'" class="badge badge-success"><i class="fas fa-print"></i> Cetak Nilai</a>';
+		}else{
+			return '<a href="'.base_url('ujian/siswa?id_u='.$id.'&nis='.urlencode(base64_encode($siswa))) .'" class="badge badge-primary"><i class="fas fa-table"></i> Ambil Ujian</a>';
+		}
+	}
 	
 	function service_row($result)
 	{

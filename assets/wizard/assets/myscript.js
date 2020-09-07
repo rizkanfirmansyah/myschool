@@ -125,6 +125,7 @@ function getSoal(nourut = 0) {
             let button = '';
             let data = JSON.parse(result)
             let pil = data.pilihan;
+            let img = data.images;
             pilihan += `
                 <img class="m-3" width="600" height="400" src="${base_url}assets/data/soal/${data.gambar}" alt="" >
                 `
@@ -135,16 +136,24 @@ function getSoal(nourut = 0) {
                 if (key == data.jawaban) {
                     checked = 'checked'
                 }
-                pilihan += `
-                <li class="list-group-item">
-                <label class="checkboxRadio">
-                <input name="inputJawabanUjian" id="inputJawabanUjian" class="inputJawabanUjian" type="radio" data-idJawaban="${key}" data-idSoal="${data.idsoal}" data-idnumber="${data.noSoal}" ${ checked }/>
-                <span class="primary"></span>
-                </label>
-                ${key}. ${value}
-                <img class="m-3" width="300" height="150" src="${base_url}assets/data/soal/${data.gambar}" alt="" >
-                    </li>
-                `;
+                Object.entries(img).forEach(image => {
+                    const [capt, pho] = image;
+                    if(capt == key){
+                        const jpg = pho;
+                     
+                            pilihan += `
+                            <li class="list-group-item">
+                            <label class="checkboxRadio">
+                            <input name="inputJawabanUjian" id="inputJawabanUjian" class="inputJawabanUjian" type="radio" data-idJawaban="${key}" data-idSoal="${data.idsoal}" data-idnumber="${data.noSoal}" ${ checked }/>
+                            <span class="primary"></span>
+                            </label>
+                            ${key}. ${value}
+                            <img class="m-3" style: width="300" height="200" src="${base_url}assets/data/jawaban/${jpg}" alt=""   />
+                            </li>
+                            `;
+                    }
+                    
+                });
             });
             $("#paginationBtn").html(`
             <div class="col">
@@ -165,9 +174,7 @@ function getSoal(nourut = 0) {
                     $("#btnNextSoal").show();
                     $("#btnFinishUjian").hide();
                 }
-            console.log(data.jawaban);
             $("#pilihanNa").html(pilihan);
-            console.log(data.waktu);
             const waktu = data.waktu;
             const countDownDate = new Date(waktu).getTime();
             const x = setInterval(function() {
@@ -182,11 +189,13 @@ function getSoal(nourut = 0) {
         
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById('mulaiUjianSiswa').removeAttribute('disabled');
-                        $('#coming-soon').hide();
-                        $('#demo').hide();
-                        $('#hr-hr').hide();
-                        $('#id_ujian_masuk').show();
+                        swal("Terima Kasih telah mengikuti Ujian", {
+                            icon: "success",
+                            buttons: false,
+                            timer:4000
+                          }).then((value) => {
+                              document.location.href = base_url + 'ujian/ujian/selesai';
+                          })
                     }
                     }, 1000);
         },
@@ -194,28 +203,7 @@ function getSoal(nourut = 0) {
             console.log(error);
         }
     })
-    
-
-    $('#pilihanNa').on('click','#inputJawabanUjian', function(){
-        const jawaban = $(this).data('idjawaban');
-        const soal = $(this).data('idsoal');
-        const number = $(this).data('idnumber');
-        
-        $.ajax({
-            type:'POST',
-            url: `${base_url}ujian/jawaban_ujian`,
-            data: {soal : soal,jawaban:jawaban, number:number},
-            success: function(res){
-                let pesan = JSON.parse(res);
-                console.log('Connection 200 OK')
-                console.log(pesan);
-                get_panel();
-            },
-            error: function(err){
-                console.log(err.status + ' ' + err.statusText)
-            }
-        })
-    })
+ 
 }
 
 function get_panel(){
@@ -252,4 +240,50 @@ function get_panel(){
             console.log(err.status + ' ' + err.statusText)
         }
     })
+
 }
+       
+
+$('#pilihanNa').on('click','#inputJawabanUjian', function(){
+    const jawaban = $(this).data('idjawaban');
+    const soal = $(this).data('idsoal');
+    const number = $(this).data('idnumber');
+    
+    $.ajax({
+        type:'POST',
+        url: `${base_url}ujian/jawaban_ujian`,
+        data: {soal : soal,jawaban:jawaban, number:number},
+        success: function(res){
+            let pesan = JSON.parse(res);
+            console.log('Connection 200 OK')
+            console.log(pesan);
+            get_panel();
+        },
+        error: function(err){
+            console.log(err.status + ' ' + err.statusText)
+        }
+    })
+})
+
+$('#paginationBtn').on('click', '#btnFinishUjian', function(){
+    swal({
+        title: "Konfirmasi Tes",
+        text: "Tekan OK untuk mengakhiri Tes",
+        icon: "info",
+        buttons: ["Tidak", "Selesai"],
+        successMode:true
+      })
+      .then((finish) => {
+        if (finish) {
+          swal("Terima Kasih telah mengikuti Ujian", {
+            icon: "success",
+            buttons: false,
+            timer:1500
+          }).then((value) => {
+              document.location.href = base_url + 'ujian/ujian/selesai';
+          })
+        } else {
+          
+        }
+      });
+})

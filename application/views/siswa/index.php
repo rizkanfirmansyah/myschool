@@ -35,7 +35,7 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Jurusan</div>
-            <div class="h8 mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $siswa['nama_jurusan'] ?></div>
+            <div style="font-size:smaller;" class=" mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $siswa['nama_jurusan'] ?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-archway fa-2x text-gray-300"></i>
@@ -265,11 +265,11 @@
                               <td><?= $m['nama_mapel']?></td>
                               <td><?= $m['nama_ujian'] ?></td>
                               <td><?= $m['tipe_ujian'] ?></td>
-                              <td><?= jumlah_soal_ujian($m['idujian']) ?></td>
+                              <td><?= jumlah_soal_ujian($m['id_ujian']) ?></td>
                               <td><?= $m['kkm'] ?></td>
-                              <td><?= status_ujian_siswa($m['idujian']) ?></td>
+                              <td><?= status_ujian_siswa($m['id_ujian']) ?></td>
                               <td class="text-center">
-                                <a href="<?= base_url('ujian/siswa?id_u='.$m['idujian'].'&nis='.urlencode(base64_encode($this->session->userdata('nama')))) ?>" class="badge badge-primary"><i class="fas fa-table"></i> Ambil ujian</a>
+                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama')) ?>
                               </td>
                             </tr>
                               <?php $i++;?>
@@ -279,6 +279,7 @@
                     </div>
                 </div>
             </div>
+
 
       <!-- COLLAPSE -->
 

@@ -31,6 +31,7 @@ class Cbt_ujian extends CI_Controller
       'siswa' => $this->exam->datasiswa($nis)->row_array(),
       'ujian' => $this->exam->dataujian($idujian)->row_array()
     ];
+    
     $this->load->view('cbt_ujian/templates/header',$data);
     $this->load->view('cbt_ujian/index', $data);
     $this->load->view('cbt_ujian/templates/footer', $data);
@@ -100,8 +101,45 @@ class Cbt_ujian extends CI_Controller
 
   public function ujian()
   {
+    if(!$this->session->userdata('ujian')){
+      redirect('auth/blocked');
+    }
     $this->load->view('cbt_ujian/ujian/templates/header');
     $this->load->view('cbt_ujian/ujian/index');
+    $this->load->view('cbt_ujian/ujian/templates/footer');
+  }
+
+  public function ujian_selesai()
+  {
+    $siswa = $this->session->userdata('nama');
+    $ujian = $this->session->userdata('ujian');
+    $nilai_siswa = $this->db->select('*, SUM(bobot_nilai) as nilai')->from('data_jawaban')->join('cbt_jawaban', 'data_jawaban.jawaban=cbt_jawaban.jawaban', 'left')->where('data_jawaban.id_soal=cbt_jawaban.id_soal')->where('id_siswa', $siswa)->where('id_ujian', $ujian)->get()->result();
+    $soal = $this->db->where('id_ujian', $ujian)->get('cbt_soal')->num_rows();
+    $benar = $this->db->select('*')->from('data_jawaban')->join('cbt_jawaban', 'data_jawaban.jawaban=cbt_jawaban.jawaban', 'left')->where('data_jawaban.id_soal=cbt_jawaban.id_soal')->where('id_siswa', $siswa)->where('id_ujian', $ujian)->get()->num_rows();
+    $salah = $soal-$benar;
+    foreach($nilai_siswa as $ns){
+      $nilai = cek_nilai_ujian($ns->nilai, $ujian);
+    }
+    $sesi = ['ujian', 'siswa'];
+    $data = [
+      'jumlah_soal' => $soal,
+      'jumlah_benar' => $benar,
+      'jumlah_salah' => $salah,
+      'nilai' => $nilai,
+      'status' => 1
+    ];
+    $where = ['id_ujian' => $ujian, 'id_siswa' => $siswa];
+    $table = 'data_nilai_ujian';
+    $this->db->where($where)->set($data)->update($table);
+    $this->selesai();
+    $this->session->unset_userdata($sesi);
+  }
+
+  public function selesai()
+  {
+    $data = ['nilai' => $this->exam->ambilNilai()];
+    $this->load->view('cbt_ujian/ujian/templates/header');
+    $this->load->view('cbt_ujian/ujian/selesai/index',$data);
     $this->load->view('cbt_ujian/ujian/templates/footer');
   }
 
@@ -131,6 +169,11 @@ class Cbt_ujian extends CI_Controller
     $jawabanC = $data2->jawabanC;
     $jawabanD = $data2->jawabanD;
     $jawabanE = $data2->jawabanE;
+    $fileA = $data2->fileA;
+    $fileB = $data2->fileB;
+    $fileC = $data2->fileC;
+    $fileD = $data2->fileD;
+    $fileE = $data2->fileE;
     $jmlSoal = $this->db->get_where('cbt_soal', ['id_ujian' => $idujian])->num_rows();
     $waktu = $data1->akhir_at;
     $soal = $data->soal;
@@ -147,11 +190,18 @@ class Cbt_ujian extends CI_Controller
       'gambar' => $gambar,
       'idsoal' => $idsoal,
       'pilihan' => (object) [
-        'A' => $jawabanA,
+        'A' => $jawabanA ,
         'B' => $jawabanB,
         'C' => $jawabanC,
         'D' => $jawabanD,
         'E' => $jawabanE,
+      ],
+      'images' => (object) [
+        'A' => $fileA ,
+        'B' => $fileB,
+        'C' => $fileC,
+        'D' => $fileD,
+        'E' => $fileE,
       ],
       'jmlSoal' => $jmlSoal,
       'waktu' => $waktu,

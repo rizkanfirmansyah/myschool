@@ -30,6 +30,16 @@ class Siswa_model extends CI_Model {
     return $this->db->get('siswa');
   }
 
+  public function getDataDiri($id)
+  {
+    return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan=jurusan.jurusan_id')->where('nis', $id)->get()->row();
+  }
+
+  public function HasilUjian($id, $nis)
+  {
+		return $this->db->select('*')->from('data_nilai_ujian')->join('siswa', 'nis=id_siswa', 'left')->join('kelas', 'id_kelas=kelas.kelas_id')->join('cbt_ujian', 'id_ujian=cbt_ujian.id')->join('mapel', 'id_mapel=mapel_id')->where('id_ujian', $id)->where('id_siswa', $nis)->get()->row();
+  }
+
   public function datasiswa()
   {
     return $this->db->select('*')->from('siswa')->join('profile_siswa', 'siswa.siswa_id=profile_siswa.siswa_id', 'right')->get();
@@ -98,10 +108,12 @@ class Siswa_model extends CI_Model {
   public function siswaUjian()
   {
     $nis = $this->session->userdata('nama');
-    $this->db->where('DAY(mulai)', date('d'));
-    $this->db->where('MONTH(mulai)', date('m'));
+    $kelas = $this->db->get_where('siswa', ['nis' => $nis])->row()->kelas_id;
+    // $this->db->where('DAY(mulai)', date('d'));
+    // $this->db->where('MONTH(mulai)', date('m'));
     $this->db->where('YEAR(mulai)', date('Y'));
-    return $this->db->select('*, cbt_ujian.id as idujian')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'right')->join('tipe_ujian', 'tipe=id_tipe_ujian')->join('mapel', 'id_mapel=mapel_id')->get();
+    $this->db->where('id_kelas', $kelas);
+    return $this->db->select('*, cbt_ujian.id')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'left')->join('tipe_ujian', 'tipe=id_tipe_ujian')->join('mapel', 'id_mapel=mapel_id')->get();
   }
 
 }

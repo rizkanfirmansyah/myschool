@@ -4,7 +4,7 @@
 </body>
 
     <!--   Core JS Files   -->
-    <!-- !-- SweetAlert --> -->
+    <!-- !-- SweetAlert --> 
     <script src="<?= base_url('assets/vendor/');?>sweetalert/sweetalert.min.js"></script>
 	<script src="<?=base_url('assets/wizard/')?>assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
 	<script src="<?=base_url('assets/wizard/')?>assets/js/bootstrap.min.js" type="text/javascript"></script>

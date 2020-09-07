@@ -55,7 +55,7 @@
 				</div>
 				<div class="col-sm-4 card p-3 pl-4" style="max-height: 1000px;">
 					<h3 class="text-center">Tabel Jawaban
-<?=$this->session->noSoal?>					</h3>
+				</h3>
 					<div class="row" id="panelJawabanUjian">
 						
 					</div>
@@ -72,14 +72,13 @@
 				</a>
 				<ul class="navbar-nav  mr-auto d-none d-xl-block d-sm-block d-md-block d-xl-block">
 					<li class=" nav-item">
-						<a class="nav-link" id="soalIdentity"><h6 class="text-white text-uppercase"> SMK Negeri 5 Bandung </h6></a>
+						<a class="nav-link" id="soalIdentity"><h6 class="text-white text-uppercase"> <i class="fa fa-university"></i> <?= nama_sekolah() ?></h6></a>
 					</li>
 				</ul>
 				<span class="navbar-text d-block d-xl-block d-md-block d-sm-block">
-					<a class="text-white text-uppercase username">Riezkan Aprianda Firmansyah</a>
+					<a class="text-white text-uppercase username">&copy; IT CLub <?= date('Y') ?></a>
 					
 				</span>
-				<a class="p-3"><small class="timercss">08:00:00</small> </a>
 				
 			</nav>
 		</footer>

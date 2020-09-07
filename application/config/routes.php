@@ -55,7 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 // CBT UJIAN
 $route['ujian/siswa'] = 'cbt_ujian/siswa_ujian';
+$route['cetak/nilai_ujian'] = 'siswa/cetak_nilai_ujian';
 $route['ujian/ujian'] = 'cbt_ujian/ujian';
+$route['ujian/ujian/selesai'] = 'cbt_ujian/ujian_selesai';
 $route['ujian/panel'] = 'cbt_ujian/get_panel_soal';
 $route['ujian/set_session'] = 'cbt_ujian/set_session_ujian';
 $route['ujian/jawaban_ujian'] = 'cbt_ujian/input_jawaban_siswa';
