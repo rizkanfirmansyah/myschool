@@ -178,6 +178,10 @@
               });
            });
         </script>
+
+        <?php if($this->uri->segment(1) == 'inventaris'): ?>
+            <?php $this->load->view('inventaris/daftar/script/index') ?>
+        <?php endif;?>
 <!-- =============================================================DATATABLES========================================================= -->
 
 

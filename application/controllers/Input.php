@@ -403,6 +403,19 @@ class Input extends CI_Controller
         redirect('tu/spp');
     }
 
+    public function inventaris($id, $table)
+    {
+        $cek = $this->db->where($_POST)->get($id)->row();
+        if($cek){
+            $swal = ['tipe'=>'warning', 'pesan'=> 'Data jenis sudah ada'];
+        }else{
+            $this->db->insert($id, $_POST);
+            $swal = ['tipe'=>'success', 'pesan'=> 'Data jenis berhasil ditambahkan'];
+        }
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/barang/'.$table.'/'.$id);
+    }
+
     public function jadwalujian()
     {
         $day = date('Y-m-d H:i', strtotime($this->input->post('mulai')));
@@ -536,6 +549,28 @@ class Input extends CI_Controller
         ];
         $this->session->set_flashdata($swal);
         redirect('data/mapel');
+    }
+
+    public function transaksi()
+    {
+        $this->db->insert('pembelian', $_POST);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Pembelian berhasil ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/transaksi');
+    }
+
+    public function barang()
+    {
+        $this->db->insert('barang', $_POST);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Barang baru ditambahkan'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/daftar');
     }
 
 

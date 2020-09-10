@@ -29,6 +29,27 @@
 		}
 	}
 
+	function hitung_jumlah($table)
+	{
+		$rizkan = get_instance();
+
+		$cek = $rizkan->db->get($table)->num_rows();
+		if($cek > 0){
+			return $cek;
+		}else{
+			return '-';
+		}
+	}
+
+	function status($id)
+	{
+		if($id == 1){
+			return '<span class="btn btn-sm btn-success">Aktif</span>';
+		}else{
+			return '<span class="btn btn-sm btn-danger">Tidak Aktif</span>';
+		}
+	}
+
 	function ujian_status($id, $idujian)
 	{
 		if ($id == 1) {

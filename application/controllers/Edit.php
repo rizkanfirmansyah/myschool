@@ -90,6 +90,18 @@ class Edit extends CI_Controller
         redirect('data/kelas');
     }
 
+    public function inventaris($table, $id)
+    {
+        $id_table = $this->input->post('id_'.$id);
+        $data = [
+            'nama_'.$id =>$this->input->post('nama_'.$id)
+        ];
+        $this->db->where('id_'.$id, $id_table)->set($data)->update($table);
+        $swal= ['tipe'=>'success', 'pesan'=> 'Data '.$id.' berhasil diperbaharui'];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/barang/'.$id.'/'.$table);
+    }
+
     public function ujian($id)
     {
         $mulai = $this->input->post('mulai');
@@ -274,6 +286,18 @@ class Edit extends CI_Controller
         ];
         $this->session->set_flashdata($swal);
         redirect('data/guru');
+    }
+
+    public function barang()
+    {
+        $id = $_POST['id_barang'];
+        $this->db->set($_POST)->where('id_barang', $id)->update('barang');
+        $swal =[
+            'tipe' => 'success',
+            'pesan' => 'Data barang berhasil diubah',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/daftar');
     }
 
     public function user($id, $role_id)

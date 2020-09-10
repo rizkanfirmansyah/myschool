@@ -293,6 +293,23 @@ class Hapus extends CI_Controller
         $this->db->delete('jadwal_ujian');
     }
 
+    public function inventaris($table, $id, $parm)
+    {
+        $kata = substr($parm, 3);
+        $this->db->where($parm, $id)->delete($table);
+        $swal=['tipe'=>'success', 'pesan' => 'Data '.$kata.' berhasil dihapus'];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/barang/'.$kata.'/'.$table);
+    }
+
+    public function barang($id, $name)
+    {
+        $this->db->where('id_barang', $id)->delete('barang');
+        $swal=['tipe'=>'success', 'pesan' => 'Data '.$name.' berhasil dihapus'];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/daftar');
+    }
+
     public function jabatan($id)
     {
         $this->db->where('id_jabatan', $id)->delete('jabatan');
