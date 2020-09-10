@@ -29,6 +29,16 @@
 		}
 	}
 
+	function sisaBarang($id)
+	{
+		$rizkan = get_instance();
+
+		$data1 = $rizkan->db->select_sum('jumlah_barang')->group_by('id_barang')->get_where('pembelian', ['id_barang'=> $id])->row()->jumlah_barang;
+		$data2 = $rizkan->db->select_sum('jumlah_barang')->group_by('id_barang')->get_where('pengeluaran', ['id_barang'=> $id])->row()->jumlah_barang;
+
+		return $data1-$data2;
+	}
+
 	function hitung_jumlah($table)
 	{
 		$rizkan = get_instance();

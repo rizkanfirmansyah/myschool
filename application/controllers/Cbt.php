@@ -20,8 +20,10 @@ class Cbt extends CI_Controller
       'title' => 'Data Ujian',
       'user' => $this->user->getUserSession(),
       'mapel' => $this->Guru->getDataMapel()->result_array(),
+      'data1' => $this->Guru->getDataTipeUjian()->result_array(),
       'ujian' => $this->Cbt->store(),
     ];
+    
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);

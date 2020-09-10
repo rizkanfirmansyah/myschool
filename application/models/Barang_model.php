@@ -57,7 +57,7 @@ class Barang_model extends CI_Model {
 
   public function getDataTransaksi($id)
   {
-    return $this->db->get_where('pembelian', ['jenis_pembelian'=>$id])->num_rows();
+    return $this->db->get_where($id)->num_rows();
   }
 
   public function getJoinData()
@@ -72,6 +72,36 @@ class Barang_model extends CI_Model {
           ->join('unit_barang', 'id_unit=unit_barang')
           ->get()
           ->result_array();
+  }
+
+  public function getDataGroupBy()
+  {
+    return $this
+          ->db  
+          ->select('*, SUM(jumlah_barang) as jmlBarang')
+          ->from('pembelian')
+          ->join('barang', 'barang.id_barang=pembelian.id_barang', 'left')
+          ->join('merk_barang', 'id_merk=merk_barang')
+          ->join('jenis_barang', 'id_jenis=jenis_barang')
+          ->join('unit_barang', 'id_unit=unit_barang')
+          ->group_by('pembelian.id_barang')
+          ->get()
+          ->result_array();
+  }
+
+  public function getJoinDataById($id)
+  {
+    return $this
+          ->db  
+          ->select('*')
+          ->from('pembelian')
+          ->join('barang', 'barang.id_barang=pembelian.id_barang', 'left')
+          ->join('merk_barang', 'id_merk=merk_barang')
+          ->join('jenis_barang', 'id_jenis=jenis_barang')
+          ->join('unit_barang', 'id_unit=unit_barang')
+          ->where('id_nota', $id)
+          ->get()
+          ->row_array();
   }
 
   public function getTableByToday($table)

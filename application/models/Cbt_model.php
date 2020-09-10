@@ -99,6 +99,7 @@ class Cbt_model extends CI_Model {
       'create_at' => date('Y-m-d'),
       'mulai_at' => $this->input->post('awal'),
       'akhir_at' => $this->input->post('akhir'),
+      'tipe' => $this->input->post('tipe'),
       'active' => 0
     ]; 
     $this->db->insert('cbt_ujian', $data);

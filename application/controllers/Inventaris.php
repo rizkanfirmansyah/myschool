@@ -61,7 +61,8 @@ class Inventaris extends CI_Controller
       'title' => 'Transaksi Barang',
       'table' => $this->Barang->getJoinTable(),
       'data' => $this->Barang->getJoinData(),
-      'pembelian' => $this->Barang->getDataTransaksi('pembelian')
+      'pembelian' => $this->Barang->getDataTransaksi('pembelian'),
+      'pengeluaran' => $this->Barang->getDataTransaksi('pengeluaran')
     ];
     
       $this->load->view('templates/header', $data);
@@ -71,10 +72,33 @@ class Inventaris extends CI_Controller
     	$this->load->view('templates/footer', $data);
   }
 
+  public function gudang()
+  {
+    $data = [
+      'user' => $this->user->getUserSession(),
+      'title' => 'Gudang Barang',
+      'data' => $this->Barang->getDataGroupBy(),
+    ];
+    
+      $this->load->view('templates/header', $data);
+    	$this->load->view('templates/sidebar', $data);
+    	$this->load->view('templates/topbar', $data);
+    	$this->load->view('inventaris/gudang/index');
+    	$this->load->view('templates/footer', $data);
+  }
+
+  public function data_get_nota()
+  {
+    $id = $this->input->post('id');
+    $data = $this->Barang->getJoinDataById($id);
+    // var_dump($data);
+    echo json_encode($data);
+  }
+
   public function get_data_barang()
   {
     $id = $this->input->post('id');
-    $data = $this->Barang->Barang->getJoinTableById($id);
+    $data = $this->Barang->getJoinTableById($id);
     echo json_encode($data);
   }
 

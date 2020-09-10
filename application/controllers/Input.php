@@ -562,6 +562,17 @@ class Input extends CI_Controller
         redirect('inventaris/transaksi');
     }
 
+    public function output()
+    {
+        $this->db->insert('pengeluaran', $_POST);
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Pengeluaran ditetapkan, barang gudang berkurang'
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('inventaris/transaksi');
+    }
+
     public function barang()
     {
         $this->db->insert('barang', $_POST);

@@ -79,6 +79,11 @@ class Guru_model extends CI_Model {
     return $this->db->select('*, siswa.nama as nama_siswa')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jadwal', 'kelas.kelas_id=id_kelas')->join('mapel', 'jadwal.id_mapel=mapel.mapel_id')->join('ruangan', 'jadwal.id_ruangan=ruangan.ruangan_id')->join('guru', 'jadwal.id_guru=guru.id')->where('hari', $day)->where('id_guru', $id_guru->id)->get()->result_array();
   }
 
+  public function getDataTipeUjian()
+  {
+    return $this->db->get('tipe_ujian');
+  }
+
   public function guruSession()
   {
     return $this->db->get_where('guru', ['nip' => $this->session->userdata('nama')])->row_array();

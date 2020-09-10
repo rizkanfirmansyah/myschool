@@ -93,13 +93,23 @@
                                  <div class="form-group">
                                     <textarea name="deskripsi" id="deskripsi" cols="10" rows="5" class="form-control" required minlength="100">Masukan deskripsi soal</textarea>
                                  </div> 
-                                 <div class="form-group">
-                                    <select name="mapel" id="mapel" class="form-control" required>
-                                        <option value="" selected disabled> == Pilih Mapel == </option>
-                                        <?php foreach($mapel as $m) : ?>
-                                        <option value="<?= $m['id_mapel'] ?>"><?= $m['nama_mapel'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                 <div class="form-row">
+                                     <div class="col">
+                                         <select name="mapel" id="mapel" class="form-control" required>
+                                             <option value="" selected disabled> == Pilih Mapel == </option>
+                                             <?php foreach($mapel as $m) : ?>
+                                             <option value="<?= $m['id_mapel'] ?>"><?= $m['nama_mapel'] ?></option>
+                                             <?php endforeach; ?>
+                                         </select>
+                                     </div>
+                                     <div class="col">
+                                     <select name="tipe" id="tipe" class="form-control" required>
+                                             <option value="" selected disabled> == Pilih Tipe Ujian == </option>   
+                                             <?php foreach($data1 as $tipe) : ?>
+                                                 <option value="<?= $tipe['id_tipe_ujian'] ?>"><?= $tipe['tipe_ujian'] ?></option>
+                                             <?php endforeach; ?>
+                                         </select>
+                                     </div>
                                  </div>
                                  <div class="form-row">
                                     <div class="col">
