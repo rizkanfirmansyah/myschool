@@ -25,6 +25,8 @@ class Siswa extends CI_Controller
       'tugas' => $this->siswa->siswaTugas()->result_array(),
       'jmltugas' => $this->siswa->siswaTugas()->num_rows(),
       'jmlUjian' => $this->siswa->siswaUjian()->num_rows(),
+      'jmlUlangan' => $this->siswa->siswaUlangan()->num_rows(),
+      'ulangan' => $this->siswa->siswaUlangan()->result_array(),
       'ujian' => $this->siswa->siswaUjian()->result_array(),
       'tugasguru' => $this->siswa->siswaTugasGuru()->result_array(),
     ];

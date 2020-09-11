@@ -32,6 +32,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
         'jmlmateri' => $this->Guru->getDataMateri()->num_rows(),
         'tugas' => $this->Guru->getDataTugas()->result_array(),
         'jmltugas' => $this->Guru->getDataTugas()->num_rows(),
+        'absen' => $this->Guru->getDataAbsenToday(),
+        'data1' => $this->Guru->getAbsenGuru()->result_array()
       ];
 
       // var_dump($data['tugas']);

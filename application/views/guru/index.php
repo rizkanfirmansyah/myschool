@@ -63,15 +63,15 @@
 
   <!-- Earnings Card Example -->
   <div class="col-xl-3 col-md-6 mb-4"  type="button" data-toggle="collapse" data-target="#Absen" role="button" aria-expanded="false" aria-controls="Absen">
-    <div class="card border-left-danger shadow h-100 py-2">
+    <div class="card border-left-<?= warna_absen($absen['keterangan']) ?> shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Absen Hari Ini</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+            <div class="text-xs font-weight-bold text-<?= warna_absen($absen['keterangan']) ?> text-uppercase mb-1">Absen Hari Ini</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $absen['keterangan'] ?></div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            <i class="fas fa-<?= icon_absen($absen['keterangan']) ?> fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
@@ -237,13 +237,27 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            
+                            <tr>
+                              <th>No</th>
+                              <th>Nama</th>
+                              <th>Tanggal</th>
+                              <th>Keterangan</th>
+                            </tr>
                             </thead>
                             
                             <tbody>
-                        
+                            <tr>
+                              <?php $i=1;?>
+                              <?php foreach($data1 as $absen):?>
+                                <td><?= $i ?></td>
+                                <td><?= $absen['nama'] ?></td>
+                                <td><?= $absen['date'] ?></td>
+                                <td><?= $absen['keterangan'] ?></td>
+                              </tr>
+                              <?php $i++?>
+                              <?php endforeach;?>
                         </tbody>
                         </table>
                     </div>

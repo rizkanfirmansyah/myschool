@@ -52,6 +52,21 @@ function absen_siswa($ket, $nis, $mapel)
     }
 }
 
+function absen_guru($ket, $nis)
+{
+    $rizkan = get_instance();
+    $rizkan->db->where('id_guru', $nis);
+    $rizkan->db->where('keterangan', $ket);
+    $rizkan->db->where('DAY(date)', date('d'));
+    $rizkan->db->where('MONTH(date)', date('m'));
+    $rizkan->db->where('YEAR(date)', date('Y'));
+    $check = $rizkan->db->get('absen_guru')->row();
+
+    if($check){
+        return 'checked';
+    }
+}
+
 function count_absen_siswa($ket, $kelas)
 {
     $rizkan = get_instance();

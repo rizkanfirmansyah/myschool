@@ -127,8 +127,24 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Ujian</div>
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">UAS</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $jmlUjian; ?></div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-table fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  <!-- Earnings Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4"  data-toggle="collapse" data-target="#Ulangan" role="button" aria-expanded="false" aria-controls="Ulangan">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Ujian</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800 text-capitalize"><?= $jmlUlangan; ?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-table fa-2x text-gray-300"></i>
@@ -260,6 +276,54 @@
                         <tbody>
                           <?php $i=1;?>
                           <?php foreach($ujian as $m) : ?>
+                            <tr>
+                              <td><?= $i;?></td>
+                              <td><?= $m['nama_mapel']?></td>
+                              <td><?= $m['nama_ujian'] ?></td>
+                              <td><?= $m['tipe_ujian'] ?></td>
+                              <td><?= jumlah_soal_ujian($m['id_ujian']) ?></td>
+                              <td><?= $m['kkm'] ?></td>
+                              <td><?= status_ujian_siswa($m['id_ujian']) ?></td>
+                              <td class="text-center">
+                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama')) ?>
+                              </td>
+                            </tr>
+                              <?php $i++;?>
+                              <?php endforeach; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+      <!-- COLLAPSE -->
+
+
+      <div class="collapse" id="Ulangan">
+              <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+              <table class="table table-bordered table-sm" id="datatable1" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <td>No</td>
+                            <td>Mapel</td>
+                            <td>Nama Ujian</td>
+                            <td>Tipe Ujian</td>
+                            <td>Jumlah Soal</td>
+                            <td>KKM</td>
+                            <td>Status</td>
+                            <td>Action</td>
+                          </tr>    
+                        </thead>
+                            
+                        <tbody>
+                          <?php $i=1;?>
+                          <?php foreach($ulangan as $m) : ?>
                             <tr>
                               <td><?= $i;?></td>
                               <td><?= $m['nama_mapel']?></td>

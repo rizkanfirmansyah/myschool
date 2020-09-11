@@ -84,6 +84,28 @@ class Guru_model extends CI_Model {
     return $this->db->get('tipe_ujian');
   }
 
+  public function getDataAbsenToday()
+  {
+    return $this  
+           ->db 
+           ->where('DAY(date)', date('d'))
+           ->where('MONTH(date)', date('m'))
+           ->where('YEAR(date)', date('Y'))
+           ->where('id_guru', $this->session->userdata('nama'))
+           ->get('absen_guru')->row_array();
+  }
+
+  public function getAbsenGuru()
+  {
+    return $this  
+          ->db
+          ->select('*')
+          ->from('absen_guru')
+          ->join('guru', 'nip=id_guru', 'left')
+          ->where('id_guru', $this->session->userdata('nama'))
+          ->get();
+  }
+
   public function guruSession()
   {
     return $this->db->get_where('guru', ['nip' => $this->session->userdata('nama')])->row_array();

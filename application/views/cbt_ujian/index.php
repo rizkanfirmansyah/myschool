@@ -136,7 +136,7 @@
 				
 			<script>
 
-			var waktu = "<?= $ujian['waktu_mulai'] ?>";
+			var waktu = "<?= $ujian['mulai_at'] ?>";
 			// Set the date we're counting down to
 			var countDownDate = new Date(waktu).getTime();
 

@@ -109,11 +109,24 @@ class Siswa_model extends CI_Model {
   {
     $nis = $this->session->userdata('nama');
     $kelas = $this->db->get_where('siswa', ['nis' => $nis])->row()->kelas_id;
-    // $this->db->where('DAY(mulai)', date('d'));
-    // $this->db->where('MONTH(mulai)', date('m'));
+    $this->db->where('tipe', 2);
+    $this->db->where('DAY(mulai)', date('d'));
+    $this->db->where('MONTH(mulai)', date('m'));
     $this->db->where('YEAR(mulai)', date('Y'));
     $this->db->where('id_kelas', $kelas);
     return $this->db->select('*, cbt_ujian.id')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'left')->join('tipe_ujian', 'tipe=id_tipe_ujian')->join('mapel', 'id_mapel=mapel_id')->get();
+  }
+
+  public function siswaUlangan()
+  {
+    $nis = $this->session->userdata('nama');
+    $kelas = $this->db->get_where('siswa', ['nis' => $nis])->row()->kelas_id;
+    $this->db->where('DAY(mulai_at)', date('d'));
+    $this->db->where('tipe !=', 2);
+    $this->db->where('MONTH(mulai_at)', date('m'));
+    $this->db->where('YEAR(mulai_at)', date('Y'));
+    $this->db->where('id_kelas', $kelas);
+    return $this->db->select('*, cbt_ujian.id as id_ujian')->from('cbt_ujian')->join('tipe_ujian', 'tipe=id_tipe_ujian')->join('jadwal', 'cbt_ujian.id_mapel=jadwal.id_mapel')->join('mapel', 'cbt_ujian.id_mapel=mapel_id')->get();
   }
 
 }
