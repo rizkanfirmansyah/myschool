@@ -36,7 +36,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         'data1' => $this->Guru->getAbsenGuru()->result_array()
       ];
 
-      // var_dump($data['tugas']);
+      // var_dump($data['materi']);
       // die;
 
       $this->load->view('templates/header', $data);
@@ -173,6 +173,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
         'guru' => $this->Guru->guruSession(),
         'siswa' => $this->Guru->getDataKelasSiswa($id)->result_array(),
         'jmlsiswa' => $this->Guru->getDataKelasSiswa($id)->num_rows(),
+        'ujian' => $this->Guru->getDataUjian($id)->num_rows(),
+        'dataujian' => $this->Guru->getDataUjian($id)->result_array(),
         'title' => 'Data Siswa Kelas '.$kelas->nama_kelas,
       ];
 

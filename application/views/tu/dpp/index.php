@@ -99,6 +99,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Nis</th>
+                                    <th>Kelas</th>
                                     <th>Nominal</th>
                                     <th>Sisa</th>
                                     <th>Bayar</th>
@@ -112,6 +113,7 @@
                                     <td><?= $i;?></td>
                                     <td><?= $s['nama'] ?></td>
                                     <td><?= $s['nis'] ?></td>
+                                    <td><?= $s['nama_kelas'] ?></td>
                                     <td>Rp. <?= number_format($s['nominal'],2,',','.')?></td>
                                     <td>Rp. <?= number_format(function_dsp_siswa($s['nominal']),2,',','.') ?></td>
                                     <td><a href="<?= base_url('tu/bayar/dsp/'.$s['nis']) ?>" class="btn btn-sm btn-success text-white"><i class="fas fa-dollar-sign"></i> Bayar</a></td>

@@ -294,38 +294,41 @@ class Import_model extends CI_Model {
             NULL,
             TRUE,
             FALSE);   
-            $kelas = $this->db->get_where('kelas', ['nama_kelas' => $rowData[0][4]])->row_array();
-            $angkatan = $this->db->get_where('angkatan', ['angkatan_nama' => $rowData[0][6]])->row_array();
+            $kelas = $this->db->get_where('kelas', ['nama_kelas' => $rowData[0][7]])->row_array();
+            $angkatan = $this->db->get_where('angkatan', ['angkatan_nama' => $rowData[0][5]])->row_array();
 
-            if($rowData[0][8] == ' ' || $rowData[0][8] == '-'){
-              $password = $rowData[0][1];
-            }else{
-              $password = $rowData[0][8];
-            }
+            // if($rowData[0][8] == ' ' || $rowData[0][8] == '-'){
+              $password = $rowData[0][2];
+            // }else{
+              // $password = $rowData[0][8];
+            // }
             
             $siswa = [
-              'nis' => $rowData[0][1],
-              'nisn' => $rowData[0][2],
-              'nama' => $rowData[0][3],
+              'nama' => $rowData[0][1],
+              'nis' => $rowData[0][2],
+              'nisn' => $rowData[0][3],
               'kelas_id' => $kelas['kelas_id'],
               'jurusan' => $kelas['jurusan_id'],
+              'tahun_ajaran' => $rowData[0][6],
               'angkatan_id' => $angkatan['angkatan_id'],
-              'tahun_ajaran' => $rowData[0][7],
+              'telepon' => $rowData[0][8],
               'email' => $rowData[0][9],
-              'telepon' => $rowData[0][10],
-              'status' => $rowData[0][11],
-              'tempat_lahir' => $rowData[0][12],
-              'ttl' => $rowData[0][13],
-              'agama' => $rowData[0][14],
-              'asal_sekolah' => $rowData[0][15],
-              'nama_ayah' => $rowData[0][16],
-              'nama_ibu' => $rowData[0][17],
-              'alamat' => $rowData[0][18],
+              'tempat_lahir' => $rowData[0][10],
+              'ttl' => $rowData[0][11],
+              'asal_sekolah' => $rowData[0][12],
+              'nama_ayah' => $rowData[0][13],
+              'nama_ibu' => $rowData[0][14],
+              'alamat' => $rowData[0][15],
+              'agama' => $rowData[0][16],
+              'status' => $rowData[0][17],
               'date_created' => date('Y-m-d')
             ];
+
+            // var_dump($siswa);
+            // die;
             
             $users = [
-              'nama' => $rowData[0][1],
+              'nama' => $rowData[0][2],
               'email' => $rowData[0][9],
               'password' => password_hash($password, PASSWORD_DEFAULT),
               'role_id' => 4,
@@ -338,22 +341,25 @@ class Import_model extends CI_Model {
               $pengguna = 0;
               $siswadata = 0;
             }else{
-              $pengguna = $this->db->get_where('users', ['nama' => $rowData[0][1]])->row();
-              $siswadata = $this->db->get_where('siswa', ['nis' => $rowData[0][1]])->row();
-
-              if($pengguna != 0 || $siswadata != 0){
-                $swal = [
-                  'tipe' => 'warning',
-                  'pesan' => 'Import Data GAGAL! NIS '. $rowData[0][1] .' sudah ada, Mohon periksa kembali data siswa'
-                ];
-                $this->session->set_flashdata($swal);
-                redirect('data/siswa');
-              }
+              $pengguna = $this->db->get_where('users', ['nama' => $rowData[0][2]])->num_rows();
+              $siswadata = $this->db->get_where('siswa', ['nis' => $rowData[0][2]])->num_rows();
             }
 
-            $this->db->insert('users', $users);  
-            $this->db->insert("siswa",$siswa); 
-                
+            if($pengguna > 0 || $siswadata > 0){
+              // $swal = [
+              //   'tipe' => 'warning',
+              //   'pesan' => 'Import Data GAGAL! NIS '. $rowData[0][1] .' sudah ada, Mohon periksa kembali data siswa'
+              // ];
+              // $this->db->update('users', $users);  
+              $this->db->where('nis', $rowData[0][2])->update("siswa",$siswa); 
+              // $this->db->insert("siswa",$siswa); 
+              // $this->session->set_flashdata($swal);
+              // redirect('data/siswa');
+              // die;
+            }else{
+              $this->db->insert('users', $users);  
+              $this->db->insert("siswa",$siswa); 
+            }
           }
             $swal = [
               'tipe' => 'success',

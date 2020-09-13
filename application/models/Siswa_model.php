@@ -22,7 +22,7 @@ class Siswa_model extends CI_Model {
   }
   public function allsiswa()
   {
-    return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan.jurusan_id=kelas.jurusan_id', 'left')->get()->result();
+    return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan.jurusan_id=kelas.jurusan_id', 'left')->join('angkatan', 'angkatan.angkatan_id=siswa.angkatan_id', 'left')->get()->result();
   }
 
   public function siswa()

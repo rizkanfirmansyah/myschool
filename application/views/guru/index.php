@@ -88,7 +88,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="datatable3" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -125,13 +125,13 @@
             </div>
             <div class="card-body">
             <div class="d-sm-flex align-items-center mb-4">
-            <h1 class="h5 mb-0 text-gray-800">Data Materi</h1>
+            <h1 class="h5 mb-0 text-gray-800">Data Tugas</h1>
             <a type="button" class="btn btn-sm btn-primary ml-auto mx-1 text-white"><i class="fas fa-calendar fa-sm "></i> <?php date_default_timezone_set("Asia/Jakarta"); echo date('d-M-Y H:i').','.hari_function(date('D')) ;?></a>
             <a href="<?= current_url(); ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-recycle fa-sm text-white-50"></i> Refresh</a>
             <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahTugas"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
             </div>
               <div class="table-responsive">
-                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="datatable" width="100%" cellspacing="0">
                         <thead>
                               <tr>
                                 <td>No</td>
@@ -139,7 +139,6 @@
                                 <td>Mapel</td>
                                 <td>Nama Tugas</td>
                                 <td>KD</td>
-                                <td>Deskripsi Tugas</td>
                                 <td>Batas Pengumpulan</td>
                                 <td>Download</td>
                                 <td>File</td>
@@ -157,9 +156,8 @@
                               <td><?= $t['nama_mapel'] ?></td>
                               <td><?= $t['nama_tugas'] ?></td>
                               <td><?= $t['kd'] ?></td>
-                              <td><?= $t['deskripsi'] ?></td>
                               <td><?= $t['batas_waktu'] ?></td>
-                              <td><a href="<?= base_url('download/tugas/'.$t['idtugas']) ?>" class="btn btn-primary btn-sm text-white"><i class="fas fa-download"></i> Download</a></td>
+                              <td><a <?= function_download_file($t['idtugas'], 'tugas') ?> ><i class="fas fa-download"></i> Download</a></td>
                               <td><a type="button" data-toggle="modal" data-target="#uploadTugas" class="btn btn-primary btn-sm text-white uploadDataTugas" id="uploadDataTugas" data-idtugas="<?= $t['idtugas'] ?>" data-tugas="<?= $t['nama_tugas'] ?>"><i class="fas fa-upload"></i> Upload</a></td>
                               <td><?= function_status_tugas($t['status_tugas'], $t['idtugas']) ?></td>
                               <td><a href="javascript:" class="btn btn-sm btn-primary detailDataTugas" data-id="<?= $t['idtugas'] ?>" data-tugas="<?= $t['nama_tugas'];?>" data-deskripsi="<?= $t['deskripsi'];?>" data-tanggal="<?= $t['batas_waktu'];?>" data-mapel="<?= $t['nama_mapel'];?>" data-toggle="modal" data-target="#detailTugas" id="detailDataTugas"><i class="fas fa-exclamation-circle"></i> Detail</a></td>
@@ -187,7 +185,7 @@
             <a href="#" class="btn btn-sm btn-secondary mx-1" data-toggle="modal" data-target="#tambahMateri"><i class="fas fa-plus fa-sm text-white"></i> Tambah Data</a>
           </div>
               <div class="table-responsive">
-                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="datatable2" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -214,8 +212,8 @@
                             <td><?= $m['id_kd'];?></td>
                             <td><?= $m['nama_mapel'];?></td>
                             <td><?= $m['tgl'];?></td>
-                            <td><?= $m['jmlfile'];?></td>
-                            <td><a href="<?= base_url('download/materi/'.$m['idmateri']) ?>" class="btn btn-primary btn-sm text-white"><i class="fas fa-download"></i> Download</a></td>
+                            <td><?= jmlfile($m['idmateri']);?></td>
+                            <td><a <?= function_download_file($m['idmateri'], 'materi') ?> ><i class="fas fa-download"></i> Download</a></td>
                             <td><a type="button" data-toggle="modal" data-target="#uploadMateri" class="btn btn-primary btn-sm text-white uploadDataMateri" id="uploadDataMateri" data-idmateri="<?= $m['idmateri'] ?>" data-materi="<?= $m['nama_materi'] ?>"><i class="fas fa-upload"></i> Upload</a></td>
                             <td><?= function_status_materi($m['status_materi'], $m['idmateri']) ?></td>
                             <td><a href="javascript:" class="btn btn-sm btn-primary detailDataMateri" data-id="<?= $m['idmateri'] ?>" data-materi="<?= $m['nama_materi'];?>" data-deskripsi="<?= $m['deskripsi'];?>" data-tanggal="<?= $m['tgl'];?>" data-mapel="<?= $m['nama_mapel'];?>" data-toggle="modal" data-target="#detailMateri" id="detailDataMateri"><i class="fas fa-exclamation-circle"></i> Detail</a></td>
@@ -237,7 +235,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="datatable1" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                               <th>No</th>

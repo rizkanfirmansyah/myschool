@@ -245,9 +245,17 @@ function hitung_absen_siswa($id, $kelas, $ket)
         $color = 'secondary';
     }
 
-    return '<button type="button" class="btn btn-'. $color .'" data-toggle="tooltip" data-placement="top" title="Sebanyak '. $absen .'x">
-    '. $absen * 100 / $total .'%
-    </button>';
+    if($total == null){
+        $btn = '<button type="button" class="btn btn-'. $color .'" data-toggle="tooltip" data-placement="top" title="Sebanyak 0x">0%
+        </button>';
+    }else{
+        $btn = '<button type="button" class="btn btn-'. $color .'" data-toggle="tooltip" data-placement="top" title="Sebanyak '. $absen .'x">
+        '. $absen * 100 / $total .'%
+        </button>';
+    }
+
+
+    return $btn;
 }
 
 function function_status_materi($status, $id){

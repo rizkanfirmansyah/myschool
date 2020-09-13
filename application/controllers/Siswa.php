@@ -11,6 +11,9 @@ class Siswa extends CI_Controller
     $this->load->model('Siswa_model', 'siswa');
     $this->load->model('User_model', 'user');
     $this->load->library('pdf');
+    if (!$this->session->userdata('nama')) {
+      redirect('auth/login');
+  }
   }
 
   public function index()
@@ -91,12 +94,17 @@ class Siswa extends CI_Controller
 
     $siswa 	= $this->siswa->getDataDiri($nis);
 		$hasil 	= $this->siswa->HasilUjian($id, $nis);
-		// $ujian 	= $this->siswa->getUjianById($id);
+    // $ujian 	= $this->siswa->getUjianById($id);
 
 		$data = [
 			'hasil' => $hasil,
 			'siswa'	=> $siswa
     ];
+
+    // echo '<pre>';
+    // var_dump($siswa);
+    // echo '</pre>';
+    // die;
     
     $this->load->view('siswa/cetak/hasil_ujian', $data);
   }

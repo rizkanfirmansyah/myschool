@@ -29,14 +29,56 @@
 		}
 	}
 
-	function sisaBarang($id)
+	function function_download_file($id, $tipe)
+	{
+		$rizkan = get_instance();
+		if($tipe == 'materi'){
+			$result = $rizkan->db->get_where('data_file', ['id_materi' => $id])->num_rows();
+			if($result > 0){
+				return 'href="'. base_url('download/materi/'.$id) .'" class="btn btn-primary btn-sm text-white"" ';
+			}else{
+				return 'class="btn btn-secondary btn-sm text-white" ';
+			}
+		}else{
+			$result = $rizkan->db->get_where('data_file', ['id_materi' => $id])->num_rows();
+			if($result > 0){
+				return 'href="'. base_url('download/tugas/'.$id) .'" class="btn btn-primary btn-sm text-white"" ';
+			}else{
+				return 'class="btn btn-secondary btn-sm text-white" ';
+			}
+		}
+	}
+	
+	function jmlfile($id)
 	{
 		$rizkan = get_instance();
 
+		$result = $rizkan->db->get_where('data_file', ['id_materi' => $id])->num_rows();
+		if($result > 0){
+			$data = $result;
+		}else{
+			$data = 0;
+		}
+
+		return $data;
+		
+	}
+
+	function sisaBarang($id)
+	{
+		$rizkan = get_instance();
+		
 		$data1 = $rizkan->db->select_sum('jumlah_barang')->group_by('id_barang')->get_where('pembelian', ['id_barang'=> $id])->row()->jumlah_barang;
 		$data2 = $rizkan->db->select_sum('jumlah_barang')->group_by('id_barang')->get_where('pengeluaran', ['id_barang'=> $id])->row()->jumlah_barang;
-
+		
 		return $data1-$data2;
+	}
+	
+	function cek_nama_siswa($id)
+	{
+		$rizkan = get_instance();
+
+		return $rizkan->db->get_where('siswa', ['nis' => $id])->row()->nama;
 	}
 
 	function hitung_jumlah($table)

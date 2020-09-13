@@ -299,7 +299,7 @@ class Input extends CI_Controller
             'status' => 1,
             'date' => date('d-m-Y')
         ];
-
+       
         $this->db->insert('data_materi', $data);
         $swal= [
             'tipe' => 'success',

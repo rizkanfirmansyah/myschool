@@ -38,5 +38,30 @@ $(document).ready(function(){
       });
     });
 
+
+    $('#EditDataMateri').on('click', function(e){
+      $('#EditDetailMateri').modal('show');
+      $('#detailMateri').modal('hide');
+      var nama= $('#deskripsiMateriData').text()
+      var sub= $('#subMateriData').text()
+      var id= $('#idDataMateri').val()
+
+      $('#EditMapelMateriData').val(nama)
+      $('#EditSubMateriData').val(sub)
+      $('#editIdDataMateri').val(id)
+    })
+
+    $('#EditDataTugas').on('click', function(e){
+      $('#editDetailTugas').modal('show');
+      $('#detailTugas').modal('hide');
+      var nama= $('#deskripsiTugasData').text()
+      var sub= $('#subTugasData').text()
+      var id= $('#idDataTugas').val()
+
+      $('#EditMapelTugasData').val(nama)
+      $('#EditSubTugasData').val(sub)
+      $('#editIdDataTugas').val(id)
+    })
+
   })
 

@@ -89,7 +89,28 @@
           <span class="card-link"><small id="dataMateriTanggal"></small></span>
           <form action="<?= base_url('materi/aksi')?>">
           <input type="hidden" name="id" id="idDataMateri">
-          <button type="submit" name="action" value="hapus" class="btn btn-sm btn-danger float-right"><i class="fas fa-trash"></i> Hapus</button>
+          <button type="submit" name="action" value="hapus" class="btn ml-2 btn-sm btn-danger float-right"><i class="fas fa-trash"></i> Hapus</button> 
+        </form>
+        <button id="EditDataMateri" value="edit" class="btn btn-sm btn-warning float-right"><i class="fas fa-edit"></i> Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="EditDetailMateri" tabindex="-1" role="dialog" aria-labelledby="detailMateriLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="card" >
+        <div class="card-body">
+          <h5>Edit Data</h5>
+          <span class="card-link"><small id="dataMateriTanggal"></small></span>
+          <form action="<?= base_url('materi/aksi')?>" >
+          <input type="text" class="form-control" name="deskripsi" id="EditMapelMateriData"><br>
+          <input type="text" class="form-control" name="nama_materi" id="EditSubMateriData">
+          <input type="hidden" name="id" id="editIdDataMateri"><br>
+          <button type="submit" name="action" value="simpanMateri" class="btn ml-2 btn-sm btn-success float-right"><i class="fas fa-save"></i> Simpan</button> 
         </form>
         </div>
       </div>
@@ -109,7 +130,27 @@
           <span class="card-link"><small id="dataTugasTanggal"></small></span>
           <form action="<?= base_url('materi/aksi')?>">
           <input type="hidden" name="id" id="idDataTugas">
-          <button type="submit" name="action" value="hapustugas" class="btn btn-sm btn-danger float-right"><i class="fas fa-trash"></i> Hapus</button>
+          <button type="submit" name="action" value="hapustugas" class="btn ml-2 btn-sm btn-danger float-right"><i class="fas fa-trash"></i> Hapus</button>
+        </form>
+        <button id="EditDataTugas" value="edit" class="btn btn-sm btn-warning float-right"><i class="fas fa-edit"></i> Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editDetailTugas" tabindex="-1" role="dialog" aria-labelledby="detailTugasLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="card" >
+          <div class="card-body">
+            <h5>Edit Data</h5>
+          <form action="<?= base_url('materi/aksi')?>" >
+          <input type="text" class="form-control" name="deskripsi" id="EditMapelTugasData"><br>
+          <input type="text" class="form-control" name="nama_tugas" id="EditSubTugasData">
+          <input type="hidden" name="id" id="editIdDataTugas"><br>
+          <button type="submit" name="action" value="simpanTugas" class="btn ml-2 btn-sm btn-success float-right"><i class="fas fa-save"></i> Simpan</button> 
         </form>
         </div>
       </div>

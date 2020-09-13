@@ -12,8 +12,13 @@
                                   <div class="form-group">
                                       <div class="col">
                                           <label for="">NIS Siswa</label>
-                                          <input class="form-control" value="<?= $this->uri->segment(4); ?>" type="text" name="disabled" id="disabled" disabled>
-                                          <input class="form-control" value="<?= $this->uri->segment(4); ?>" type="hidden" name="nis" id="nis">
+                                          <input class="form-control" value="<?= $this->uri->segment(4); ?>" type="text" readonly name="nis" id="nis">
+                                      </div>
+                                    </div>
+                                  <div class="form-group">
+                                      <div class="col">
+                                          <label for="">Nama Siswa</label>
+                                          <input class="form-control" value="<?= cek_nama_siswa($this->uri->segment(4)); ?>" type="text" name="disabled" id="disabled" disabled>
                                       </div>
                                     </div>
                                     <div class="form-group">

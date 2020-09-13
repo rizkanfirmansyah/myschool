@@ -67,8 +67,8 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Absen Hari Ini</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Ujian </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ujian; ?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -178,11 +178,27 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            
+                            <tr>
+                              <td>No</td>
+                              <td>Nama Ujian</td>
+                              <td>Tipe Ujian</td>
+                              <td>KKM</td>
+                              <td>Selesai</td>
+                            </tr>
                             </thead>
-                            
+                              <?php $i=1; ?>
+                              <?php foreach($dataujian as $data):?>
+                                <tr>
+                                  <td><?= $i ?></td>
+                                  <td><?= $data['nama_ujian'] ?></td>
+                                  <td><?= $data['tipe_ujian'] ?></td>
+                                  <td><?= $data['kkm'] ?></td>
+                                  <td><a href="" class="badge badge-sm badge-primary">Lihat Nilai <i class="fas fa-eye"></i></a></td>
+                                </tr>
+                              <?php $i++?>
+                              <?php endforeach;?>
                             <tbody>
                         
                         </tbody>

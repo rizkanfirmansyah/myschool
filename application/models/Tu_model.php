@@ -17,7 +17,7 @@ class Tu_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function siswadsp()
   {
-    return $this->db->select('*')->from('siswa')->join('data_dpp', 'siswa_nis=siswa.nis', 'left')->get();
+    return $this->db->select('*')->from('siswa')->join('data_dpp', 'siswa_nis=siswa.nis', 'left')->join('kelas', 'kelas.kelas_id=siswa.kelas_id')->get();
   }
 
   public function dspjml()
@@ -47,7 +47,7 @@ class Tu_model extends CI_Model {
 
   public function siswaspp()
   {
-    return $this->db->select('*, SUM(data_spp.nominal) as jml')->from('siswa')->join('data_spp', 'siswa_nis=siswa.nis', 'left')->group_by('siswa_nis')->get();
+    return $this->db->select('*, SUM(data_spp.nominal) as jml')->from('siswa')->join('data_spp', 'siswa_nis=siswa.nis', 'left')->join('kelas', 'kelas.kelas_id=siswa.kelas_id')->group_by('siswa_nis')->get();
   }
 
   // ------------------------------------------------------------------------

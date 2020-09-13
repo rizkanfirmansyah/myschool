@@ -15,7 +15,7 @@
                     <!-- <label for="formGroupExampleInput2">Nama Tugas</label> -->
                     <select name="tugas" id="tugas" class="form-control" required> 
                         <option value="" selected disabled>== Pilih tugas ==</option>
-                        <?php foreach($tugasguru as $m) : ?>
+                        <?php foreach($tugas as $m) : ?>
                             <option value="<?= $m['idtugas'] ?>"><?= $m['nama_tugas'] ?></option>
                         <?php endforeach;?>
                     </select>

@@ -88,10 +88,10 @@
                          <?= form_open('cbt/input/ujian'); ?>
                              <div class="modal-body">
                                  <div class="form-group">
-                                    <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." required minlength="10">
+                                    <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." required minlength="3">
                                  </div> 
                                  <div class="form-group">
-                                    <textarea name="deskripsi" id="deskripsi" cols="10" rows="5" class="form-control" required minlength="100">Masukan deskripsi soal</textarea>
+                                    <textarea name="deskripsi" id="deskripsi" cols="10" rows="5" class="form-control" required minlength="5">Masukan deskripsi soal</textarea>
                                  </div> 
                                  <div class="form-row">
                                      <div class="col">

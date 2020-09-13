@@ -21,7 +21,41 @@ class Materi extends CI_Controller
             $this->_hapusMateri();
         }elseif($cek == 'hapustugas'){
             $this->_hapusTugas();
+        }elseif($cek == 'simpanMateri'){
+            $this->_simpanMateri();
+        }elseif($cek == 'simpanTugas'){
+            $this->_simpanTugas();
         }
+    }
+
+    public function _simpanMateri()
+    {
+        $data = [
+            'nama_materi' => $_GET['nama_materi'],
+            'deskripsi' => $_GET['deskripsi'],
+        ];
+        $this->db->where('id', $_GET['id'])->set($data)->update('data_materi');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Data materi berhasil diperbaharui',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
+    }
+
+    public function _simpanTugas()
+    {
+        $data = [
+            'nama_tugas' => $_GET['nama_tugas'],
+            'deskripsi' => $_GET['deskripsi'],
+        ];
+        $this->db->where('id', $_GET['id'])->set($data)->update('data_tugas');
+        $swal = [
+            'tipe' => 'success',
+            'pesan' => 'Data tugas berhasil diperbaharui',
+        ];
+        $this->session->set_flashdata($swal);
+        redirect('guru');
     }
 
     private function _hapusMateri()
