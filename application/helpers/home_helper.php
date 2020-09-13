@@ -120,7 +120,7 @@
 		}
 	}
 
-	function cek_hasil_ujian($id, $siswa)
+	function cek_hasil_ujian($id, $siswa, $tipe)
 	{
 		$rizkan = get_instance();
 		$cek = $rizkan->db->where('nilai !=', null)->get_where('data_nilai_ujian',['id_ujian'=>$id, 'id_siswa' => $siswa])->row();
@@ -128,7 +128,18 @@
 		if($cek){
 			return '<a href="'.base_url('cetak/nilai_ujian?id_u='.$id.'&nis='.urlencode(base64_encode($siswa))) .'" class="badge badge-success"><i class="fas fa-print"></i> Cetak Nilai</a>';
 		}else{
-			return '<a href="'.base_url('ujian/siswa?id_u='.$id.'&nis='.urlencode(base64_encode($siswa))) .'" class="badge badge-primary"><i class="fas fa-table"></i> Ambil Ujian</a>';
+			return '<a href="'.base_url('ujian/siswa?id_u='.$id.'&nis='.urlencode(base64_encode($siswa))) .'&tipe='.$tipe .'" class="badge badge-primary"><i class="fas fa-table"></i> Ambil Ujian</a>';
+		}
+	}
+
+	function nominaldsp()
+	{
+		$rizkan = get_instance();
+		$id = $rizkan->db->get_where('data_dpp', ['siswa_nis' => $rizkan->session->userdata('nama')])->row();
+		if($id == null || $id == ' '){
+			return 0;
+		}else{
+			return $id->nominal;
 		}
 	}
 	

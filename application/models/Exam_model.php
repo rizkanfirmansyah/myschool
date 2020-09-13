@@ -9,9 +9,14 @@ class Exam_model extends CI_Model
 		return $this->db->select('*')->from('siswa')->join('kelas', 'siswa.kelas_id=kelas.kelas_id', 'left')->join('jurusan', 'jurusan=jurusan.jurusan_id', 'left')->where('nis', $id)->get();
 	}
 
-	public function dataujian($id)
+	public function dataujian($id, $tipe)
 	{
-		return $this->db->select('*, jadwal_ujian.mulai as waktu_mulai')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'left')->join('mapel', 'id_mapel=mapel_id')->join('kelas', 'id_kelas=kelas_id')->where('id_ujian', $id)->get();
+		if($tipe == 'UAS'){
+			return $this->db->select('*, jadwal_ujian.mulai as waktu_mulai, cbt_ujian.id as idujian')->from('cbt_ujian')->join('jadwal_ujian', 'id_ujian=cbt_ujian.id', 'left')->join('mapel', 'id_mapel=mapel_id')->join('kelas', 'id_kelas=kelas_id')->where('cbt_ujian.id', $id)->get();
+		}else{
+			return $this->db->select('*, cbt_ujian.id as idujian')->from('cbt_ujian')->join('jadwal', 'jadwal.id_mapel=cbt_ujian.id_mapel', 'left')->join('mapel', 'jadwal.id_mapel=mapel_id')->join('kelas', 'id_kelas=kelas_id')->where('cbt_ujian.id', $id)->get();
+
+		}
 	}
 
 	public function ambilNilai()

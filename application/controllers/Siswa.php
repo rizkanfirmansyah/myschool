@@ -72,7 +72,6 @@ class Siswa extends CI_Controller
       'siswa' => $this->siswa->store(),
       'user' => $this->user->getUserSession(),
       'jmldpp' => $this->siswa->getDPPSiswa()->result_array(),
-      'nominaldsp' => $this->db->get_where('data_dpp', ['siswa_nis' => $this->session->userdata('nama')])->row()->nominal,
       'dpp' => $this->db->get_where('setup_spp', ['tipe' => 'dpp'])->row()->nominal,
       'spp' => $this->db->get_where('setup_spp', ['tipe' => 'spp'])->row()->nominal,
     ];

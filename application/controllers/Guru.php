@@ -176,12 +176,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
         'ujian' => $this->Guru->getDataUjian($id)->num_rows(),
         'dataujian' => $this->Guru->getDataUjian($id)->result_array(),
         'title' => 'Data Siswa Kelas '.$kelas->nama_kelas,
+        'kelas' => $kelas->kelas_id
       ];
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
       $this->load->view('guru/kelas/index', $data);
+      $this->load->view('templates/footer');
+    }
+
+    public function lihatnilai($tipe, $id, $ujian)
+    {
+      if($tipe == 'ujian'){
+        $this->_lihatnilai_ujian($id, $ujian);
+      }
+    }
+
+    public function _lihatnilai_ujian($id, $ujian)
+    {
+      $kelas = $this->db->get_where('kelas', ['kelas_id' => $id])->row();
+      $data = [
+        'user' => $this->user->getUserSession(),
+        'guru' => $this->Guru->guruSession(),
+        'dataujian' => $this->Guru->dataUjian($ujian)->row_array(),
+        'nilaiujian' => $this->Guru->getNilaiUjian($id, $ujian)->result_array(),
+        'title' => 'Nilai Ujian Kelas '.$kelas->nama_kelas,
+      ];
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('guru/nilai/ujian/index', $data);
       $this->load->view('templates/footer');
     }
 

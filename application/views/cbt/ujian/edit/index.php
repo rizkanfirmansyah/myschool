@@ -8,8 +8,13 @@
 
                       <?= form_open('cbt/update/ujian/'.$ujian['idujian']); ?>
                              <div class="modal-body">
-                                 <div class="form-group">
-                                    <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." value="<?= $ujian['nama_ujian'] ?>">
+                             <div class="form-row mb-3">
+                                     <div class="col-sm-8">
+                                        <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." value="<?= $ujian['nama_ujian'] ?>">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="number" min="1" max="100" name="kkm" id="kkm" class="form-control" placeholder="Masukan KKM ujian..." required value="<?= $ujian['kkm'] ?>">
+                                        </div>
                                  </div> 
                                  <div class="form-group">
                                     <textarea name="deskripsi" id="deskripsi" cols="10" rows="5" class="form-control" value="<?= $ujian['deskripsi_ujian'] ?>"><?= $ujian['deskripsi_ujian'] ?></textarea>

@@ -16,9 +16,16 @@ class Download extends CI_Controller
               $down = $materi->row();
               $file =$down->lokasi_file.$down->nama_file;
           force_download($file, NULL);
-         }else{
+         }elseif($materi->num_rows() > 1){
               $file_id = $materi->row();
               redirect('guru/download/materi/'.$file_id->id_materi);
+         }else{
+              $swal = [
+                   'tipe' => 'warning',
+                   'pesan' => 'File belum ada!'
+              ];
+              $this->session->set_flashdata($swal);
+              redirect('siswa');
          }
     }
 

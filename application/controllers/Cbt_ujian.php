@@ -27,11 +27,12 @@ class Cbt_ujian extends CI_Controller
     }
     $nis = base64_decode(urldecode($_GET['nis']));  
     $idujian = $_GET['id_u'];  
+    $idtipe = $_GET['tipe'];  
     $data = [
       'siswa' => $this->exam->datasiswa($nis)->row_array(),
-      'ujian' => $this->exam->dataujian($idujian)->row_array()
+      'ujian' => $this->exam->dataujian($idujian, $idtipe)->row_array()
     ];
-    
+
     $this->load->view('cbt_ujian/templates/header',$data);
     $this->load->view('cbt_ujian/index', $data);
     $this->load->view('cbt_ujian/templates/footer', $data);

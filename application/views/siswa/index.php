@@ -285,7 +285,7 @@
                               <td><?= $m['kkm'] ?></td>
                               <td><?= status_ujian_siswa($m['id_ujian']) ?></td>
                               <td class="text-center">
-                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama')) ?>
+                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama'), $m['tipe_ujian']) ?>
                               </td>
                             </tr>
                               <?php $i++;?>
@@ -333,7 +333,7 @@
                               <td><?= $m['kkm'] ?></td>
                               <td><?= status_ujian_siswa($m['id_ujian']) ?></td>
                               <td class="text-center">
-                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama')) ?>
+                                <?= cek_hasil_ujian($m['id_ujian'], $this->session->userdata('nama'), $m['tipe_ujian']) ?>
                               </td>
                             </tr>
                               <?php $i++;?>

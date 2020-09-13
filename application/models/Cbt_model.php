@@ -42,8 +42,18 @@ class Cbt_model extends CI_Model {
 
   function input_soal_ujian()
   {
+    $idujian = $this->uri->segment(4);
+    $result = $this->db->where('id_ujian', $idujian)->get('cbt_soal')->num_rows();
+    if($result == 'null'){
+      $urut = 0;
+    }else{
+      $urut = $result;
+    }
+
+    $urutan = $urut+1;
     $data = [
-      'id_ujian' => $this->uri->segment(4),
+      'id_ujian' => $idujian,
+      'no_urut' => $urutan,
       'soal' => $this->input->post('editordata', true),
       'create_at' => date('Y-m-d'),
     ];
@@ -95,6 +105,7 @@ class Cbt_model extends CI_Model {
       'id_guru' => $this->session->userdata('nama'),
       'nama_ujian' => htmlspecialchars($this->input->post('ujian'), true),
       'deskripsi_ujian' => htmlspecialchars($this->input->post('deskripsi'), true),
+      'kkm' => $this->input->post('kkm'),
       'auth_key' => $authkey,
       'create_at' => date('Y-m-d'),
       'mulai_at' => $this->input->post('awal'),
@@ -116,6 +127,7 @@ class Cbt_model extends CI_Model {
       'nama_ujian' => htmlspecialchars($this->input->post('ujian'), true),
       'deskripsi_ujian' => htmlspecialchars($this->input->post('deskripsi'), true),
       'create_at' => date('Y-m-d'),
+      'kkm' => $this->input->post('kkm'),
       'mulai_at' => $this->input->post('awal'),
       'akhir_at' => $this->input->post('akhir'),
     ];

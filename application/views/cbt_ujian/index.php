@@ -43,7 +43,7 @@
 			                        </ul>
 								</div>
 								<!-- DATA SISWA -->
-								<input type="hidden" name="idujian" id="id_ujian" value="<?= $ujian['id_ujian'] ?>">
+								<input type="hidden" name="idujian" id="id_ujian" value="<?= $ujian['idujian'] ?>">
 								<input type="hidden" name="idkelas" id="id_kelas" value="<?= $ujian['id_kelas'] ?>">
 								<!-- DATA SISWA -->
 		                        <div class="tab-content">
@@ -93,12 +93,12 @@
 													</div>
 												</div>
 		                                    </div>
-
+											
 		                                    <div class="col-sm-4">
 												<div class="form-group">
 													<div class="bgimg">
-													<div class="middle">
-														<h1 id="coming-soon">COMING SOON</h1>
+														<div class="middle">
+															<h1 id="coming-soon">COMING SOON</h1>
 														<hr id="hr-hr">
 														<p id="demo"></p>
 														<div id="id_ujian_masuk" style="display: none;">
@@ -132,6 +132,7 @@
 		                </div>
 		            </div>
 				</div>
+
 
 				
 			<script>

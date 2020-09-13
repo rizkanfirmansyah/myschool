@@ -145,6 +145,11 @@ class Guru_model extends CI_Model {
           ->get();
   }
 
+  public function dataUjian($id)
+  {
+    return $this->db->select('*')->from('cbt_ujian')->join('mapel', 'id_mapel=mapel_id', 'left')->where('id', $id)->get();
+  }
+
   public function siswaKelas()
   {
     $guru_id = $this->session->userdata('nama');
@@ -164,6 +169,11 @@ class Guru_model extends CI_Model {
     $guru = $this->db->get_where('guru', ['nip' => $guru_id])->row();
     $this->db->where('data_materi.id_guru', $guru->id);
     return $this->db->select('*, data_materi.date as tgl, data_materi.id as idmateri, data_materi.status as status_materi')->from('data_materi')->join('guru', 'data_materi.id_guru=guru.id', 'left')->join('mapel', 'data_materi.id_mapel=mapel.mapel_id', 'left')->join('kelas', 'data_materi.id_kelas=kelas.kelas_id', 'left')->get();
+  }
+
+  public function getNilaiUjian($id, $ujian)
+  {
+    return $this->db->select('*')->from('data_nilai_ujian')->join('siswa', 'id_siswa=nis', 'left')->where('id_kelas', $id)->where('id_ujian', $ujian)->get();
   }
 
   public function getDataMapel()

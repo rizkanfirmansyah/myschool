@@ -87,8 +87,13 @@
                          </div>
                          <?= form_open('cbt/input/ujian'); ?>
                              <div class="modal-body">
-                                 <div class="form-group">
-                                    <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." required minlength="3">
+                                 <div class="form-row mb-3">
+                                     <div class="col-sm-8">
+                                         <input type="text" name="ujian" id="ujian" class="form-control" placeholder="Masukan judul ujian..." required minlength="3">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="number" min="1" max="100" name="kkm" id="kkm" class="form-control" placeholder="Masukan KKM ujian..." required>
+                                        </div>
                                  </div> 
                                  <div class="form-group">
                                     <textarea name="deskripsi" id="deskripsi" cols="10" rows="5" class="form-control" required minlength="5">Masukan deskripsi soal</textarea>

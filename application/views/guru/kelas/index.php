@@ -62,7 +62,7 @@
   </div>
 
   <!-- Earnings Card Example -->
-  <div class="col-xl-3 col-md-6 mb-4"  type="button" data-toggle="collapse" data-target="#Absen" role="button" aria-expanded="false" aria-controls="Absen">
+  <div class="col-xl-3 col-md-6 mb-4"  type="button" data-toggle="collapse" data-target="#Ujian" role="button" aria-expanded="false" aria-controls="Ujian">
     <div class="card border-left-danger shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
@@ -171,7 +171,7 @@
         </div>
     
          
-          <div class="collapse" id="Absen">
+          <div class="collapse" id="Ujian">
               <div class="card shadow mb-4">
                   <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary"><?= $title; ?></h6>
@@ -195,7 +195,7 @@
                                   <td><?= $data['nama_ujian'] ?></td>
                                   <td><?= $data['tipe_ujian'] ?></td>
                                   <td><?= $data['kkm'] ?></td>
-                                  <td><a href="" class="badge badge-sm badge-primary">Lihat Nilai <i class="fas fa-eye"></i></a></td>
+                                  <td><a href="<?= base_url('guru/lihatnilai/ujian/'.$kelas.'/'.$data['id']) ?>" class="badge badge-sm badge-primary">Lihat Nilai <i class="fas fa-eye"></i></a></td>
                                 </tr>
                               <?php $i++?>
                               <?php endforeach;?>
