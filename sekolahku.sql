@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2020 at 08:42 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.7
+-- Waktu pembuatan: 13 Sep 2020 pada 21.11
+-- Versi server: 10.4.13-MariaDB
+-- Versi PHP: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,88 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bidang_keahlian`
+-- Struktur dari tabel `absen_guru`
+--
+
+CREATE TABLE `absen_guru` (
+  `id_absen` int(11) NOT NULL,
+  `id_guru` char(25) NOT NULL,
+  `keterangan` char(25) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `absen_guru`
+--
+
+INSERT INTO `absen_guru` (`id_absen`, `id_guru`, `keterangan`, `date`) VALUES
+(7, '11717500', 'izin', '2020-09-11 16:54:50'),
+(8, '11717500', 'sakit', '2020-09-12 13:56:47'),
+(9, '11717501', 'hadir', '2020-09-12 16:19:23'),
+(10, '11717502', 'hadir', '2020-09-12 16:19:28'),
+(11, '11717503', 'hadir', '2020-09-12 16:19:32');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `angkatan`
+--
+
+CREATE TABLE `angkatan` (
+  `angkatan_id` int(11) NOT NULL,
+  `angkatan_nama` year(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `angkatan`
+--
+
+INSERT INTO `angkatan` (`angkatan_id`, `angkatan_nama`) VALUES
+(1, 2014),
+(2, 2015),
+(3, 2016),
+(4, 2017),
+(5, 2018),
+(6, 2019),
+(7, 2020),
+(8, 2021),
+(9, 2022),
+(10, 2023),
+(11, 2024),
+(12, 2025),
+(13, 2026);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `barang`
+--
+
+CREATE TABLE `barang` (
+  `id_barang` int(11) NOT NULL,
+  `nama_barang` varchar(128) NOT NULL,
+  `merk_barang` int(11) NOT NULL,
+  `unit_barang` int(11) NOT NULL,
+  `jenis_barang` int(11) NOT NULL,
+  `harga` int(25) NOT NULL,
+  `status` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `barang`
+--
+
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `merk_barang`, `unit_barang`, `jenis_barang`, `harga`, `status`, `tanggal`) VALUES
+(2, 'Sock Breker', 1, 2, 1, 15000, 1, '0000-00-00 00:00:00'),
+(4, 'USB ADAPTER', 2, 3, 3, 125000, 1, '2020-09-09 18:49:27'),
+(8, 'router', 4, 5, 3, 10000, 1, '2020-09-09 19:00:36'),
+(11, 'USB ADAPTER', 3, 3, 3, 125000, 1, '2020-09-12 23:12:58');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bidang_keahlian`
 --
 
 CREATE TABLE `bidang_keahlian` (
@@ -35,7 +116,7 @@ CREATE TABLE `bidang_keahlian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `bidang_keahlian`
+-- Dumping data untuk tabel `bidang_keahlian`
 --
 
 INSERT INTO `bidang_keahlian` (`id`, `nama`, `keterangan`, `gambar`) VALUES
@@ -46,39 +127,163 @@ INSERT INTO `bidang_keahlian` (`id`, `nama`, `keterangan`, `gambar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_absen`
+-- Struktur dari tabel `bulan`
 --
 
-CREATE TABLE `data_absen` (
+CREATE TABLE `bulan` (
   `id` int(11) NOT NULL,
-  `user_id` varchar(12) NOT NULL,
-  `keterangan` varchar(16) NOT NULL,
-  `time` varchar(32) NOT NULL,
-  `date` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `besar` varchar(12) NOT NULL,
+  `kecil` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_absen`
+-- Dumping data untuk tabel `bulan`
 --
 
-INSERT INTO `data_absen` (`id`, `user_id`, `keterangan`, `time`, `date`) VALUES
-(1, 'itc-9', 'Hadir', '1593895016', '2020-07-05 03:36:56'),
-(2, 'itc-19', 'Hadir', '1593895308', '2020-07-05 03:41:48'),
-(3, 'itc-8', 'Izin', '1593895316', '2020-07-05 03:41:56'),
-(4, 'admin-1', 'Hadir', '1593895776', '2020-07-05 03:49:36'),
-(5, 'itc-12', 'Hadir', '1593895788', '2020-07-05 03:49:48'),
-(6, 'itc-13', 'Hadir', '1593895791', '2020-07-05 03:49:51'),
-(7, 'itc-9', 'Sakit', '1594460715', '2020-07-11 11:45:15'),
-(8, 'itc-8', 'Sakit', '1594460752', '2020-07-11 11:45:52'),
-(9, 'admin-1', 'Hadir', '1594478659', '2020-07-11 16:44:19'),
-(10, 'itc-9', 'Hadir', '1594911433', '2020-07-16 16:57:13'),
-(11, 'itc-6', 'Hadir', '1595309128', '2020-07-21 07:25:28'),
-(12, 'itc-3', 'Hadir', '1595489196', '2020-07-23 09:26:36');
+INSERT INTO `bulan` (`id`, `besar`, `kecil`) VALUES
+(1, 'Juli', 7),
+(2, 'Agustus', 8),
+(3, 'September', 9),
+(4, 'Oktober', 10),
+(5, 'November', 11),
+(6, 'Desember', 12),
+(7, 'Januari', 1),
+(8, 'Februari', 2),
+(9, 'Maret', 3),
+(10, 'April', 4),
+(11, 'Mei', 5),
+(12, 'Juni', 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_blog`
+-- Struktur dari tabel `cbt_jawaban`
+--
+
+CREATE TABLE `cbt_jawaban` (
+  `id` int(11) NOT NULL,
+  `id_soal` int(11) NOT NULL,
+  `jawabanA` varchar(512) DEFAULT NULL,
+  `jawabanB` varchar(512) DEFAULT NULL,
+  `jawabanC` varchar(512) DEFAULT NULL,
+  `jawabanD` varchar(512) DEFAULT NULL,
+  `jawabanE` varchar(512) DEFAULT NULL,
+  `fileA` varchar(255) DEFAULT NULL,
+  `fileB` int(255) DEFAULT NULL,
+  `fileC` varchar(255) DEFAULT NULL,
+  `fileD` varchar(255) DEFAULT NULL,
+  `fileE` varchar(255) DEFAULT NULL,
+  `jawaban` char(2) DEFAULT NULL,
+  `bobot_nilai` char(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `cbt_jawaban`
+--
+
+INSERT INTO `cbt_jawaban` (`id`, `id_soal`, `jawabanA`, `jawabanB`, `jawabanC`, `jawabanD`, `jawabanE`, `fileA`, `fileB`, `fileC`, `fileD`, `fileE`, `jawaban`, `bobot_nilai`) VALUES
+(2, 8, 'python', 'PHP', 'python', 'C#', 'C++', '2e35897e949eccb4ee7528debafbaa8c.png', NULL, NULL, 'fea3f01bd093ab9f6c84de8433398d6e.jpeg', NULL, 'C', '3'),
+(4, 9, '1 dengan 1', '2 dengan 2', '3 dengan 3', '4 dengan 4', '5 dengan 5', '0181a65148dd631b730a7ab69af28715.png', 8, 'dd823be0bf014b692cf0f99f28521ddc.jpg', '3bd02b3560103316059ca22ce5e9bca0.png', NULL, 'B', '2'),
+(5, 10, 'jawaban A', 'jawaban B', 'jawaban C', 'jawaban D', 'jawaban E', NULL, NULL, NULL, NULL, NULL, 'D', '5'),
+(6, 11, 'IP Address', 'Ip Address adalah IP', 'ajhdwawad', 'awdwadwad', 'awdwad', NULL, NULL, NULL, NULL, NULL, 'B', '10'),
+(7, 12, 'ini jawaban A', 'ini jawaban B', 'ini jawaban C', 'ini jawaban D', 'ini jawaban E', NULL, NULL, NULL, NULL, NULL, 'C', '4'),
+(8, 13, 'ini jawaban B', 'ini jawaban B', 'ini jawaban B', 'ini jawaban B', 'ini jawaban B', NULL, NULL, NULL, NULL, NULL, 'B', '6');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cbt_soal`
+--
+
+CREATE TABLE `cbt_soal` (
+  `id` int(11) NOT NULL,
+  `id_ujian` int(11) NOT NULL,
+  `no_urut` int(11) DEFAULT NULL,
+  `soal` text DEFAULT NULL,
+  `file_soal` varchar(255) DEFAULT NULL,
+  `create_at` date NOT NULL,
+  `update_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `cbt_soal`
+--
+
+INSERT INTO `cbt_soal` (`id`, `id_ujian`, `no_urut`, `soal`, `file_soal`, `create_at`, `update_on`) VALUES
+(8, 5, 1, '<b>                                     Isi soal disini </b><i style=\"\">coba lagi</i>', '35d0ac8474f4bd2b5c9cedb29b2eb1e7.jpg', '2020-08-27', '2020-09-04 12:08:01'),
+(9, 5, 2, '                                     Apa yang dimaksud one vs one?', 'd15a5d337b853bf7a6e4c2711a9960db.png', '2020-08-28', '2020-09-03 13:27:16'),
+(10, 5, 3, '                                     Apa yang dimaskud dengan IT Club? sebutkan minimal 5 kelebihan dan kekurangan eskul IT CLub SMKN 5 Bandung yang kalian ketahui !', '5835e1e480b1063791c7178e2d525397.png', '2020-09-03', '2020-09-03 14:39:11'),
+(11, 8, 1, 'apa yang dimaksud dengan <b>IP Address</b>', NULL, '2020-09-13', '2020-09-13 06:37:52'),
+(12, 13, 1, 'Robbana atina fid dunya hasanah .....', NULL, '2020-09-14', '2020-09-13 17:15:00'),
+(13, 13, 2, '                                     wa fil akhirati .....', NULL, '2020-09-14', '2020-09-13 17:18:10');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cbt_ujian`
+--
+
+CREATE TABLE `cbt_ujian` (
+  `id` int(11) NOT NULL,
+  `id_mapel` char(12) NOT NULL,
+  `id_guru` char(12) NOT NULL,
+  `nama_ujian` varchar(255) NOT NULL,
+  `deskripsi_ujian` text NOT NULL,
+  `kkm` int(11) DEFAULT NULL,
+  `auth_key` varchar(255) NOT NULL,
+  `create_at` date NOT NULL,
+  `update_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `mulai_at` datetime NOT NULL,
+  `akhir_at` datetime NOT NULL,
+  `active` int(11) NOT NULL,
+  `tipe` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `cbt_ujian`
+--
+
+INSERT INTO `cbt_ujian` (`id`, `id_mapel`, `id_guru`, `nama_ujian`, `deskripsi_ujian`, `kkm`, `auth_key`, `create_at`, `update_on`, `mulai_at`, `akhir_at`, `active`, `tipe`) VALUES
+(3, '9', '11717500', 'INI TLJ', 'deskripsi', 75, 'MzUwMTU=', '2020-09-11', '2020-09-10 18:41:17', '2020-09-11 01:38:00', '2020-09-11 01:43:00', 1, 1),
+(5, '2', '11717500', 'INI MATEMATIKA', 'Masukan deskripsi soal', 75, 'OTU3OTA=', '2020-09-11', '2020-09-10 17:48:40', '2020-09-11 00:48:00', '2020-09-11 12:48:00', 1, 2),
+(8, '12', '11717500', 'Cara menghitung dengan baik', 'Masukan deskripsi soal', 75, 'MzAyMTc=', '2020-09-13', '2020-09-13 12:30:55', '2020-09-13 13:29:00', '2020-09-13 19:33:00', 1, 3),
+(9, '12', '11717500', 'UAS kompetensi Dasar', 'dilarang mencontek dilarang mencontek dilarang mencontek dilarang mencontek dilarang mencontek dilarang mencontek', NULL, 'ODQ4MjQ=', '2020-09-04', '2020-09-05 10:14:46', '2020-09-04 18:51:00', '2020-09-05 18:51:00', 0, NULL),
+(12, '12', '11717500', 'Cara menghitung dengan baik', 'Masukan deskripsi soal', NULL, 'MTYwNTA=', '2020-09-11', '2020-09-10 18:01:02', '2020-09-11 01:00:00', '2020-09-11 13:01:00', 0, 1),
+(13, '9', '11717500', 'ahdwaudhauwhduwahduwahd', 'Masukan deskripsiajdawjdawdkwadkwad soal', 70, 'MTk0MzQ=', '2020-09-14', '2020-09-13 17:39:17', '2020-09-14 00:39:00', '2020-09-14 00:42:00', 1, 3),
+(16, '9', '11717500', 'coba kkm', 'Masukan deskripsi soalawdwad', 78, 'OTYxNDE=', '2020-09-14', '2020-09-13 17:38:51', '2020-09-14 00:39:00', '2020-09-14 00:39:00', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_absen`
+--
+
+CREATE TABLE `data_absen` (
+  `id` int(11) NOT NULL,
+  `id_siswa` varchar(12) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `keterangan` varchar(16) NOT NULL,
+  `date` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_absen`
+--
+
+INSERT INTO `data_absen` (`id`, `id_siswa`, `id_mapel`, `id_kelas`, `keterangan`, `date`) VALUES
+(30, '11717001', 4, 1, 'izin', '19-Aug-2020'),
+(34, '11717444', 4, 13, 'sakit', '19-Aug-2020'),
+(38, '11717444', 4, 1, 'hadir', '20-Aug-2020'),
+(40, '11717001', 4, 1, 'alfa', '20-Aug-2020'),
+(41, '11717444', 4, 1, 'izin', '2-Aug-2020'),
+(42, '11717444', 4, 1, 'izin', '22-Aug-2020'),
+(45, '11717003', 4, 1, 'izin', '24-Aug-2020');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_blog`
 --
 
 CREATE TABLE `data_blog` (
@@ -96,66 +301,69 @@ CREATE TABLE `data_blog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_blog`
+-- Dumping data untuk tabel `data_blog`
 --
 
 INSERT INTO `data_blog` (`id`, `judul`, `image`, `email`, `artikel`, `deskripsi`, `tag`, `time`, `date`, `is_active`, `lihat`) VALUES
-(1, 'Cara konfigurasi samba server', 'logo-4.png', 'firmansyahrizkan099@gmail.com', '<p>We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers</p>\r\n\r\n<p>By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>\r\n\r\n<p>We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materializ</p>\r\n', 'Cara men konfigurasi samba server di debian 8, disini anda akan membuat sebuah server dengan fungsi sebagai penyimpanan data dan', 'networking', 2147483647, '0000-00-00', 1, 583),
-(2, 'Jaringan komputer', 'logo-42.png', 'firmansyahrizkan099@gmail.com', '<p style=\"text-align:center\"><span style=\"font-size:24px\">SEJARAH JARINGAN KOMPUTER</span><br />\n&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p>Sejarah jaringan komputer bermula dari lahirnya konsep jaringan komputer pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1940\" title=\"1940\">1940</a>-an di&nbsp;<a href=\"https://id.wikipedia.org/wiki/Amerika\" title=\"Amerika\">Amerika</a>&nbsp;yang digagas oleh sebuah proyek pengembangan komputer MODEL I di&nbsp;<a href=\"https://id.wikipedia.org/wiki/Laboratorium_Bell\" title=\"Laboratorium Bell\">laboratorium Bell</a>&nbsp;dan group riset&nbsp;<a href=\"https://id.wikipedia.org/wiki/Universitas_Harvard\" title=\"Universitas Harvard\">Universitas Harvard</a>&nbsp;yang dipimpin profesor&nbsp;<a href=\"https://id.wikipedia.org/wiki/Howard_Aiken\" title=\"Howard Aiken\">Howard Aiken</a>. Pada mulanya proyek tersebut hanyalah ingin memanfaatkan sebuah perangkat komputer yang harus dipakai bersama. Untuk mengerjakan beberapa proses tanpa banyak membuang waktu kosong dibuatlah proses beruntun (<em>Batch Processing</em>), sehingga beberapa program bisa dijalankan dalam sebuah komputer dengan kaidah antrian.</p>\n\n<p>Kemudian pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1950\" title=\"1950\">1950</a>-an ketika jenis komputer mulai berkembang sampai terciptanya&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Super_komputer&amp;action=edit&amp;redlink=1\" title=\"Super komputer (halaman belum tersedia)\">super komputer</a>, maka sebuah komputer harus melayani beberapa tempat yang tersedia (<em>terminal</em>), untuk itu ditemukan konsep distribusi proses berdasarkan waktu yang dikenal dengan nama&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=TSS&amp;action=edit&amp;redlink=1\" title=\"TSS (halaman belum tersedia)\">TSS</a>&nbsp;(<em>Time Sharing System</em>). Maka untuk pertama kalinya bentuk jaringan (<em>network</em>) komputer diaplikasikan. Pada sistem TSS beberapa terminal terhubung secara seri ke sebuah komputer atau perangkat lainnya yang terhubung dalam suatu jaringan (<em>host</em>) komputer. Dalam proses TSS mulai terlihat perpaduan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Teknologi_komputer&amp;action=edit&amp;redlink=1\" title=\"Teknologi komputer (halaman belum tersedia)\">teknologi komputer</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/wiki/Teknologi_telekomunikasi\" title=\"Teknologi telekomunikasi\">teknologi telekomunikasi</a>&nbsp;yang pada awalnya berkembang sendiri-sendiri.&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Departemen_Pertahanan_Amerika&amp;action=edit&amp;redlink=1\" title=\"Departemen Pertahanan Amerika (halaman belum tersedia)\">Departemen Pertahanan Amerika</a>,&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=U.S._Defense_Advanced_Research_Projects_Agency&amp;action=edit&amp;redlink=1\" title=\"U.S. Defense Advanced Research Projects Agency (halaman belum tersedia)\">U.S. Defense Advanced Research Projects Agency</a></em>&nbsp;(DARPA) memutuskan untuk mengadakan riset yang bertujuan untuk menghubungkan sejumlah komputer sehingga membentuk jaringan organik pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1969\" title=\"1969\">1969</a>. Program riset ini dikenal dengan nama&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a>. Pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1970\" title=\"1970\">1970</a>, sudah lebih dari 10 komputer yang berhasil dihubungkan satu sama lain sehingga mereka bisa saling berkomunikasi dan membentuk sebuah jaringan. Dan pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1970\" title=\"1970\">1970</a>&nbsp;itu juga setelah beban pekerjaan bertambah banyak dan harga perangkat komputer besar mulai terasa sangat mahal, maka mulailah digunakan konsep proses distribusi (<em>Distributed Processing</em>). Dalam proses ini beberapa&nbsp;<em>host</em>&nbsp;komputer mengerjakan sebuah pekerjaan besar secara paralel untuk melayani beberapa&nbsp;<em>terminal</em>&nbsp;yang tersambung secara seri disetiap&nbsp;<em>host</em>&nbsp;komputer. Dalam proses distribusi sudah mutlak diperlukan perpaduan yang mendalam antara&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Teknologi_komputer&amp;action=edit&amp;redlink=1\" title=\"Teknologi komputer (halaman belum tersedia)\">teknologi komputer</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/wiki/Telekomunikasi\" title=\"Telekomunikasi\">telekomunikasi</a>, karena selain proses yang harus didistribusikan, semua&nbsp;<em>host</em>&nbsp;komputer wajib melayani terminal-terminalnya dalam satu perintah dari komputer pusat.</p>\n\n<p><a href=\"https://id.wikipedia.org/wiki/Berkas:TSS_Model.jpg\"><img alt=\"\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/TSS_Model.jpg/250px-TSS_Model.jpg\" style=\"height:117px; width:250px\" /></a></p>\n\n<p>Ini adalah Model&nbsp;<em>Time Sharing System</em>&nbsp;(TSS)</p>\n\n<p>Pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1972\" title=\"1972\">1972</a>,&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Roy_Tomlinson&amp;action=edit&amp;redlink=1\" title=\"Roy Tomlinson (halaman belum tersedia)\">Roy Tomlinson</a>&nbsp;berhasil menyempurnakan program surat elektonik (<em>email</em>) yang dibuatnya setahun yang lalu untuk&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a>. Program tersebut begitu mudah untuk digunakan, sehingga langsung menjadi populer. Pada tahun yang sama yaitu tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1972\" title=\"1972\">1972</a>, ikon at (@) juga diperkenalkan sebagai lambang penting yang menunjukan &ldquo;at&rdquo; atau &ldquo;pada&rdquo;. Tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1973\" title=\"1973\">1973</a>, jaringan komputer ARPANET mulai dikembangkan meluas ke luar&nbsp;<a href=\"https://id.wikipedia.org/wiki/Amerika_Serikat\" title=\"Amerika Serikat\">Amerika Serikat</a>. Komputer&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=University_College&amp;action=edit&amp;redlink=1\" title=\"University College (halaman belum tersedia)\">University College</a></em>&nbsp;di&nbsp;<a href=\"https://id.wikipedia.org/wiki/London\" title=\"London\">London</a>&nbsp;merupakan komputer pertama yang ada di luar Amerika yang menjadi anggota jaringan Arpanet. Pada tahun yang sama yaitu tahun 1973, dua orang ahli komputer yakni&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Vinton_Cerf&amp;action=edit&amp;redlink=1\" title=\"Vinton Cerf (halaman belum tersedia)\">Vinton Cerf</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Bob_Kahn&amp;action=edit&amp;redlink=1\" title=\"Bob Kahn (halaman belum tersedia)\">Bob Kahn</a>&nbsp;mempresentasikan sebuah gagasan yang lebih besar, yang menjadi cikal bakal pemikiran&nbsp;<em>International Network</em>&nbsp;(<a href=\"https://id.wikipedia.org/wiki/Internet\" title=\"Internet\">Internet</a>). Ide ini dipresentasikan untuk pertama kalinya di&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Universitas_Sussex&amp;action=edit&amp;redlink=1\" title=\"Universitas Sussex (halaman belum tersedia)\">Universitas Sussex</a>. Hari bersejarah berikutnya adalah tanggal&nbsp;<a href=\"https://id.wikipedia.org/wiki/26_Maret\" title=\"26 Maret\">26 Maret</a>&nbsp;<a href=\"https://id.wikipedia.org/wiki/1976\" title=\"1976\">1976</a>, ketika Ratu Inggris berhasil mengirimkan surat elektronik dari&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=Royal_Signals_and_Radar_Establishment&amp;action=edit&amp;redlink=1\" title=\"Royal Signals and Radar Establishment (halaman belum tersedia)\">Royal Signals and Radar Establishment</a></em>&nbsp;di&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Malvern&amp;action=edit&amp;redlink=1\" title=\"Malvern (halaman belum tersedia)\">Malvern</a>. Setahun kemudian, sudah lebih dari&nbsp;<a href=\"https://id.wikipedia.org/wiki/100\" title=\"100\">100</a>&nbsp;komputer yang bergabung di ARPANET membentuk sebuah jaringan atau&nbsp;<em>network</em>.</p>\n\n<p><a href=\"https://id.wikipedia.org/w/index.php?title=Berkas:Arpanet_logical_map,_march_1977.png&amp;filetimestamp=20150203140456&amp;\"><img alt=\"\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Arpanet_logical_map%2C_march_1977.png/250px-Arpanet_logical_map%2C_march_1977.png\" style=\"height:179px; width:250px\" /></a></p>\n\n<p>Peta logika dari&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a></p>\n\n<p><a href=\"https://id.wikipedia.org/w/index.php?title=Tom_Truscott&amp;action=edit&amp;redlink=1\" title=\"Tom Truscott (halaman belum tersedia)\">Tom Truscott</a>,&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Jim_Ellis&amp;action=edit&amp;redlink=1\" title=\"Jim Ellis (halaman belum tersedia)\">Jim Ellis</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Steve_Bellovin&amp;action=edit&amp;redlink=1\" title=\"Steve Bellovin (halaman belum tersedia)\">Steve Bellovin</a>, menciptakan&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=Newsgroups&amp;action=edit&amp;redlink=1\" title=\"Newsgroups (halaman belum tersedia)\">newsgroups</a></em>&nbsp;pertama yang diberi nama&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=USENET&amp;action=edit&amp;redlink=1\" title=\"USENET (halaman belum tersedia)\">USENET</a>&nbsp;(<em>User Network</em>) pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1979\" title=\"1979\">1979</a>. Tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1981\" title=\"1981\">1981</a>,&nbsp;<a href=\"https://id.wikipedia.org/wiki/France_Telecom\" title=\"France Telecom\">France Telecom</a>&nbsp;menciptakan sesuatu hal yang baru dengan meluncurkan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Telepon_televisi&amp;action=edit&amp;redlink=1\" title=\"Telepon televisi (halaman belum tersedia)\">telepon televisi</a>&nbsp;pertama, di mana orang bisa saling menelepon yang juga berhubungan dengan&nbsp;<em>video link</em>.</p>\n\n<p>Seiring dengan bertambahnya komputer yang membentuk jaringan, dibutuhkan sebuah protokol resmi yang dapat diakui dan diterima oleh semua jaringan. Untuk itu, pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1982\" title=\"1982\">1982</a>&nbsp;dibentuk sebuah&nbsp;<em>', 'Sejarah jaringan komputer bermula dari lahirnya konsep jaringan komputer pada tahun 1940-an di Amerika yang digagas oleh sebuah', 'networking', 2147483647, '0000-00-00', 1, 367),
-(3, 'Cara installasi OS debian 8 di virtual box', 'logo-42.png', 'firmansyahrizkan099@gmail.com', '<h2 style=\"text-align:center\">Debian 8 VirtualBox</h2>\r\n\r\n<p>Berikut adalah tatacara atau langkah langkah installasi OS Debian 8 di VirtualBox :</p>\r\n\r\n<p>1. buka os virtualbox</p>\r\n\r\n<p>2. klik new virtual machine</p>\r\n\r\n<p>3. pilih OS debian dan isikan ram berikut HDD</p>\r\n\r\n<p>4. jika sudah selesai klik ok</p>\r\n\r\n<p>5. jalankan virtual machine</p>\r\n\r\n<p>6. menu tampilan akan muncul</p>\r\n\r\n<p>7. ikuti petunjuk dari installasi</p>\r\n\r\n<p>8. jika sudah selesai klik restart</p>\r\n\r\n<p>9 tunggu hingga proses reboot selesai</p>\r\n\r\n<p>10. login ke debian 8 kalian</p>\r\n\r\n<p>selesai</p>\r\n', 'Berikut adalah cara installasi sistem operasi linux debian 8 di virtual box', 'networking', 2147483647, '0000-00-00', 1, 229),
+(1, 'Cara konfigurasi samba server', 'logo-4.png', 'firmansyahrizkan099@gmail.com', '<p>We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers</p>\r\n\r\n<p>By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>\r\n\r\n<p>We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materializ</p>\r\n', 'Cara men konfigurasi samba server di debian 8, disini anda akan membuat sebuah server dengan fungsi sebagai penyimpanan data dan', 'networking', 2147483647, '0000-00-00', 1, 585),
+(2, 'Jaringan komputer', 'logo-42.png', 'firmansyahrizkan099@gmail.com', '<p style=\"text-align:center\"><span style=\"font-size:24px\">SEJARAH JARINGAN KOMPUTER</span><br />\n&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p>Sejarah jaringan komputer bermula dari lahirnya konsep jaringan komputer pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1940\" title=\"1940\">1940</a>-an di&nbsp;<a href=\"https://id.wikipedia.org/wiki/Amerika\" title=\"Amerika\">Amerika</a>&nbsp;yang digagas oleh sebuah proyek pengembangan komputer MODEL I di&nbsp;<a href=\"https://id.wikipedia.org/wiki/Laboratorium_Bell\" title=\"Laboratorium Bell\">laboratorium Bell</a>&nbsp;dan group riset&nbsp;<a href=\"https://id.wikipedia.org/wiki/Universitas_Harvard\" title=\"Universitas Harvard\">Universitas Harvard</a>&nbsp;yang dipimpin profesor&nbsp;<a href=\"https://id.wikipedia.org/wiki/Howard_Aiken\" title=\"Howard Aiken\">Howard Aiken</a>. Pada mulanya proyek tersebut hanyalah ingin memanfaatkan sebuah perangkat komputer yang harus dipakai bersama. Untuk mengerjakan beberapa proses tanpa banyak membuang waktu kosong dibuatlah proses beruntun (<em>Batch Processing</em>), sehingga beberapa program bisa dijalankan dalam sebuah komputer dengan kaidah antrian.</p>\n\n<p>Kemudian pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1950\" title=\"1950\">1950</a>-an ketika jenis komputer mulai berkembang sampai terciptanya&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Super_komputer&amp;action=edit&amp;redlink=1\" title=\"Super komputer (halaman belum tersedia)\">super komputer</a>, maka sebuah komputer harus melayani beberapa tempat yang tersedia (<em>terminal</em>), untuk itu ditemukan konsep distribusi proses berdasarkan waktu yang dikenal dengan nama&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=TSS&amp;action=edit&amp;redlink=1\" title=\"TSS (halaman belum tersedia)\">TSS</a>&nbsp;(<em>Time Sharing System</em>). Maka untuk pertama kalinya bentuk jaringan (<em>network</em>) komputer diaplikasikan. Pada sistem TSS beberapa terminal terhubung secara seri ke sebuah komputer atau perangkat lainnya yang terhubung dalam suatu jaringan (<em>host</em>) komputer. Dalam proses TSS mulai terlihat perpaduan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Teknologi_komputer&amp;action=edit&amp;redlink=1\" title=\"Teknologi komputer (halaman belum tersedia)\">teknologi komputer</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/wiki/Teknologi_telekomunikasi\" title=\"Teknologi telekomunikasi\">teknologi telekomunikasi</a>&nbsp;yang pada awalnya berkembang sendiri-sendiri.&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Departemen_Pertahanan_Amerika&amp;action=edit&amp;redlink=1\" title=\"Departemen Pertahanan Amerika (halaman belum tersedia)\">Departemen Pertahanan Amerika</a>,&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=U.S._Defense_Advanced_Research_Projects_Agency&amp;action=edit&amp;redlink=1\" title=\"U.S. Defense Advanced Research Projects Agency (halaman belum tersedia)\">U.S. Defense Advanced Research Projects Agency</a></em>&nbsp;(DARPA) memutuskan untuk mengadakan riset yang bertujuan untuk menghubungkan sejumlah komputer sehingga membentuk jaringan organik pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1969\" title=\"1969\">1969</a>. Program riset ini dikenal dengan nama&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a>. Pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1970\" title=\"1970\">1970</a>, sudah lebih dari 10 komputer yang berhasil dihubungkan satu sama lain sehingga mereka bisa saling berkomunikasi dan membentuk sebuah jaringan. Dan pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1970\" title=\"1970\">1970</a>&nbsp;itu juga setelah beban pekerjaan bertambah banyak dan harga perangkat komputer besar mulai terasa sangat mahal, maka mulailah digunakan konsep proses distribusi (<em>Distributed Processing</em>). Dalam proses ini beberapa&nbsp;<em>host</em>&nbsp;komputer mengerjakan sebuah pekerjaan besar secara paralel untuk melayani beberapa&nbsp;<em>terminal</em>&nbsp;yang tersambung secara seri disetiap&nbsp;<em>host</em>&nbsp;komputer. Dalam proses distribusi sudah mutlak diperlukan perpaduan yang mendalam antara&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Teknologi_komputer&amp;action=edit&amp;redlink=1\" title=\"Teknologi komputer (halaman belum tersedia)\">teknologi komputer</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/wiki/Telekomunikasi\" title=\"Telekomunikasi\">telekomunikasi</a>, karena selain proses yang harus didistribusikan, semua&nbsp;<em>host</em>&nbsp;komputer wajib melayani terminal-terminalnya dalam satu perintah dari komputer pusat.</p>\n\n<p><a href=\"https://id.wikipedia.org/wiki/Berkas:TSS_Model.jpg\"><img alt=\"\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/TSS_Model.jpg/250px-TSS_Model.jpg\" style=\"height:117px; width:250px\" /></a></p>\n\n<p>Ini adalah Model&nbsp;<em>Time Sharing System</em>&nbsp;(TSS)</p>\n\n<p>Pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1972\" title=\"1972\">1972</a>,&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Roy_Tomlinson&amp;action=edit&amp;redlink=1\" title=\"Roy Tomlinson (halaman belum tersedia)\">Roy Tomlinson</a>&nbsp;berhasil menyempurnakan program surat elektonik (<em>email</em>) yang dibuatnya setahun yang lalu untuk&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a>. Program tersebut begitu mudah untuk digunakan, sehingga langsung menjadi populer. Pada tahun yang sama yaitu tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1972\" title=\"1972\">1972</a>, ikon at (@) juga diperkenalkan sebagai lambang penting yang menunjukan &ldquo;at&rdquo; atau &ldquo;pada&rdquo;. Tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1973\" title=\"1973\">1973</a>, jaringan komputer ARPANET mulai dikembangkan meluas ke luar&nbsp;<a href=\"https://id.wikipedia.org/wiki/Amerika_Serikat\" title=\"Amerika Serikat\">Amerika Serikat</a>. Komputer&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=University_College&amp;action=edit&amp;redlink=1\" title=\"University College (halaman belum tersedia)\">University College</a></em>&nbsp;di&nbsp;<a href=\"https://id.wikipedia.org/wiki/London\" title=\"London\">London</a>&nbsp;merupakan komputer pertama yang ada di luar Amerika yang menjadi anggota jaringan Arpanet. Pada tahun yang sama yaitu tahun 1973, dua orang ahli komputer yakni&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Vinton_Cerf&amp;action=edit&amp;redlink=1\" title=\"Vinton Cerf (halaman belum tersedia)\">Vinton Cerf</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Bob_Kahn&amp;action=edit&amp;redlink=1\" title=\"Bob Kahn (halaman belum tersedia)\">Bob Kahn</a>&nbsp;mempresentasikan sebuah gagasan yang lebih besar, yang menjadi cikal bakal pemikiran&nbsp;<em>International Network</em>&nbsp;(<a href=\"https://id.wikipedia.org/wiki/Internet\" title=\"Internet\">Internet</a>). Ide ini dipresentasikan untuk pertama kalinya di&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Universitas_Sussex&amp;action=edit&amp;redlink=1\" title=\"Universitas Sussex (halaman belum tersedia)\">Universitas Sussex</a>. Hari bersejarah berikutnya adalah tanggal&nbsp;<a href=\"https://id.wikipedia.org/wiki/26_Maret\" title=\"26 Maret\">26 Maret</a>&nbsp;<a href=\"https://id.wikipedia.org/wiki/1976\" title=\"1976\">1976</a>, ketika Ratu Inggris berhasil mengirimkan surat elektronik dari&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=Royal_Signals_and_Radar_Establishment&amp;action=edit&amp;redlink=1\" title=\"Royal Signals and Radar Establishment (halaman belum tersedia)\">Royal Signals and Radar Establishment</a></em>&nbsp;di&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Malvern&amp;action=edit&amp;redlink=1\" title=\"Malvern (halaman belum tersedia)\">Malvern</a>. Setahun kemudian, sudah lebih dari&nbsp;<a href=\"https://id.wikipedia.org/wiki/100\" title=\"100\">100</a>&nbsp;komputer yang bergabung di ARPANET membentuk sebuah jaringan atau&nbsp;<em>network</em>.</p>\n\n<p><a href=\"https://id.wikipedia.org/w/index.php?title=Berkas:Arpanet_logical_map,_march_1977.png&amp;filetimestamp=20150203140456&amp;\"><img alt=\"\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Arpanet_logical_map%2C_march_1977.png/250px-Arpanet_logical_map%2C_march_1977.png\" style=\"height:179px; width:250px\" /></a></p>\n\n<p>Peta logika dari&nbsp;<a href=\"https://id.wikipedia.org/wiki/ARPANET\" title=\"ARPANET\">ARPANET</a></p>\n\n<p><a href=\"https://id.wikipedia.org/w/index.php?title=Tom_Truscott&amp;action=edit&amp;redlink=1\" title=\"Tom Truscott (halaman belum tersedia)\">Tom Truscott</a>,&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Jim_Ellis&amp;action=edit&amp;redlink=1\" title=\"Jim Ellis (halaman belum tersedia)\">Jim Ellis</a>&nbsp;dan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Steve_Bellovin&amp;action=edit&amp;redlink=1\" title=\"Steve Bellovin (halaman belum tersedia)\">Steve Bellovin</a>, menciptakan&nbsp;<em><a href=\"https://id.wikipedia.org/w/index.php?title=Newsgroups&amp;action=edit&amp;redlink=1\" title=\"Newsgroups (halaman belum tersedia)\">newsgroups</a></em>&nbsp;pertama yang diberi nama&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=USENET&amp;action=edit&amp;redlink=1\" title=\"USENET (halaman belum tersedia)\">USENET</a>&nbsp;(<em>User Network</em>) pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1979\" title=\"1979\">1979</a>. Tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1981\" title=\"1981\">1981</a>,&nbsp;<a href=\"https://id.wikipedia.org/wiki/France_Telecom\" title=\"France Telecom\">France Telecom</a>&nbsp;menciptakan sesuatu hal yang baru dengan meluncurkan&nbsp;<a href=\"https://id.wikipedia.org/w/index.php?title=Telepon_televisi&amp;action=edit&amp;redlink=1\" title=\"Telepon televisi (halaman belum tersedia)\">telepon televisi</a>&nbsp;pertama, di mana orang bisa saling menelepon yang juga berhubungan dengan&nbsp;<em>video link</em>.</p>\n\n<p>Seiring dengan bertambahnya komputer yang membentuk jaringan, dibutuhkan sebuah protokol resmi yang dapat diakui dan diterima oleh semua jaringan. Untuk itu, pada tahun&nbsp;<a href=\"https://id.wikipedia.org/wiki/1982\" title=\"1982\">1982</a>&nbsp;dibentuk sebuah&nbsp;<em>', 'Sejarah jaringan komputer bermula dari lahirnya konsep jaringan komputer pada tahun 1940-an di Amerika yang digagas oleh sebuah', 'networking', 2147483647, '0000-00-00', 1, 368),
+(3, 'Cara installasi OS debian 8 di virtual box', 'logo-42.png', 'firmansyahrizkan099@gmail.com', '<h2 style=\"text-align:center\">Debian 8 VirtualBox</h2>\r\n\r\n<p>Berikut adalah tatacara atau langkah langkah installasi OS Debian 8 di VirtualBox :</p>\r\n\r\n<p>1. buka os virtualbox</p>\r\n\r\n<p>2. klik new virtual machine</p>\r\n\r\n<p>3. pilih OS debian dan isikan ram berikut HDD</p>\r\n\r\n<p>4. jika sudah selesai klik ok</p>\r\n\r\n<p>5. jalankan virtual machine</p>\r\n\r\n<p>6. menu tampilan akan muncul</p>\r\n\r\n<p>7. ikuti petunjuk dari installasi</p>\r\n\r\n<p>8. jika sudah selesai klik restart</p>\r\n\r\n<p>9 tunggu hingga proses reboot selesai</p>\r\n\r\n<p>10. login ke debian 8 kalian</p>\r\n\r\n<p>selesai</p>\r\n', 'Berikut adalah cara installasi sistem operasi linux debian 8 di virtual box', 'networking', 2147483647, '0000-00-00', 1, 230),
 (4, 'macbook', 'White_with_Colorful_Icon_Computer_Logo.png', 'firmansyahrizkan099@gmail.com', '<p>hgfftgftgfgf</p>\r\n', 'Cara membeli macbook pro di lazada', 'itclub', 2147483647, '0000-00-00', 0, 21),
 (5, 'Cara konfigurasi mikrotik part1', 'part1-mikrotik-dasar.png', 'firmansyahrizkan099@gmail.com', '', 'Berikut, adalah penjelasan bagaimana cara setting mikrotik router OS', 'networking', 2147483647, '0000-00-00', 0, 25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_catatan`
+-- Struktur dari tabel `data_dpp`
 --
 
-CREATE TABLE `data_catatan` (
+CREATE TABLE `data_dpp` (
   `id` int(11) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `judul` varchar(256) NOT NULL,
-  `file` varchar(128) NOT NULL,
-  `date` varchar(128) NOT NULL,
-  `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `siswa_nis` char(32) NOT NULL,
+  `nominal` char(32) NOT NULL,
+  `tanggal` varchar(32) NOT NULL,
+  `dpp_id` char(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_catatan`
+-- Dumping data untuk tabel `data_dpp`
 --
 
-INSERT INTO `data_catatan` (`id`, `email`, `judul`, `file`, `date`, `time`) VALUES
-(1, 'firmansyahrizkan099@gmail.com', 'lamaran kerja', 'lamaraan_kerja.docx', '2020-07-14 17:19:51', 1594739991);
+INSERT INTO `data_dpp` (`id`, `siswa_nis`, `nominal`, `tanggal`, `dpp_id`) VALUES
+(1, '11717003', '4750000', '29-08-2020', '2'),
+(2, '11717001', '400000', '25-08-2020', '2'),
+(6, '11717002', '1000000', '25-08-2020', '2'),
+(7, '11717300', '1100000', '13-09-2020', '2'),
+(8, '11717399', '120000', '14-09-2020', '2');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_folder`
+-- Struktur dari tabel `data_file`
 --
 
-CREATE TABLE `data_folder` (
+CREATE TABLE `data_file` (
   `id` int(11) NOT NULL,
-  `folder` varchar(128) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` varchar(128) NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `id_folder` int(11) NOT NULL,
-  `id_user` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_materi` int(11) NOT NULL,
+  `nama_file` varchar(255) NOT NULL,
+  `lokasi_file` varchar(512) NOT NULL,
+  `date` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_folder`
+-- Dumping data untuk tabel `data_file`
 --
 
-INSERT INTO `data_folder` (`id`, `folder`, `time`, `date`, `is_active`, `id_folder`, `id_user`) VALUES
-(1, 'rizkan', 1592888480, '2020-06-23 12:01:20', 1, 1, 'firmansyahrizkan099@gmail.com'),
-(2, 'rizkanfirmansyah', 1592984038, '2020-06-24 14:33:58', 1, 2, 'firmansyahrizkan099@gmail.com');
+INSERT INTO `data_file` (`id`, `id_materi`, `nama_file`, `lokasi_file`, `date`) VALUES
+(9, 11, 'database.txt', 'assets/data/guru/materi/', '22-08-2020'),
+(10, 11, 'database.txt', 'assets/data/guru/materi/', '22-08-2020'),
+(16, 7, 'MODUL_PKK_SMK-KELAS-XI_SEMESTER-GANJIL-1.pdf', 'assets/data/guru/tugas/', '13-09-2020'),
+(17, 7, '106125490_745491039595916_193987676388880993_n.jpg', 'assets/data/guru/tugas/', '13-09-2020');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_homepage`
+-- Struktur dari tabel `data_homepage`
 --
 
 CREATE TABLE `data_homepage` (
@@ -168,120 +376,84 @@ CREATE TABLE `data_homepage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_homepage`
+-- Dumping data untuk tabel `data_homepage`
 --
 
 INSERT INTO `data_homepage` (`id`, `jenis`, `judul`, `deskripsi`, `keterangan`, `gambar`) VALUES
 (1, 'slider', 'Mengikuti perlombaan nasional', 'OLIMPIADE JARINGAN\nMIKROTIK-APJII 2019\n\n', 'Kami mengirimkan beberapa perwakilan anggota IT Club untuk mewakilkan sekolah dalam ajang perlombaan Nasional pada divisi Jaringan untuk mengikuti ajang bergengsi tersebut', 'Tulips.jpg'),
-(12, 'slider', 'menuju hijaunya bumi melalui sekolah sekolah', 'SMKN 5 BANDUNG GREEN', 'SMKN 5 Bandung mengadakan penghijauan di sekitar halaman sekolah dan juga warga sekitar untuk menghindari polusi udara yang terlalu banyak', 'Hydrangeas.jpg'),
+(12, 'slider', 'menuju hijaunya bumi melalui sekolah sekolah', 'SMK SAMUDRA GO GREEN', 'SMKN SAMUDRA kota CIREBON mengadakan penghijauan di sekitar halaman sekolah dan juga warga sekitar untuk menghindari polusi udara yang terlalu banyak', 'Hydrangeas.jpg'),
 (16, 'services', 'Ilmu Teknologi (TI 4.0)', 'Disini siswa akan mempelajari ilmu TI dengan standar industri 4.0 dengan mengikuti kurikulum sekolah yang berlaku disini\n', '', 'fa fa-atlas'),
 (19, 'services', 'Relasi (Jaringan)', 'Terdapat berbagai macam relasi seperti alumni IT Club, siswa dari sekolah lain, pengajar-pengajar lain dan juga relasi dari berbagai pihak lainnya.mengikuti kurikulum sekolah yang berlaku disini\n', '', 'fa fa-users'),
 (20, 'services', 'Pembelajaran Terstruktur', 'Pembelajaran yang terstruktur adalah kunci terciptanya potensi siswa, kami harap pembelajaran yang kami susun dapat mengembangkan potensi setiap siswa terhadap keahliannya masing-masing.', '', 'fa fa-chart-line'),
-(22, 'slider', 'Anak smk membanggakan', 'Anak smk 5 membuat robot', 'setelah beberapa bulan mengikuti olimpiade robotik smk5 berhasil menjadi tempat pertama membuat robot', '_hu86dacd470ad94a71a83a2186f468fab1_60303_b1c5f71f0531932c51585b15bd97b980.jpg'),
-(23, 'profile', 'SELAMAT DATANG DI WEB KAMI', 'SMK Samudra Nusantara', 'Selamat datang user, coder, engineer, dan siswa-siswi di halaman web kami. Kami harap dengan adanya web ini dapat mempermudah siapa saja untuk mendapatkan segala hal berupa informasi, data, ataupun hal yang bermanfaat lainnya.\n\nPerkenalkan kami adalah salah satu ekstrakulikuler dari SMK Negeri 5 Bandung yang membentuk sebuah club sebagai sarana pembelajaran tambahan di sekolah kami terutama pada jurusan Teknik Komputer Jaringan yang ada di sekolah kami. Kami membentuk 3 divisi diantaranya Networking, Programming, dan Multimedia sebagai pondasi pembelajaran kami dengan mengikuti perkembangan teknologi 4.0 sebagai salah satu target belajar kami.', '1_uezAyMqN2ZynYoWs9uDXvQ.png'),
+(22, 'slider', 'Anak smk membanggakan', 'Anak SMK Samudra membuat Robot ', 'setelah beberapa bulan mengikuti olimpiade robotik SMK SAMUDRA berhasil menjadi tempat pertama membuat robot', 'How-to-Secure-the-IoT-Environment-37qlmuk9r6dbbdns1bx3pc.jpg'),
+(23, 'profile', 'SELAMAT DATANG DI WEB KAMI', 'SMK Samudra Nusantara', 'Selamat datang user, coder, engineer, dan siswa-siswi di halaman web kami. Kami harap dengan adanya web ini dapat mempermudah siapa saja untuk mendapatkan segala hal berupa informasi, data, ataupun hal yang bermanfaat lainnya.\n\nPerkenalkan kami adalah salah satu ekstrakulikuler dari SMK SAMUDRA CIREBON yang membentuk sebuah club sebagai sarana pembelajaran tambahan di sekolah kami terutama pada jurusan Teknik Komputer Jaringan yang ada di sekolah kami. Kami membentuk 3 divisi diantaranya Networking, Programming, dan Multimedia sebagai pondasi pembelajaran kami dengan mengikuti perkembangan teknologi 4.0 sebagai salah satu target belajar kami.', '1_uezAyMqN2ZynYoWs9uDXvQ.png'),
 (24, 'testimonial', 'Riezkan Aprianda F', 'Sekolah yang mendidik, sangat membantu bagi anak yang mau berkembang dan mempelajari ilmu baru apalagi di bidang teknik dan sains sekolah ini patut diberi akreditasi B atau lebih karena cakupan materi dan pengajar sangat baik', '', '33.jpg'),
 (25, 'testimonial', 'M Fajri Zulfa', 'Sekolah yang luar biasa bagi saya seorang diripun ini sudah lebih dari cukup untuk memenuhi kriteria perushaan di era industry 4.0 ini. mantull lanjutkan smk samudra nusantara', '', 'fajri.jpg'),
 (26, 'testimonial', 'Hasan Basri', 'Sekolah yang mendidik, sangat membantu bagi anak yang mau berkembang dan mempelajari ilmu baru apalagi di bidang teknik dan sains sekolah ini patut diberi akreditasi B atau lebih karena cakupan materi dan pengajar sangat baik', '', 'hasan.jpg'),
-(27, 'services', 'hehehe', 'bercanda deng hahaha jangan marah iyaaaaaaaaaaaaaaaaaa', '', 'fa fa-users'),
-(29, 'footer', 'IT Club', 'Perkenalkan kami adalah salah satu ekstrakulikuler dari SMK Negeri 4 Bandung yang membentuk sebuah club sebagai sarana pembelajaran tambahan di sekolah kami terutama pada jurusan Teknik Komputer Jaringan yang ada di sekolah kami.', 'Jl.Bojongkoneng No.37A', 'image1.png'),
+(27, 'services', 'Selamat Datang', 'Startup yang berdomisili di daerah Kota Bandung', '', 'fa fa-tachometer-alt'),
+(29, 'footer', 'SMK samudra', 'Perkenalkan kami adalah salah satu startup yang ada di wilayah Kota Bandung. Dimana kami membentuk sebuah tim startup sebagai sarana pembelajaran dan sarana untuk menunjukan kekhalayak ramai mengenai brand kami yaitu CLUB-IT Startup', 'Jl.Bojongkoneng No.37A', 'Samnus_copy.jpg'),
 (30, 'sosmed', 'facebook', 'facebook.com', 'aktif', 'fa-facebook'),
 (31, 'sosmed', 'instagram', 'instagram.com', 'aktif', 'fa-instagram'),
 (32, 'sosmed', 'twitter', 'twitter.com', 'aktif', 'fa-twitter'),
-(33, 'sosmed', 'linkedin', 'linkedin.com', 'aktif', 'fa-linkedin'),
+(33, 'sosmed', 'linkedin', 'linkedin.com', 'tidak aktif', 'fa-linkedin'),
 (34, 'sosmed', 'google-plus', 'youtube.com', 'tidak aktif', 'fa-youtube'),
-(35, 'contact', '022 1933 1234', 'support@itclub.com', '022 1933 1234', '-'),
-(36, 'sponsor', 'mikrotik', 'mikrotik indonesia', 'aktif', 'logo.svg'),
-(38, 'sponsor', 'Ciso', 'founder cisco networking', 'aktif', 'cisco1.png');
+(35, 'contact', '089669266839', 'Legiyanto2008@gmail.com', '089669266839', '-'),
+(36, 'sponsor', 'mikrotik', 'mikrotik indonesia', 'aktif', 'images.png'),
+(38, 'sponsor', 'Ciso', 'founder cisco networking', 'aktif', 'cisco1.png'),
+(42, 'footer', 'ukuran', '100', '100', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_hosting`
---
-
-CREATE TABLE `data_hosting` (
-  `id` int(11) NOT NULL,
-  `nama_folder` varchar(128) NOT NULL,
-  `file` varchar(128) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `data_hosting`
---
-
-INSERT INTO `data_hosting` (`id`, `nama_folder`, `file`, `time`, `date`) VALUES
-(1, 'cake', 'file.hmtl', 224234, 'awda'),
-(2, 'rizkanfirmansyah', 'index.html', 1592984428, '2020-06-24 14:40:28'),
-(3, 'rizkanfirmansyah', 'coba.html', 1593358827, '2020-06-28 22:40:27');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_jawaban`
+-- Struktur dari tabel `data_jawaban`
 --
 
 CREATE TABLE `data_jawaban` (
   `id` int(11) NOT NULL,
   `id_soal` varchar(32) NOT NULL,
-  `id_pg` varchar(32) NOT NULL,
-  `soal` varchar(256) NOT NULL,
-  `a` varchar(256) NOT NULL,
-  `b` varchar(256) NOT NULL,
-  `c` varchar(256) NOT NULL,
-  `d` varchar(256) NOT NULL,
-  `jawaban` varchar(1) NOT NULL
+  `id_no_urut` int(11) NOT NULL,
+  `id_siswa` varchar(32) NOT NULL,
+  `id_ujian` char(32) NOT NULL,
+  `jawaban` varchar(1) DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_jawaban`
+-- Dumping data untuk tabel `data_jawaban`
 --
 
-INSERT INTO `data_jawaban` (`id`, `id_soal`, `id_pg`, `soal`, `a`, `b`, `c`, `d`, `jawaban`) VALUES
-(1, '3-Networking-1', '1-net1', 'Berikut adalah contoh bahasa pemograman, kecuali...', 'python', 'C', 'PHP', 'HTML', 'd'),
-(2, '3-Networking-1', '1-net2', 'Berikut adalah kepanjangan dari HTML adalah....', 'Hypertext Transfer Protocol', 'Hypertext Markup Language', 'Hypertext Transfer Language', 'Hypertext Markup Protocol', 'b'),
-(3, '3-Networking-1', '1-net3', 'Salah satu bahasa pemograman digunakan untuk mempercantik halaman website adalah ....', 'CSS', 'HTML', 'Javascript', 'Bootstrap', 'a'),
-(4, '3-Networking-1', '1-net4', 'Berikut adalah sistem operasi berbasi gui kecuali....', 'Windows', 'MacOS', 'Linux', 'FreeBSD', 'd'),
-(5, '3-Networking-1', '1-net5', 'Berikut adalah salah satu distro Linux adalah....', 'Windows XP', 'Windows Server', 'Debian', 'MacOS X', 'c'),
-(6, '3-Networking-1', '1-net6', 'Berikut adalah salah satu turunan dari distro debian adalah...', 'OpenSUSE', 'Ubuntu', 'Windows', 'FreeBSD', 'b'),
-(7, '3-Networking-1', '1-net7', 'Berdasarkan sumber kodenya, sistem operasi dibagi menjadi 2, yaitu...', 'open source & close source', 'open & close', 'linux & windows', 'GUI & CLI', 'a'),
-(8, '3-Networking-1', '1-net8', 'Berdasarkan tampilannya, sistem operasi dibagi menjadi 2 yaitu...', 'interaktif & efisien', 'GUI & CLI', 'Grafik & Sheel', 'Windows & Linux', 'b'),
-(9, '3-Networking-1', '1-net9', 'Salah satu contoh sistem operasi server dibawah ini adalah....', 'Windows Server 2012', 'Linux Debian', 'MacOS X', 'FreeBSD', 'a'),
-(10, '3-Networking-1', '1-net10', 'Berikut adalah contoh sistem operasi close source adalah...', 'Windows', 'Linux', 'Debian', 'Ubuntu', 'a'),
-(11, '3-Networking-2', '2-network1', 'Apa yang dimaksud open source....', 'open ajalah', 'sebuah sistem operasi yang bersifat gratis atau license sistem operasi tersebut dibuka untuk developer lainnya', 'kebalikan close source', 'linux', 'b'),
-(12, '3-Networking-2', '2-network2', 'Apa yang dimaksud dengan sistem operasi', 'software atau perangkat lunak yang menjembatani antara user dengan hardware', 'perangkat lunak gratis', 'software yang dikembangkan oleh developer', 'sebuah tampilan pada layar komputer', 'a'),
-(13, '3-Networking-2', '2-network3', 'Kepanjangan dari RAM...', 'Random Access Memori', 'Random Access Memory', 'Random Access Malware', 'Random Access My heart', 'b'),
-(14, '3-Networking-2', '2-network4', 'Berikut yang bukan termasuk sistem operasi adalah...', 'Windows', 'Linux', 'Unix', 'RAM', 'd'),
-(15, '3-Networking-2', '2-network5', 'Apa yang dimaksud dengan Hardware...', 'perangkat keras komputer', 'perangkat keras komputer yang mengatur kinerja komputer', 'sebuah perangkat komputer yang dapat dilihat secara visual dan diraba secara fisik yang berfungsi untuk menjalankan perintah komputer', 'yaa keras', 'c');
+INSERT INTO `data_jawaban` (`id`, `id_soal`, `id_no_urut`, `id_siswa`, `id_ujian`, `jawaban`, `date`) VALUES
+(33, '10', 3, '11717003', '5', 'A', '2020-09-06 13:42:54'),
+(34, '9', 2, '11717003', '5', 'B', '2020-09-06 13:43:04'),
+(35, '8', 1, '11717003', '5', 'C', '2020-09-06 13:43:08'),
+(37, '11', 1, '11717301', '8', 'A', '2020-09-13 12:32:51'),
+(38, '12', 1, '11717302', '13', NULL, '2020-09-13 17:57:41'),
+(39, '13', 2, '11717302', '13', NULL, '2020-09-13 17:57:41');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_jurusan`
+-- Struktur dari tabel `data_jenjang`
 --
 
-CREATE TABLE `data_jurusan` (
-  `jurusan_id` int(11) NOT NULL,
-  `jurusan_nama` varchar(128) NOT NULL,
-  `payload` int(16) NOT NULL,
-  `keterangan` varchar(512) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `data_jenjang` (
+  `jenjang_id` int(11) NOT NULL,
+  `nama_jenjang` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_jurusan`
+-- Dumping data untuk tabel `data_jenjang`
 --
 
-INSERT INTO `data_jurusan` (`jurusan_id`, `jurusan_nama`, `payload`, `keterangan`) VALUES
-(1, 'teknik komputer jaringan', 128, 'Tkj adalah jurusan komputer'),
-(2, 'analis kimia', 128, 'Analis Kimia adalah jurusan kimia'),
-(3, 'geomatika', 128, 'geomatika adalah pengukuran'),
-(4, 'produksi film', 128, 'Profuksi film meproudksi film\r\n');
+INSERT INTO `data_jenjang` (`jenjang_id`, `nama_jenjang`) VALUES
+(1, 10),
+(2, 11),
+(3, 12);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_kas`
+-- Struktur dari tabel `data_kas`
 --
 
 CREATE TABLE `data_kas` (
@@ -295,7 +467,7 @@ CREATE TABLE `data_kas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_kas`
+-- Dumping data untuk tabel `data_kas`
 --
 
 INSERT INTO `data_kas` (`id`, `user_id`, `nominal`, `jenis_kas`, `tanggal`, `keterangan`, `waktu`) VALUES
@@ -349,27 +521,7 @@ INSERT INTO `data_kas` (`id`, `user_id`, `nominal`, `jenis_kas`, `tanggal`, `ket
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_kelas`
---
-
-CREATE TABLE `data_kelas` (
-  `kelas_id` int(11) NOT NULL,
-  `kelas_nama` varchar(255) NOT NULL,
-  `jurusan_id` int(11) NOT NULL,
-  `wakel_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_kelas`
---
-
-INSERT INTO `data_kelas` (`kelas_id`, `kelas_nama`, `jurusan_id`, `wakel_id`) VALUES
-(1, '12 tkj 2', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_komentar`
+-- Struktur dari tabel `data_komentar`
 --
 
 CREATE TABLE `data_komentar` (
@@ -382,7 +534,7 @@ CREATE TABLE `data_komentar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_komentar`
+-- Dumping data untuk tabel `data_komentar`
 --
 
 INSERT INTO `data_komentar` (`id`, `id_post`, `email`, `date`, `komentar`, `time`) VALUES
@@ -404,38 +556,36 @@ INSERT INTO `data_komentar` (`id`, `id_post`, `email`, `date`, `komentar`, `time
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_materi`
+-- Struktur dari tabel `data_materi`
 --
 
 CREATE TABLE `data_materi` (
   `id` int(11) NOT NULL,
-  `user_id` varchar(6) NOT NULL,
-  `tingkatan` int(11) NOT NULL,
-  `jurusan` varchar(64) NOT NULL,
-  `pengajar` varchar(128) NOT NULL,
-  `materi` varchar(128) NOT NULL,
-  `bab` int(11) NOT NULL,
-  `waktu` int(11) NOT NULL
+  `id_guru` char(6) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_kelas` char(12) NOT NULL,
+  `id_kd` char(64) NOT NULL,
+  `nama_materi` varchar(255) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_materi`
+-- Dumping data untuk tabel `data_materi`
 --
 
-INSERT INTO `data_materi` (`id`, `user_id`, `tingkatan`, `jurusan`, `pengajar`, `materi`, `bab`, `waktu`) VALUES
-(1, 'ITP-12', 1, 'Networking', 'Herdian Nuryansyah', 'Membuat topology jaringan sederhana', 0, 1),
-(2, 'ITP-9', 1, 'Programming', 'Rizkan Firmansyah', 'HTML & CSS', 0, 2),
-(3, 'ITP-9', 1, 'Programming', 'Rizkan Firmansyah', 'PHP Dasar', 0, 2),
-(4, 'ITP-4', 2, 'Networking', 'Fajri', 'Membuat server mail di debian 8', 0, 2),
-(5, 'ITP-1', 3, 'Networking', 'firmansyahrizkan099@gmail.com', 'contoh', 0, 1),
-(6, 'ITP-1', 3, 'Networking', 'firmansyahrizkan099@gmail.com', 'Cara membuat server mail', 1, 1),
-(7, 'ITP-1', 3, 'Networking', 'firmansyahrizkan099@gmail.com', 'Cara konfigurasi DHCP Server', 2, 12),
-(8, 'ITP-19', 1, 'Multimedia', 'Legiyanto', 'contoh', 0, 1);
+INSERT INTO `data_materi` (`id`, `id_guru`, `id_mapel`, `id_kelas`, `id_kd`, `nama_materi`, `deskripsi`, `status`, `date`) VALUES
+(11, '332', 4, '1', '1', 'Materi', 'masukkan deskripsi materi', 1, '22-08-2020'),
+(13, '425', 12, '13', '1', 'linux', 'Pertama installasi sistem OPERASI ', 1, '29-08-2020'),
+(14, '425', 9, '1', '2', 'Materi', 'awdwadwadwad', 1, '13-09-2020'),
+(15, '425', 9, '13', '1', 'Materi', 'dawdwadwad', 1, '13-09-2020'),
+(16, '425', 9, '1', '1', 'Materi', 'wadwadwada', 1, '13-09-2020');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_nilai`
+-- Struktur dari tabel `data_nilai`
 --
 
 CREATE TABLE `data_nilai` (
@@ -454,7 +604,7 @@ CREATE TABLE `data_nilai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_nilai`
+-- Dumping data untuk tabel `data_nilai`
 --
 
 INSERT INTO `data_nilai` (`id`, `id_pengajar`, `email`, `status`, `file`, `jenis_file`, `nilai`, `waktu`, `deadline`, `tugas`, `bab`, `komentar`) VALUES
@@ -464,70 +614,36 @@ INSERT INTO `data_nilai` (`id`, `id_pengajar`, `email`, `status`, `file`, `jenis
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_nilai_ujian`
+-- Struktur dari tabel `data_nilai_ujian`
 --
 
 CREATE TABLE `data_nilai_ujian` (
   `id` int(11) NOT NULL,
-  `id_soal` varchar(128) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `jurusan` varchar(128) NOT NULL,
-  `jumlah_soal` int(11) NOT NULL,
-  `jumlah_benar` int(11) NOT NULL,
-  `jumlah_salah` int(11) NOT NULL,
-  `nilai` varchar(16) NOT NULL,
-  `status` int(1) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` varchar(128) NOT NULL
+  `id_ujian` int(128) DEFAULT NULL,
+  `id_siswa` char(128) DEFAULT NULL,
+  `id_kelas` char(128) DEFAULT NULL,
+  `jumlah_soal` int(11) DEFAULT 0,
+  `jumlah_benar` int(11) DEFAULT 0,
+  `jumlah_salah` int(11) DEFAULT 0,
+  `nilai` varchar(16) DEFAULT '0',
+  `status` int(1) DEFAULT 0,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_nilai_ujian`
+-- Dumping data untuk tabel `data_nilai_ujian`
 --
 
-INSERT INTO `data_nilai_ujian` (`id`, `id_soal`, `nama`, `jurusan`, `jumlah_soal`, `jumlah_benar`, `jumlah_salah`, `nilai`, `status`, `time`, `date`) VALUES
-(1, '3-Networking-1', 'firmansyahrizkan099@gmail.com', 'Networking', 10, 10, 0, '100', 1, 1593279174, '2020-06-28 00:32:54');
+INSERT INTO `data_nilai_ujian` (`id`, `id_ujian`, `id_siswa`, `id_kelas`, `jumlah_soal`, `jumlah_benar`, `jumlah_salah`, `nilai`, `status`, `date`) VALUES
+(6, 5, '11717003', '13', 3, 2, 1, '50', 1, '2020-09-06 13:43:27'),
+(9, 3, '11717301', '1', 0, 0, 0, '0', 1, '2020-09-13 18:40:24'),
+(11, 8, '11717301', '16', 1, 0, 1, '0', 1, '2020-09-13 12:33:04'),
+(14, 13, '11717302', '1', 2, 0, 2, '0', 1, '2020-09-13 17:58:07');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_pekerjaan`
---
-
-CREATE TABLE `data_pekerjaan` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `keterangan` varchar(512) NOT NULL,
-  `gambar` varchar(128) NOT NULL,
-  `file` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_portfolio`
---
-
-CREATE TABLE `data_portfolio` (
-  `id` int(11) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `keterangan` varchar(256) NOT NULL,
-  `portfolio` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_portfolio`
---
-
-INSERT INTO `data_portfolio` (`id`, `email`, `nama`, `keterangan`, `portfolio`) VALUES
-(1, 'firmansyahrizkan099@gmail.com', 'Sertifikat Javascript Developer', 'Mendapat sertifikat atas junior javascript developer', 'JS-Developers.jpg'),
-(2, 'firmansyahrizkan099@gmail.com', 'Sertifikat Learn Linux/Unix', 'Mendapat sertifikat atas mempelajari text editor pada sistem operasi linux/unix yang menjadi pondasi dasar devops dan sistem admin jaringan', 'Learn_Text_Editor_LINUX-UNIX.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_postingan`
+-- Struktur dari tabel `data_postingan`
 --
 
 CREATE TABLE `data_postingan` (
@@ -543,7 +659,7 @@ CREATE TABLE `data_postingan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_postingan`
+-- Dumping data untuk tabel `data_postingan`
 --
 
 INSERT INTO `data_postingan` (`id`, `id_post`, `email`, `nama`, `gambar`, `text`, `profil`, `time`, `tgl`) VALUES
@@ -586,51 +702,7 @@ INSERT INTO `data_postingan` (`id`, `id_post`, `email`, `nama`, `gambar`, `text`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_sertifikat`
---
-
-CREATE TABLE `data_sertifikat` (
-  `id` int(11) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `file` varchar(192) NOT NULL,
-  `sertifikat` varchar(256) NOT NULL,
-  `date` varchar(128) NOT NULL,
-  `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `data_sertifikat`
---
-
-INSERT INTO `data_sertifikat` (`id`, `email`, `file`, `sertifikat`, `date`, `time`) VALUES
-(1, 'firmansyahrizkan099@gmail.com', 'sertifikat.pdf', 'Sertifikat Security Specialist', '2020-09-08 13:68', 213213131);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_setting`
---
-
-CREATE TABLE `data_setting` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `value_awal` varchar(128) NOT NULL,
-  `value_akhir` varchar(128) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `data_setting`
---
-
-INSERT INTO `data_setting` (`id`, `nama`, `value_awal`, `value_akhir`, `time`, `date`) VALUES
-(1, 'tabel', 'table', 'print', 1592998295, '2020-06-24');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_soal`
+-- Struktur dari tabel `data_soal`
 --
 
 CREATE TABLE `data_soal` (
@@ -648,7 +720,7 @@ CREATE TABLE `data_soal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_soal`
+-- Dumping data untuk tabel `data_soal`
 --
 
 INSERT INTO `data_soal` (`id`, `id_soal`, `id_pengajar`, `soal`, `deskripsi`, `bab`, `jurusan`, `is_active`, `kkm`, `time`, `date`) VALUES
@@ -659,7 +731,31 @@ INSERT INTO `data_soal` (`id`, `id_soal`, `id_pengajar`, `soal`, `deskripsi`, `b
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_status`
+-- Struktur dari tabel `data_spp`
+--
+
+CREATE TABLE `data_spp` (
+  `id` int(11) NOT NULL,
+  `siswa_nis` int(11) NOT NULL,
+  `bulan` int(11) NOT NULL,
+  `nominal` char(32) NOT NULL,
+  `tanggal` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `data_spp`
+--
+
+INSERT INTO `data_spp` (`id`, `siswa_nis`, `bulan`, `nominal`, `tanggal`) VALUES
+(1, 11717003, 7, '400000', '28-08-2020'),
+(5, 11717003, 8, '400000', '25-08-2020'),
+(6, 11717002, 7, '300000', '29-08-2020'),
+(7, 11717399, 7, '3000000', '14-09-2020');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_status`
 --
 
 CREATE TABLE `data_status` (
@@ -669,7 +765,7 @@ CREATE TABLE `data_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_status`
+-- Dumping data untuk tabel `data_status`
 --
 
 INSERT INTO `data_status` (`id`, `email`, `status`) VALUES
@@ -678,7 +774,7 @@ INSERT INTO `data_status` (`id`, `email`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_tag`
+-- Struktur dari tabel `data_tag`
 --
 
 CREATE TABLE `data_tag` (
@@ -687,7 +783,7 @@ CREATE TABLE `data_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_tag`
+-- Dumping data untuk tabel `data_tag`
 --
 
 INSERT INTO `data_tag` (`id`, `tag`) VALUES
@@ -700,34 +796,33 @@ INSERT INTO `data_tag` (`id`, `tag`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_tugas`
+-- Struktur dari tabel `data_tugas`
 --
 
 CREATE TABLE `data_tugas` (
   `id` int(11) NOT NULL,
-  `bab` int(11) NOT NULL,
-  `tugas` varchar(128) NOT NULL,
-  `id_pengajar` varchar(12) NOT NULL,
-  `nama_pengajar` varchar(128) NOT NULL,
-  `file` varchar(128) NOT NULL,
-  `jenis_file` varchar(16) NOT NULL,
-  `time` int(11) NOT NULL,
+  `kd` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_guru` int(11) NOT NULL,
+  `nama_tugas` varchar(128) NOT NULL,
+  `id_mapel` varchar(12) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` int(11) NOT NULL,
+  `tanggal` varchar(32) NOT NULL,
   `batas_waktu` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_tugas`
+-- Dumping data untuk tabel `data_tugas`
 --
 
-INSERT INTO `data_tugas` (`id`, `bab`, `tugas`, `id_pengajar`, `nama_pengajar`, `file`, `jenis_file`, `time`, `batas_waktu`) VALUES
-(1, 0, '', 'ITP-12', 'Herdian Nuryansyah', '0', '', 1, ''),
-(2, 1, 'Buat video cara konfigurasi mail server', 'ITP-1', 'Riezkan Aprianda Firmansyah', 'rizkanfirmansyah.rf.gd', 'file', 1, '2020-05-08'),
-(4, 2, 'Konfig DHCP di Debian 8', 'ITP-1', 'firmansyahrizkan099@gmail.com', 'Form_Komitmen_dan_Form_Pertanggungjawaban_OADTS2020__Bagi_Peserta.docx', 'file', 2, '2020-07-18');
+INSERT INTO `data_tugas` (`id`, `kd`, `id_kelas`, `id_guru`, `nama_tugas`, `id_mapel`, `deskripsi`, `status`, `tanggal`, `batas_waktu`) VALUES
+(7, 5, 13, 425, 'Tugas 2', '9', 'Ini adalah tugas 1 TLJ', 1, '13-09-2020', '2020-09-17');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_user`
+-- Struktur dari tabel `data_user`
 --
 
 CREATE TABLE `data_user` (
@@ -742,7 +837,7 @@ CREATE TABLE `data_user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gallery`
+-- Struktur dari tabel `gallery`
 --
 
 CREATE TABLE `gallery` (
@@ -758,7 +853,7 @@ CREATE TABLE `gallery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `gallery`
+-- Dumping data untuk tabel `gallery`
 --
 
 INSERT INTO `gallery` (`id`, `user_post`, `tag`, `gambar`, `keterangan`, `tanggal`, `waktu`, `status`, `download`) VALUES
@@ -771,52 +866,287 @@ INSERT INTO `gallery` (`id`, `user_post`, `tag`, `gambar`, `keterangan`, `tangga
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guru`
+-- Struktur dari tabel `gedung`
 --
 
-CREATE TABLE `guru` (
+CREATE TABLE `gedung` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `nip` char(25) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `telepon` char(25) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
-  `tahun_ajar_awal` year(4) NOT NULL,
-  `mapel` varchar(255) NOT NULL,
-  `lulusan` varchar(255) NOT NULL,
-  `sertifikasi` varchar(255) NOT NULL,
-  `id_jurusan` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT current_timestamp(),
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) NOT NULL,
-  `gambar` varchar(255) NOT NULL
+  `nama_gedung` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `guru`
---
-
-INSERT INTO `guru` (`id`, `nama`, `nip`, `password`, `telepon`, `email`, `alamat`, `tahun_ajar_awal`, `mapel`, `lulusan`, `sertifikasi`, `id_jurusan`, `role_id`, `last_update`, `date_created`, `status`, `gambar`) VALUES
-(1, 'Legiyanto', '123123', '$2y$10$LQMb/eWS24FNq6zuRmi6feZwEvGiUZeac4Ac7s5Hy7qiM.MgayNZG', '08989485111', '', 'alamat', 2020, 'ASJ', '2014', 'ya', 1, 3, '2020-07-29 13:17:56', '2020-07-29 13:17:56', 1, 'default.jpg'),
-(14, 'legiyanto', '11717500', '$2y$10$trRc5.TlIliCdM6/YuRIqOohTSevZW4sjjGH6J4hJF0kEohhZC4Ay', '', '-', '', 2017, 'jaringan dasar', '2015', '', 1, 3, '2020-08-02 14:55:43', '2020-08-02 14:55:43', 0, 'default.jpg'),
-(15, 'Riezkan Aprianda Firmansyah', '11717504', '$2y$10$a33ugzbzm0BihXq6Deql1.A97ICj603bsWFvDPAkLdXfYpsEXb2ge', '', '-', '', 2017, 'jaringan dasar', '2015', '', 1, 3, '2020-08-02 14:55:43', '2020-08-02 14:55:43', 0, 'default.jpg'),
-(16, 'M Fajri Zulfa', '11717504', '$2y$10$eNAY4b2PNXTt2pQo6XkJDOFKXtnIuW3qD7aMpsp3ZcmR9EWrboHWO', '', '-', '', 2017, 'jaringan dasar', '2015', '', 1, 3, '2020-08-02 14:55:43', '2020-08-02 14:55:43', 0, 'default.jpg'),
-(17, 'Hasan Basri', '11717504', '$2y$10$ASw3zicjbjws0JYTHDYsA.nKRxFU0.r1qufiqZ6HJuypHuesGHyAy', '', '-', '', 2017, 'jaringan dasar', '2015', '', 3, 3, '2020-08-02 14:55:43', '2020-08-02 14:55:43', 0, 'default.jpg'),
-(18, 'Elsa Zahra', '11717504', '$2y$10$iN8o6.tTkQeXy62HWUmUPuo.yxbWjFflkzaRPoD9JFF0/rUgelg32', '', '-', '', 2017, 'jaringan dasar', '2015', '', 3, 3, '2020-08-02 14:55:43', '2020-08-02 14:55:43', 0, 'default.jpg'),
-(19, 'Wina Septia', '11717504', '$2y$10$auhuh7kRh3wl7vZTLhiDJ.yGBJEy4kmzUhREYJ/78JJ1RJHJnVS7G', '', '-', '', 2017, 'jaringan dasar', '2015', '', 3, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(20, 'Shifa Sulastini', '11717504', '$2y$10$gcKsBfGAL/weK0gpF6CKQu7Z2P5l/eO2NZvzl7YicA8smngxhOiTm', '', '-', '', 2017, 'jaringan dasar', '2015', '', 3, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(21, 'Ilham Putra Setiawan', '11717504', '$2y$10$2RfzzoxzXDgoJhu0doFzFuDQbsHCazRofFZbi0KR4eV3kYZYl1q9y', '', '-', '', 2017, 'jaringan dasar', '2015', '', 2, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(22, 'M Fahrulrozy', '11717504', '$2y$10$ucKPrYq1s1S7B/Upl5mto.ETGtZK7nImaHiaTvG4WQXwhqpPR66F.', '', '-', '', 2017, 'jaringan dasar', '2015', '', 2, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(23, 'Ahmad Yusuf Afandi', '11717504', '$2y$10$kC52hbi/OgQmlIKIlTql1uaxGzMOuoUTt.gh8qMzw.sbu6Nz2McBK', '', '-', '', 2017, 'jaringan dasar', '2015', '', 4, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(24, 'Arif didu', '11717504', '$2y$10$pnje3V5.Utc81bG0FTVenuyAHNh8zH3UqwIst7C5FmE9zqmkNpJG.', '', '-', '', 2017, 'jaringan dasar', '2015', '', 1, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg'),
-(25, 'Dena Hadiyat', '11717504', '$2y$10$PVJhKFxBtgOYeVkyj2f9J.zoofG6k2/z0r5myOmm/Pa70NuPoOxmu', '', '-', '', 2017, 'jaringan dasar', '2015', '', 1, 3, '2020-08-02 14:55:44', '2020-08-02 14:55:44', 0, 'default.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Struktur dari tabel `guru`
+--
+
+CREATE TABLE `guru` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `nip` char(25) DEFAULT NULL,
+  `telepon` char(25) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `tahun_ajar_awal` year(4) DEFAULT NULL,
+  `lulusan` varchar(255) DEFAULT NULL,
+  `sertifikasi` varchar(255) DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT current_timestamp(),
+  `date_created` date DEFAULT NULL,
+  `status` char(25) DEFAULT NULL,
+  `agama` char(25) DEFAULT NULL,
+  `tanggal_lahir` varchar(128) DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `id_jurusan` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `guru`
+--
+
+INSERT INTO `guru` (`id`, `nama`, `nip`, `telepon`, `email`, `alamat`, `tahun_ajar_awal`, `lulusan`, `sertifikasi`, `last_update`, `date_created`, `status`, `agama`, `tanggal_lahir`, `gambar`, `id_jurusan`) VALUES
+(425, 'GURU 1', '11717500', '83287423', 'legiyanto@gmail.com', 'jl. Sekeloa timur no.55', 2017, 'S1 - Teknik Informatika', '', '2020-08-24 02:07:01', '2020-08-24', 'pns', 'islam', '09-04-2002', NULL, 108),
+(426, 'GURU 2', '11717501', '83287423', 'user1@email.com', 'jl. Sekeloa timur no.56', 2017, 'S1 - Teknik Informatika', NULL, '2020-08-24 02:07:01', '2020-08-24', 'pns', 'islam', '09-04-2003', NULL, 108),
+(427, 'GURU 3', '11717502', '83287423', 'user2@email.com', 'jl. Sekeloa timur no.57', 2017, 'S1 - Teknik Informatika', NULL, '2020-08-24 02:07:01', '2020-08-24', 'pns', 'islam', '09-04-2004', NULL, 108),
+(428, 'GURU 4', '11717503', '83287423', 'user3@email.com', 'jl. Sekeloa timur no.58', 2017, 'S1 - Teknik Informatika', NULL, '2020-08-24 02:07:02', '2020-08-24', 'pns', 'islam', '09-04-2005', NULL, 109),
+(429, 'GURU 5', '11717504', '83287423', 'user4@emai.com', 'jl. Sekeloa timur no.59', 2017, 'S1 - Teknik Informatika', NULL, '2020-08-24 02:07:02', '2020-08-24', 'pns', 'islam', '09-04-2006', NULL, 109),
+(430, 'GURU 6', '11717505', '83287423', 'user5@email.com', 'jl. Sekeloa timur no.60', 2017, 'S1 - Teknik Informatika', '', '2020-08-24 02:07:02', '2020-08-24', 'honorer', 'islam', '09-04-2007', NULL, 109),
+(431, 'GURU 7', '11717506', '83287423', 'user6@email.com', 'jl. Sekeloa timur no.61', 2017, 'S1 - Teknik Informatika', 'ya', '2020-08-24 02:07:02', '2020-08-24', 'pns', 'islam', '09-04-2008', NULL, 109);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jabatan`
+--
+
+CREATE TABLE `jabatan` (
+  `id_jabatan` int(11) NOT NULL,
+  `nama_jabatan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jabatan`
+--
+
+INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
+(1, 'Kepala Sekolah'),
+(3, 'tata usaha'),
+(4, 'sarana & prasarana'),
+(5, 'kesiswaan'),
+(6, 'hubinmas'),
+(7, 'sdm'),
+(10, 'waka. bidang informasi'),
+(17, 'KETUA ICT');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal`
+--
+
+CREATE TABLE `jadwal` (
+  `jadwal_id` int(11) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_ruangan` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_guru` int(11) NOT NULL,
+  `jam_masuk` varchar(128) NOT NULL,
+  `jam_keluar` varchar(128) NOT NULL,
+  `hari` varchar(25) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jadwal`
+--
+
+INSERT INTO `jadwal` (`jadwal_id`, `id_mapel`, `id_ruangan`, `id_kelas`, `id_guru`, `jam_masuk`, `jam_keluar`, `hari`, `status`) VALUES
+(25, 9, 2, 1, 425, '09:12', '21:12', 'senin', 1),
+(26, 9, 1, 13, 425, '07:00', '08:30', 'senin', 1),
+(27, 12, 1, 16, 427, '10:00', '11:30', 'jumat', 1),
+(28, 12, 11, 13, 426, '02:40', '03:40', 'senin', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal_ujian`
+--
+
+CREATE TABLE `jadwal_ujian` (
+  `id` int(11) NOT NULL,
+  `id_ujian` int(11) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL,
+  `id_ruangan` int(11) DEFAULT NULL,
+  `mulai` datetime NOT NULL,
+  `selesai` datetime NOT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jadwal_ujian`
+--
+
+INSERT INTO `jadwal_ujian` (`id`, `id_ujian`, `id_kelas`, `id_ruangan`, `mulai`, `selesai`, `status`) VALUES
+(23, 5, 1, 4, '2020-09-11 20:06:00', '2020-09-07 03:42:42', 1),
+(24, 3, 1, 7, '2020-09-11 00:14:00', '2020-09-06 01:43:33', 1),
+(25, 8, 16, 1, '2020-09-12 23:02:00', '2020-09-13 23:02:00', 1),
+(26, 5, 17, 11, '2020-09-12 23:05:00', '2020-09-13 23:05:00', 1),
+(27, 5, 15, 6, '2020-09-12 23:05:00', '2020-09-12 23:05:00', 1),
+(28, 5, 13, 3, '2020-09-12 23:05:00', '2020-09-12 23:05:00', 1),
+(29, 5, 15, 4, '2020-09-12 23:05:00', '2020-09-12 23:05:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jawaban`
+--
+
+CREATE TABLE `jawaban` (
+  `jawaban_id` int(11) NOT NULL,
+  `id_soal` int(11) NOT NULL,
+  `jawaban` char(64) NOT NULL,
+  `id_siswa` char(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jenis_barang`
+--
+
+CREATE TABLE `jenis_barang` (
+  `id_jenis` int(11) NOT NULL,
+  `nama_jenis` varchar(45) NOT NULL,
+  `status` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jenis_barang`
+--
+
+INSERT INTO `jenis_barang` (`id_jenis`, `nama_jenis`, `status`, `date`) VALUES
+(1, 'Habis', 1, '2020-09-09 12:02:38'),
+(2, 'Sekali pakai', 1, '2020-09-08 14:26:55'),
+(3, 'Barang Baru', 1, '2020-09-09 11:48:57');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jurusan`
+--
+
+CREATE TABLE `jurusan` (
+  `jurusan_id` int(11) NOT NULL,
+  `guru_id` char(7) DEFAULT NULL,
+  `nama_jurusan` varchar(255) NOT NULL,
+  `payload` char(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jurusan`
+--
+
+INSERT INTO `jurusan` (`jurusan_id`, `guru_id`, `nama_jurusan`, `payload`) VALUES
+(1, NULL, 'TOTAL', '2000'),
+(170, NULL, 'GEOMATIKA', '240'),
+(171, NULL, 'KIMIA ANALIS', '240'),
+(172, NULL, 'DPIB', '600'),
+(173, NULL, 'KGSP', '240'),
+(174, NULL, 'PROFIL', '120');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kelas`
+--
+
+CREATE TABLE `kelas` (
+  `kelas_id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL,
+  `jurusan_id` int(11) NOT NULL,
+  `nama_kelas` varchar(255) NOT NULL,
+  `ruangan_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`kelas_id`, `guru_id`, `jurusan_id`, `nama_kelas`, `ruangan_id`) VALUES
+(1, 347, 169, '12 tkj 2', 1),
+(13, 425, 169, 'XI TKJ 4', 7),
+(14, 346, 108, '12 TKJ 1', 8),
+(15, 425, 169, 'X TKJ 1', 6),
+(16, 425, 170, 'X TKJ 2', 1),
+(17, 427, 170, 'X GEOMATIKA 1', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kepala_sekolah`
+--
+
+CREATE TABLE `kepala_sekolah` (
+  `id` int(11) NOT NULL,
+  `id_guru` int(11) NOT NULL,
+  `nama_kepsek` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `kepala_sekolah`
+--
+
+INSERT INTO `kepala_sekolah` (`id`, `id_guru`, `nama_kepsek`, `status`) VALUES
+(1, 344, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keuangan`
+--
+
+CREATE TABLE `keuangan` (
+  `keuangan_id` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `jenis_keuangan` int(11) NOT NULL,
+  `nominal` char(64) NOT NULL,
+  `date_created` date NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keuangan_detail`
+--
+
+CREATE TABLE `keuangan_detail` (
+  `detail_id` int(11) NOT NULL,
+  `nama_jenis` varchar(255) NOT NULL,
+  `nominal_jenis` char(128) NOT NULL,
+  `max_jenis` char(128) NOT NULL,
+  `aturan_jenis` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kunci_jawaban`
+--
+
+CREATE TABLE `kunci_jawaban` (
+  `jawaban_id` int(11) NOT NULL,
+  `id_soal` int(11) NOT NULL,
+  `pilihan_ganda` char(64) NOT NULL,
+  `isi_jawaban` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `log`
 --
 
 CREATE TABLE `log` (
@@ -831,7 +1161,7 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `log`
+-- Dumping data untuk tabel `log`
 --
 
 INSERT INTO `log` (`id`, `user`, `log`, `class`, `method`, `time`, `date`, `status`) VALUES
@@ -1492,7 +1822,46 @@ INSERT INTO `log` (`id`, `user`, `log`, `class`, `method`, `time`, `date`, `stat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materi_check`
+-- Struktur dari tabel `mapel`
+--
+
+CREATE TABLE `mapel` (
+  `mapel_id` int(11) NOT NULL,
+  `nama_mapel` varchar(255) NOT NULL,
+  `id_jenjang` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `mapel`
+--
+
+INSERT INTO `mapel` (`mapel_id`, `nama_mapel`, `id_jenjang`) VALUES
+(2, 'matematika', 1),
+(8, 'ASJ', 3),
+(9, 'TLJ', 3),
+(10, 'MATEMATIKA', 2),
+(11, 'MATEMATIKA', 3),
+(12, 'ASJ', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `materi`
+--
+
+CREATE TABLE `materi` (
+  `materi_id` int(11) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_bab` int(11) NOT NULL,
+  `id_semester` int(11) NOT NULL,
+  `nama_materi` varchar(255) NOT NULL,
+  `file_materi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `materi_check`
 --
 
 CREATE TABLE `materi_check` (
@@ -1506,7 +1875,7 @@ CREATE TABLE `materi_check` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `materi_check`
+-- Dumping data untuk tabel `materi_check`
 --
 
 INSERT INTO `materi_check` (`id`, `materi`, `pengajar`, `email`, `date`, `time`, `status`) VALUES
@@ -1518,98 +1887,272 @@ INSERT INTO `materi_check` (`id`, `materi`, `pengajar`, `email`, `date`, `time`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengumuman`
+-- Struktur dari tabel `materi_siswa`
 --
 
-CREATE TABLE `pengumuman` (
+CREATE TABLE `materi_siswa` (
   `id` int(11) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `judul` varchar(128) NOT NULL,
-  `keterangan` varchar(512) NOT NULL,
-  `waktu` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_materi` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `selesai` int(11) NOT NULL,
+  `tgl_pengumpulan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `materi_siswa`
+--
+
+INSERT INTO `materi_siswa` (`id`, `id_materi`, `id_siswa`, `selesai`, `tgl_pengumpulan`) VALUES
+(1, 11, 11717444, 1, '02-08-2020'),
+(2, 11, 11717001, 2, '02-08-2020'),
+(6, 12, 11717003, 1, '24-08-2020'),
+(7, 11, 11717003, 1, '24-08-2020'),
+(8, 5, 11717500, 2, '24-08-2020'),
+(9, 6, 11717003, 1, '24-08-2020'),
+(10, 6, 11717500, 2, '24-08-2020'),
+(11, 12, 11717500, 2, '25-08-2020'),
+(12, 13, 11717500, 2, '29-08-2020'),
+(13, 11, 11717399, 2, '14-09-2020'),
+(14, 14, 11717399, 2, '14-09-2020'),
+(15, 16, 11717399, 2, '14-09-2020');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `merk_barang`
+--
+
+CREATE TABLE `merk_barang` (
+  `id_merk` int(11) NOT NULL,
+  `nama_merk` varchar(45) NOT NULL,
+  `status` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `merk_barang`
+--
+
+INSERT INTO `merk_barang` (`id_merk`, `nama_merk`, `status`, `date`) VALUES
+(1, 'Yamaha', 1, '2020-09-08 15:26:17'),
+(2, 'TP-LINK', 1, '2020-09-09 11:47:00'),
+(3, 'D-LINK', 1, '2020-09-09 11:47:09'),
+(4, 'CISCO', 1, '2020-09-09 11:47:17');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `nilai_tugas`
+--
+
+CREATE TABLE `nilai_tugas` (
+  `id` int(11) NOT NULL,
+  `id_tugas` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL,
+  `status` char(255) NOT NULL,
+  `lokasi_file` varchar(255) NOT NULL,
+  `nama_file` varchar(255) NOT NULL,
+  `tanggal` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `nilai_tugas`
+--
+
+INSERT INTO `nilai_tugas` (`id`, `id_tugas`, `id_siswa`, `nilai`, `status`, `lokasi_file`, `nama_file`, `tanggal`) VALUES
+(2, 6, 11717003, 80, '1', 'assets/data/siswa/tugas/', 'tugas.txt', '25-08-2020');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pembelian`
+--
+
+CREATE TABLE `pembelian` (
+  `id_pembelian` int(11) NOT NULL,
+  `id_nota` varchar(25) NOT NULL,
+  `jenis_pembelian` char(25) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_barang` int(11) NOT NULL,
+  `total_harga` char(45) NOT NULL,
+  `pajak` int(11) DEFAULT NULL,
+  `diskon` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pembelian`
+--
+
+INSERT INTO `pembelian` (`id_pembelian`, `id_nota`, `jenis_pembelian`, `id_barang`, `jumlah_barang`, `total_harga`, `pajak`, `diskon`, `status`, `tanggal`) VALUES
+(2, 'SPI-09092020-1', 'pembelian', 4, 3, '375000', 0, 0, 1, '2020-09-09 22:27:07'),
+(3, 'SPI-10092020-1', 'pembelian', 4, 2, '250000', 0, 0, 1, '2020-09-10 21:39:40'),
+(4, 'SPI-11092020-1', 'pembelian', 2, 22, '330000', 0, 0, 1, '2020-09-11 00:38:20'),
+(5, 'SPI-12092020-1', 'pembelian', 11, 5, '625000', 0, 0, 1, '2020-09-12 23:14:25');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengeluaran`
+--
+
+CREATE TABLE `pengeluaran` (
+  `id_pengeluaran` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_barang` char(5) NOT NULL,
+  `keterangan` varchar(128) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pengeluaran`
+--
+
+INSERT INTO `pengeluaran` (`id_pengeluaran`, `id_barang`, `jumlah_barang`, `keterangan`, `date`) VALUES
+(1, 4, '3', 'adwadwadwad', '0000-00-00 00:00:00'),
+(2, 2, '1', 'rusak', '2020-09-11 00:37:30'),
+(3, 4, '1', 'Rusak', '2020-09-11 00:37:57');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ruangan`
+--
+
+CREATE TABLE `ruangan` (
+  `ruangan_id` int(11) NOT NULL,
+  `nama_ruangan` varchar(255) NOT NULL,
+  `payload` int(11) NOT NULL,
+  `kategori_gedung` char(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ruangan`
+--
+
+INSERT INTO `ruangan` (`ruangan_id`, `nama_ruangan`, `payload`, `kategori_gedung`) VALUES
+(1, 'RB.1.2', 36, 'Gedung B'),
+(2, 'RC 1.3', 35, 'Gedung C'),
+(3, 'RB.1.4', 36, 'Gedung B'),
+(4, 'RC 1.5', 35, 'Gedung C'),
+(6, 'RB 1.1', 40, 'Gedung B'),
+(7, 'RC 2.4', 40, 'Ruang Lab'),
+(9, 'RG 2.1', 40, 'Ruang Lab'),
+(10, 'RG 2.2', 40, 'Ruang Lab'),
+(11, 'RD 2.4', 40, 'KELAS');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `setup_spp`
+--
+
+CREATE TABLE `setup_spp` (
+  `id` int(11) NOT NULL,
+  `tipe` char(12) NOT NULL,
+  `nominal` char(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `setup_spp`
+--
+
+INSERT INTO `setup_spp` (`id`, `tipe`, `nominal`) VALUES
+(1, 'spp', '400000'),
+(2, 'dpp', '5500000');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
   `id` int(11) NOT NULL,
-  `nis` char(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `kelas` varchar(255) NOT NULL,
-  `jurusan` varchar(255) NOT NULL,
-  `angkatan` year(4) NOT NULL,
-  `tahun_ajaran` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `gambar` varchar(255) NOT NULL,
-  `telepon` char(25) NOT NULL,
-  `status` int(11) NOT NULL,
+  `nis` char(11) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `kelas_id` char(25) DEFAULT NULL,
+  `jurusan` varchar(255) DEFAULT NULL,
+  `angkatan_id` char(4) DEFAULT NULL,
+  `tahun_ajaran` varchar(255) DEFAULT NULL,
+  `lulusan` year(4) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `telepon` char(25) DEFAULT NULL,
+  `status` char(25) DEFAULT NULL,
   `nisn` int(128) NOT NULL,
   `tempat_lahir` varchar(128) NOT NULL,
   `ttl` varchar(255) NOT NULL,
-  `agama` char(128) NOT NULL,
+  `agama` char(128) DEFAULT NULL,
   `asal_sekolah` varchar(255) NOT NULL,
   `nama_ayah` varchar(255) NOT NULL,
   `nama_ibu` varchar(255) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+  `alamat` varchar(255) DEFAULT NULL,
+  `updated` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date_created` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `nis`, `nama`, `kelas`, `jurusan`, `angkatan`, `tahun_ajaran`, `email`, `password`, `gambar`, `telepon`, `status`, `nisn`, `tempat_lahir`, `ttl`, `agama`, `asal_sekolah`, `nama_ayah`, `nama_ibu`, `alamat`, `role_id`, `updated`, `date_created`) VALUES
-(428, '11717500', 'legiyanto', '12 tkj 0', 'teknik komputer jaringan', 2017, '2019/2020', '-', '$2y$10$gSrGwe7Ra2EsHZihi5TvJ.kgot8nw6gsAsUqQMLBbR4NLnwlGEXLO', 'default.jpg', '0', 0, 37642734, 'dhadfajwdbh', '76422764', 'islam', 'sekolah', 'ayah', 'ibu', 'alamat', 4, '2020-08-01 16:48:44', '2020-07-31 14:41:42'),
-(429, '11717504', 'Riezkan Aprianda Firmansyah', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2020', '-', '$2y$10$5pkq94l4lIyAn04xu/Y4V.07kv4qajnjNyXmoCcGSKm4Mf3GXgKdS', 'default.jpg', '0', 1, 4, 'rrwerferf', '345345', 'islam', 'sekolah', 'ayah', 'ibu', 'alamat', 4, '2020-08-01 16:50:56', '2020-07-31 14:41:42'),
-(430, '11717504', 'M Fajri Zulfa', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2021', '-', '$2y$10$B19zK3G7ra9f6Uz9XxbxFOQr.gLx49lpvVKoXQlufpGnXups6W2gq', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-07-31 14:41:43', '2020-07-31 14:41:43'),
-(431, '11717504', 'Hasan Basri', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2022', 'hasanbgb@gmail.com', '$2y$10$eWLUccciBi34NTre8g3DQu/lyT8eICh/CAGZ7x7.OaCTvtj5F.YnC', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-07-31 16:10:28', '2020-07-31 14:41:43'),
-(432, '11717504', 'Elsa Zahra', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2023', '-', '$2y$10$AwE0UOKZcqbhrk2.vGBTve21oACWhBbADwWOmKlbjxwBkLrlhOBv.', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-07-31 14:41:43', '2020-07-31 14:41:43'),
-(433, '11717504', 'Wina Septia', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2024', '-', '$2y$10$fPfuO3khMvU49AIpOOf/ruc10lUreRsHYuc2CtO.bbfvc8O586Ckq', 'default.jpg', '0', 1, 0, '', '', '', '', '', '', '', 4, '2020-07-31 16:58:13', '2020-07-31 14:41:43'),
-(434, '11717504', 'Shifa Sulastini', '12 tkj 2', 'analis kimia', 2017, '2019/2025', '-', '$2y$10$6ojD2zIBQPAJt1VpIpUIIeVc8s4R/Se2wq6ypDXKFlyP46avWtkNu', 'default.jpg', '0', 1, 0, '', '', '', '', '', '', '', 4, '2020-08-01 16:04:49', '2020-07-31 14:41:43'),
-(435, '11717504', 'Ilham Putra Setiawan', '12 tkj 2', 'teknik komputer jaringan', 2017, '2019/2026', '-', '$2y$10$8po/xHggfV8HoEe7kKobsOzt/CiO3HEKywuxCHtpcct5GjI1fZzCW', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-07-31 14:41:43', '2020-07-31 14:41:43'),
-(436, '11717504', 'M Fahrulrozy', '12 tkj 2', 'analis kimia', 2017, '2019/2027', '-', '$2y$10$XkSDvrmAQkEvz.7hBCakPOYtrTuAfWsaZuhSkT36IWigbVn27XvKu', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-08-01 16:04:40', '2020-07-31 14:41:44'),
-(437, '11717504', 'Ahmad Yusuf Afandi', '12 tkj 2', 'analis kimia', 2017, '2019/2028', '-', '$2y$10$JCbU6Ho620PLAmKRt2bwwOWvPr2VSdab9JWmQtUrp14MBWKu8HhXi', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-08-01 16:04:33', '2020-07-31 14:41:44'),
-(438, '11717504', 'Arif didu', '12 tkj 2', 'geomatika', 2017, '2019/2029', '-', '$2y$10$EinlEoP1Hs5HG20XxFpRxe6/N4qMkYGPk/xrISHHYZXSSah.AtVAu', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-08-01 16:04:23', '2020-07-31 14:41:44'),
-(439, '11717504', 'Dena Hadiyat', '12 tkj 2', 'geomatika', 2017, '2019/2030', '-', '$2y$10$wQjKF8uu67H38e9I1EHJIuFvRZynb4PCFfXBU3OLJ77Rj0JofTZAq', 'default.jpg', '0', 0, 0, '', '', '', '', '', '', '', 4, '2020-08-01 16:04:12', '2020-07-31 14:41:44');
+INSERT INTO `siswa` (`id`, `nis`, `nama`, `kelas_id`, `jurusan`, `angkatan_id`, `tahun_ajaran`, `lulusan`, `email`, `gambar`, `telepon`, `status`, `nisn`, `tempat_lahir`, `ttl`, `agama`, `asal_sekolah`, `nama_ayah`, `nama_ibu`, `alamat`, `updated`, `date_created`) VALUES
+(1262, '11717399', 'SISWA 1', '1', '169', '4', '2019/2020', NULL, 'user@gmail.com', NULL, '0834781212', 'pelajar', 11717498, 'bandung', '2020-09-09', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:39', '2020-09-13'),
+(1263, '11717301', 'SISWA 2', '16', '170\r\n', '4', '2019/2020', NULL, 'user@gmail.com', NULL, '0834781213', 'pelajar', 11717499, 'bandung', '2020-09-10', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:39', '2020-09-13'),
+(1264, '11717302', 'SISWA 3', '13', '169', '4', '2019/2021', NULL, 'user@gmail.com', NULL, '0834781214', 'pelajar', 11717500, 'bandung', '2020-09-11', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:39', '2020-09-13'),
+(1265, '11717303', 'SISWA 4', '1', '169', '4', '2019/2022', NULL, 'user@gmail.com', NULL, '0834781215', 'pelajar', 11717501, 'bandung', '2020-09-12', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:39', '2020-09-13'),
+(1266, '11717304', 'SISWA 5', '1', '169', '4', '2019/2023', NULL, 'user@gmail.com', NULL, '0834781216', 'pelajar', 11717502, 'bandung', '2020-09-13', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:40', '2020-09-13'),
+(1267, '11717305', 'SISWA 6', '1', '169', '4', '2019/2024', NULL, 'user@gmail.com', NULL, '0834781217', 'pelajar', 11717503, 'bandung', '2020-09-14', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:40', '2020-09-13'),
+(1268, '11717306', 'SISWA 7', '1', '169', '4', '2019/2025', NULL, 'user@gmail.com', NULL, '0834781218', 'pelajar', 11717504, 'bandung', '2020-09-15', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:40', '2020-09-13'),
+(1269, '11717307', 'SISWA 8', '1', '169', '4', '2019/2026', NULL, 'user@gmail.com', NULL, '0834781219', 'pelajar', 11717505, 'bandung', '2020-09-16', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:40', '2020-09-13'),
+(1270, '11717308', 'SISWA 9', '1', '169', '4', '2019/2027', NULL, 'user@gmail.com', NULL, '0834781220', 'pelajar', 11717506, 'bandung', '2020-09-17', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:40', '2020-09-13'),
+(1271, '11717309', 'SISWA 10', '1', '169', '4', '2019/2028', NULL, 'user@gmail.com', NULL, '0834781221', 'alumni', 11717507, 'bandung', '2020-09-18', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:40', '2020-09-13'),
+(1272, '11717310', 'SISWA 11', '1', '169', '4', '2019/2029', NULL, 'user@gmail.com', NULL, '0834781222', 'alumni', 11717508, 'bandung', '2020-09-19', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:40', '2020-09-13'),
+(1273, '11717311', 'SISWA 12', '1', '169', '4', '2019/2030', NULL, 'user@gmail.com', NULL, '0834781223', 'alumni', 11717509, 'bandung', '2020-09-20', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:41', '2020-09-13'),
+(1274, '11717312', 'SISWA 13', '1', '169', '4', '2019/2031', NULL, 'user@gmail.com', NULL, '0834781224', 'alumni', 11717510, 'bandung', '2020-09-21', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:41', '2020-09-13'),
+(1275, '11717313', 'SISWA 14', '1', '169', '4', '2019/2032', NULL, 'user@gmail.com', NULL, '0834781225', 'alumni', 11717511, 'bandung', '2020-09-22', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal b', '2020-09-13 06:33:41', '2020-09-13'),
+(1276, '11717314', 'SISWA 15', '1', '169', '4', '2019/2033', NULL, 'user@gmail.com', NULL, '0834781226', 'alumni', 11717512, 'bandung', '2020-09-23', 'islam', 'SMK Samudra', 'ayah', 'ibu', 'jl. Asal a', '2020-09-13 06:33:41', '2020-09-13');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff`
+-- Struktur dari tabel `soal`
 --
 
-CREATE TABLE `staff` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `nip` char(25) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `telepon` char(25) NOT NULL,
-  `status` int(11) NOT NULL,
-  `gambar` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `last_update` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `soal` (
+  `soal_id` int(11) NOT NULL,
+  `id_ujian` int(11) NOT NULL,
+  `nama_soal` text NOT NULL,
+  `bobot_nilai` char(10) NOT NULL,
+  `tipe_soal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `staff`
---
-
-INSERT INTO `staff` (`id`, `nama`, `nip`, `email`, `password`, `telepon`, `status`, `gambar`, `role_id`, `date_created`, `last_update`) VALUES
-(1, 'Herdiansyah', '9999', '', '$2y$10$C76/AUPtf1EMLiPVqZKmG.bTWjGuw915E1BbYjGPTlW92gFtN9SJG', '08898383834', 0, '', 2, '2020-07-29 15:07:47', '2020-07-29 13:14:54');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_data_webcode_backend`
+-- Struktur dari tabel `staff_jabatan`
+--
+
+CREATE TABLE `staff_jabatan` (
+  `staff_jabatan_id` int(11) NOT NULL,
+  `jabatan_id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL,
+  `kepala_jabatan` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `staff_jabatan`
+--
+
+INSERT INTO `staff_jabatan` (`staff_jabatan_id`, `jabatan_id`, `guru_id`, `kepala_jabatan`) VALUES
+(65, 1, 431, 'ya');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_data_webcode_backend`
 --
 
 CREATE TABLE `tb_data_webcode_backend` (
@@ -1624,7 +2167,7 @@ CREATE TABLE `tb_data_webcode_backend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_data_webcode_backend`
+-- Dumping data untuk tabel `tb_data_webcode_backend`
 --
 
 INSERT INTO `tb_data_webcode_backend` (`id_id`, `id_komponen`, `nama_komponen`, `jumlah_baris`, `jumlah_code`, `time`, `date`, `modifier`) VALUES
@@ -1727,7 +2270,7 @@ INSERT INTO `tb_data_webcode_backend` (`id_id`, `id_komponen`, `nama_komponen`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_developer`
+-- Struktur dari tabel `tb_developer`
 --
 
 CREATE TABLE `tb_developer` (
@@ -1739,21 +2282,21 @@ CREATE TABLE `tb_developer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_developer`
+-- Dumping data untuk tabel `tb_developer`
 --
 
 INSERT INTO `tb_developer` (`id`, `setting`, `rule`, `parameter`, `setmore`) VALUES
-(1, 'input', 0, 'materi', 'maintanance'),
-(2, 'all', 0, 'all', 'maintanance'),
+(1, 'input', 1, 'materi', 'maintanance'),
+(2, 'all', 1, 'all', 'maintanance'),
 (3, 'tema', 1, 'dark', 'ui website'),
 (4, 'topbar', 1, 'white', 'ui website'),
-(5, 'input', 1, 'all', 'maintanance'),
+(5, 'input', 0, 'all', 'maintanance'),
 (6, 'admin', 0, 'all', 'maintanance'),
 (7, 'akses', 0, 'all', 'maintanance'),
 (8, 'artikel', 0, 'all', 'maintanance'),
 (9, 'back', 0, 'all', 'maintanance'),
 (10, 'blog', 0, 'all', 'maintanance'),
-(11, 'data', 1, 'all', 'maintanance'),
+(11, 'data', 0, 'all', 'maintanance'),
 (12, 'exam', 0, 'all', 'maintanance'),
 (14, 'hapus', 0, 'all', 'maintanance'),
 (15, 'kas', 0, 'all', 'maintanance'),
@@ -1770,7 +2313,7 @@ INSERT INTO `tb_developer` (`id`, `setting`, `rule`, `parameter`, `setmore`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_kas`
+-- Struktur dari tabel `tb_kas`
 --
 
 CREATE TABLE `tb_kas` (
@@ -1782,7 +2325,7 @@ CREATE TABLE `tb_kas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_kas`
+-- Dumping data untuk tabel `tb_kas`
 --
 
 INSERT INTO `tb_kas` (`id`, `kas`, `tanggal`, `waktu`, `jenis`) VALUES
@@ -1797,7 +2340,7 @@ INSERT INTO `tb_kas` (`id`, `kas`, `tanggal`, `waktu`, `jenis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_komponen`
+-- Struktur dari tabel `tb_komponen`
 --
 
 CREATE TABLE `tb_komponen` (
@@ -1806,7 +2349,7 @@ CREATE TABLE `tb_komponen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_komponen`
+-- Dumping data untuk tabel `tb_komponen`
 --
 
 INSERT INTO `tb_komponen` (`id`, `komponen`) VALUES
@@ -1818,52 +2361,79 @@ INSERT INTO `tb_komponen` (`id`, `komponen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `tipe_barang`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `identitas` varchar(16) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `image` varchar(128) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `date_created` int(11) NOT NULL,
-  `date` varchar(120) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `identitas`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`, `date`, `status`) VALUES
-(1, 'admin-1', 'Rizkan Aprianda Firmansyah', 'firmansyahrizkan099@gmail.com', '33.jpg', '$2y$10$6ZN87CQ7OV8EHHO9ECfNFOvJYLI86ksXaF9XrYO4tJmAvpmlRyIS.', 1, 1, 1586524621, '', 0),
-(2, 'itc-8', 'riezkan firmansyah', 'riezkanaprianda@gmail.com', 'default.jpg', '$2y$10$B.HHBLoModo1dyaNu1n5LemH.vXmhhls0peBPf.HshrwL02SuuUzO', 2, 1, 1586524665, '', 0),
-(3, 'itc-3', 'Rizkan IT Club', 'rizkanitclub@gmail.com', 'default.jpg', '$2y$10$o9TvuElvIMFBePKY9petLuSbXC4Ve6xFW95GJCeEpUElOUV8Wb.Ri', 6, 1, 1586690970, '', 0),
-(4, 'itc-12', 'user', 'user@gmnail.com', 'default.jpg', '$2y$10$5KWo6sqbXg0JxOqYPRwgguDortkZfK6EKvLxjraM5buf4Uz47g2yO', 5, 1, 1586691297, '', 0),
-(5, 'itc-13', 'member', 'member@my.id', 'default.jpg', '$2y$10$1.A6p2vK2KBR9bg2o7kode5IKKA7l2K9pyMfzV/z7B7dpOgAR/kAq', 6, 1, 1586691323, '', 0),
-(6, 'itc-6', 'Herdian Nuryansyah', 'admin@admin.com', 'default.jpg', '$2y$10$JdsZ/I2hlt8e7wFfD.mwzeI4.xxHBtS8L5jZH89urHffkTl0mQly6', 4, 1, 1586778849, '', 0),
-(7, 'itc-19', 'Herdian Nuryansyah', 'herdiannuryansyah0@gmail.com', 'default.jpg', '$2y$10$tZpDqUB0VwgfhQ8Ap3cbOOBYq72qKqtE3l32kZTqXYVwlrrNlM4dS', 6, 1, 1586778901, '', 0),
-(8, '', 'ini terjadi karena ku sangat cinta', 'hahahaha@gmail.com', 'default.jpg', '$2y$10$L1Doz5v0n9vS9wHlqy8bSOV3ZYCMntj9PzKYgLNO14Qhq2CchDMhm', 5, 0, 1587050991, '', 0),
-(9, 'itc-22', 'kasih', 'sampaikapan@gmail.com', 'default.jpg', '$2y$10$5VnuoWwkdYthfbgp72u2LejtsAZseIqozBf8xLSN00qVKZZnV/Co2', 5, 1, 1587051376, '', 0),
-(10, 'itc-23', 'a been asking for problem', 'hehehe@gmail.com', 'default.jpg', '$2y$10$WCtCB7Ps0l/goT/61MA7g.foDhh0PqtqFQQDqvg948E2HdselOIC6', 5, 0, 1587051427, '', 0),
-(11, 'itc-24', 'rizkanfirmansyah', 'rizkanfirmansyah9@gmail.com', 'default.jpg', '$2y$10$GDNFnGZJes0T23fnOmNiq.uZXwsS6LUPiuaaevlLg5teUtzJ4IBFy', 5, 1, 1587051572, '', 0),
-(12, 'itc-25', 'Hasan basri', 'elder@gmail.com', 'default.jpg', '$2y$10$y.0f48Nz/Z2HE.1Ze0iRvOR.2r6zrqYbNBlFvn.m6H4a5E9ktMbUK', 4, 1, 1587213192, '', 0),
-(13, '', 'rizkan', 'rizkanaprianda@email.net', 'default.jpg', '$2y$10$K9WD2lPXPS73uuTRl8r20eU5I5vrJqODoRK.8knFfVO4xHt0qJyaG', 6, 1, 1591109981, '', 0),
-(14, 'itc-28', 'rizkan coba', 'rizkancoba@email.net', 'default.jpg', '$2y$10$uSCT8qie8E3BvFy.TiYW5OAL6NFULQI.GbBhSu30eJUIDdh9R0KfC', 6, 1, 1591110218, '', 0),
-(15, '', 'usereawdawd', 'rizkan@rizkan.com', 'default.jpg', '$2y$10$Bm0gaXMaYWtqSE1qgsGevOWn0/Eb1TSxaf1uCdUFlKHRo6429MBnK', 5, 1, 1591786198, '', 0),
-(16, '', 'Rizkan Firmansyah apri', 'rizkanganteng@gmail.com', 'default.jpg', '$2y$10$ebzxn9uamhHuNM.ZPtoCpeMEH7E5A5vaivH4B2jCdjGqYDf/8g8Ai', 4, 0, 1593128314, '', 0),
-(17, '', 'rizkan beedu', 'rizkanbeedu@gmail.com', 'default.jpg', '$2y$10$x0p4bS3yHyb1vC6HaU5Vsey25URI1o1mKH8moy5v2XhPH1LWkJZue', 4, 0, 1593128365, '', 0),
-(18, '', 'usereeee', 'usereeee@gmail.com', 'default.jpg', '$2y$10$qZ9PCpoNQqu4sxsiSfWlHO8QIFQVfK1auxjKWnQG2WY2XLnV84Bc2', 5, 0, 1593363467, '', 0),
-(19, '', 'Akun coba website', 'akuncoba@email.com', 'default.jpg', '$2y$10$SgLQbGcAFOPdDl31z7d9Ye.VYsQjvRRk6ddTqRy0PT6Ub5bUq8q5S', 3, 1, 1595167486, '', 0);
+CREATE TABLE `tipe_barang` (
+  `idTipe` int(11) NOT NULL,
+  `namaTipe` varchar(45) NOT NULL,
+  `status` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `tipe_ujian`
+--
+
+CREATE TABLE `tipe_ujian` (
+  `id_tipe_ujian` int(11) NOT NULL,
+  `tipe_ujian` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tipe_ujian`
+--
+
+INSERT INTO `tipe_ujian` (`id_tipe_ujian`, `tipe_ujian`) VALUES
+(1, 'UTS'),
+(2, 'UAS'),
+(3, 'harian'),
+(4, 'keahlian\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ujian`
+--
+
+CREATE TABLE `ujian` (
+  `ujian_id` int(11) NOT NULL,
+  `id_materi` int(11) NOT NULL,
+  `nama_ujian` varchar(255) NOT NULL,
+  `tipe_soal` int(11) NOT NULL,
+  `date_created` date NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `unit_barang`
+--
+
+CREATE TABLE `unit_barang` (
+  `id_unit` int(11) NOT NULL,
+  `nama_unit` varchar(45) NOT NULL,
+  `status` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `unit_barang`
+--
+
+INSERT INTO `unit_barang` (`id_unit`, `nama_unit`, `status`, `date`) VALUES
+(2, 'lusin', 1, '2020-09-08 15:25:45'),
+(3, 'PCS', 1, '2020-09-09 11:47:45'),
+(4, 'ROLL', 1, '2020-09-09 11:47:53'),
+(5, 'DUS', 1, '2020-09-09 11:48:01');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -1871,25 +2441,45 @@ CREATE TABLE `users` (
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `telepon` char(25) NOT NULL,
-  `gambar` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `date_created` date NOT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `email`, `password`, `telepon`, `gambar`, `status`, `role_id`, `date_created`, `last_update`) VALUES
-(1, 'admin', 'firmansyahrizkan099@gmail.com', '$2y$10$VDdxalmLefS2g9SUpGPuPelaAo0XmGOBVsLJygfuTFaklMV1kPT8u', '08983901552', 'default.jpg', 1, 1, '2020-07-15 13:06:28', '2020-07-29 13:06:28');
+INSERT INTO `users` (`id`, `nama`, `email`, `password`, `status`, `role_id`, `date_created`, `last_update`) VALUES
+(2, 'admin', 'admin@admin.com', '$2y$10$9pknpmEqaCCxGXrbxdfxxeBsE8rgDcDwETgWGdxGb0SxTXvGlg1wW', 1, 1, '2020-08-12', '2020-08-12 14:16:08'),
+(616, '11717500', 'legiyanto@gmail.com', '$2y$10$.HxEAlX0UlAwQlrTiH6aweHUKU0e70bn13zV.ICMts5Gskl4f82ka', 1, 3, '2020-08-24', '2020-08-24 02:07:01'),
+(617, '11717501', 'user1@email.com', '$2y$10$ZAp/WVrKA3tHakAl4FJjtui8Q7T9AnwrXkbePVbcqtGAaHTtwwqkG', 1, 3, '2020-08-24', '2020-08-24 02:07:01'),
+(618, '11717502', 'user2@email.com', '$2y$10$IlY6O/.i2DmBKbF32yE88eWjJm4DxYCmfASWkd1EnPjMGN/uL9TtK', 1, 3, '2020-08-24', '2020-08-24 02:07:01'),
+(619, '11717503', 'user3@email.com', '$2y$10$C5/PNcV9qPUCZjj9pM/SzOHjdyNUYuGgKCy9C1msgzA2c2olwgV.u', 1, 3, '2020-08-24', '2020-08-24 02:07:02'),
+(620, '11717504', 'user4@emai.com', '$2y$10$g90uCjYVW9m9DlBEsuufUuP46dZuBdw/uZFndCzQR3mpFQ5EztVPe', 1, 3, '2020-08-24', '2020-08-24 02:07:02'),
+(621, '11717505', 'user5@email.com', '$2y$10$Tjsux7NdpoukxLhtLoes4eyqBfZt5p8Fl49KuFYo88pn1sV3IVQZq', 1, 3, '2020-08-24', '2020-08-24 02:07:02'),
+(622, '11717506', 'user6@email.com', '$2y$10$dLz.w2HMTb9pzm3GpQl5C.TOlNoQtMy9xhSuIL0QI7lanA0z6bski', 1, 3, '2020-08-24', '2020-08-24 02:07:02'),
+(1066, '11717399', 'user@gmail.com', '$2y$10$GvzcbyAccT/yQFJ23.gTeuyFpOlkykrwoSg.ehHHR9Uso.zK//VF6', 1, 4, '2020-09-13', '2020-09-13 06:33:39'),
+(1067, '11717301', 'user@gmail.com', '$2y$10$8vyuBfZe5h7xJwQM8HbzSOCQxt7jwKE8BPDfDzW2Yn3o8n9NvD6Pa', 1, 4, '2020-09-13', '2020-09-13 06:33:39'),
+(1068, '11717302', 'user@gmail.com', '$2y$10$jpfmVC6NmaLomJg0YH60.etO91pGc/d9j1A1Fk7nf1JsZkFDQ38Ju', 1, 4, '2020-09-13', '2020-09-13 06:33:39'),
+(1069, '11717303', 'user@gmail.com', '$2y$10$FEu5WMC5qQumR.F4.zh/yOJbg4x4cPfqA8/TeKrQnis9MYfQh9/SO', 1, 4, '2020-09-13', '2020-09-13 06:33:39'),
+(1070, '11717304', 'user@gmail.com', '$2y$10$IE0ZHboM1xc887Oy3/zwGefv9jjCaJs/Tmg8WLvtGybFQWyLjaSD.', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1071, '11717305', 'user@gmail.com', '$2y$10$jRZd3etXgpnTU8oH4ay1I.3iKrqKQABlhPoCNJnhG2bwMLRWjCD4e', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1072, '11717306', 'user@gmail.com', '$2y$10$3/X.4hSiu5t75.Ko45uVde2viBQ.9MqT8WPfhyYOeXp1hrhW7rA0y', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1073, '11717307', 'user@gmail.com', '$2y$10$00hmcKlWP2qcWE3e.cYDXuP3jCfpRNuZ3guy9VL1GEGWyxFd6see2', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1074, '11717308', 'user@gmail.com', '$2y$10$4LJzsxx8XTT4HEce6N9UQ.yEKhF7kL.iDzg8SE8iZ0SCOWS.EU93S', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1075, '11717309', 'user@gmail.com', '$2y$10$CyIC7/VL99eHZf9TVASq4e17PBMyDrEXFbPYHHoEYXItUygvkenYa', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1076, '11717310', 'user@gmail.com', '$2y$10$SOeuYnt3BwNAWZo5jJumNOVM9.vUWSbjRmGcMZ/FoCMtY.wTAtaEy', 1, 4, '2020-09-13', '2020-09-13 06:33:40'),
+(1077, '11717311', 'user@gmail.com', '$2y$10$D29mFi7avcg6RC5xPaQrj.e0lQTy0KZdr4D3gRJC.14hTU8rMuFf6', 1, 4, '2020-09-13', '2020-09-13 06:33:41'),
+(1078, '11717312', 'user@gmail.com', '$2y$10$Acbk/qNY4ZKkUxuX2phF3.I3PKvB74daYB9TIhw/pXm6NNRhm8ShS', 1, 4, '2020-09-13', '2020-09-13 06:33:41'),
+(1079, '11717313', 'user@gmail.com', '$2y$10$Rp31QM7CQX5t.GMv5TLCL.zFMfUxTPs/AuTrH4yiryj1F7yhITm6e', 1, 4, '2020-09-13', '2020-09-13 06:33:41'),
+(1080, '11717314', 'user@gmail.com', '$2y$10$QS8EhN5GBVSWLaGRry9vt.B35KWvWHTgIYq/rsMKMqQ8/A56gokU.', 1, 4, '2020-09-13', '2020-09-13 06:33:41');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_access_menu`
+-- Struktur dari tabel `user_access_menu`
 --
 
 CREATE TABLE `user_access_menu` (
@@ -1899,31 +2489,31 @@ CREATE TABLE `user_access_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_access_menu`
+-- Dumping data untuk tabel `user_access_menu`
 --
 
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
-(3, 1, 4),
-(6, 1, 5),
 (7, 2, 5),
 (9, 5, 3),
 (10, 2, 4),
 (12, 5, 4),
-(13, 1, 8),
 (15, 5, 5),
-(18, 3, 8),
-(19, 3, 5),
-(20, 3, 4),
-(21, 1, 3),
-(23, 1, 2),
-(24, 1, 6);
+(28, 3, 11),
+(30, 4, 12),
+(31, 1, 8),
+(33, 1, 5),
+(35, 1, 3),
+(36, 3, 13),
+(37, 1, 6),
+(38, 1, 14),
+(39, 1, 15);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_menu`
+-- Struktur dari tabel `user_menu`
 --
 
 CREATE TABLE `user_menu` (
@@ -1932,7 +2522,7 @@ CREATE TABLE `user_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_menu`
+-- Dumping data untuk tabel `user_menu`
 --
 
 INSERT INTO `user_menu` (`id`, `menu`) VALUES
@@ -1941,14 +2531,19 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 (3, 'Menu'),
 (4, 'Input'),
 (5, 'Data'),
-(6, 'Setup'),
+(6, 'Kurikulum'),
 (7, 'User'),
-(8, 'Hosting');
+(8, 'TU'),
+(11, 'Guru'),
+(12, 'Siswa'),
+(13, 'CBT'),
+(14, 'Inventaris'),
+(15, 'Piket');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_role`
+-- Struktur dari tabel `user_role`
 --
 
 CREATE TABLE `user_role` (
@@ -1957,7 +2552,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data untuk tabel `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
@@ -1966,12 +2561,13 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 (3, 'guru'),
 (4, 'siswa'),
 (5, 'kepsek'),
-(6, 'user');
+(6, 'user'),
+(7, 'TU');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_sub_menu`
+-- Struktur dari tabel `user_sub_menu`
 --
 
 CREATE TABLE `user_sub_menu` (
@@ -1984,11 +2580,11 @@ CREATE TABLE `user_sub_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_sub_menu`
+-- Dumping data untuk tabel `user_sub_menu`
 --
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
-(1, 1, 'Dashboard', 'admin', 'fas fa-fw fa-tachometer-alt', 1),
+(1, 1, 'Dashboard', 'admin/index', 'fas fa-fw fa-table', 1),
 (2, 7, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
 (3, 7, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1),
 (4, 3, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
@@ -1996,26 +2592,43 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (6, 5, 'Data Siswa', 'data/siswa', 'fas fa-fw fa-users', 1),
 (7, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-cog', 1),
 (8, 7, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1),
-(9, 1, 'Database User', 'admin/databaseuser', 'fas fa-fw fa-users', 1),
-(10, 1, 'Database Member', 'admin/member', 'fas fa-fw fa-id-card', 1),
+(9, 1, 'Database User', 'admin/databaseuser', 'fas fa-fw fa-users', 0),
 (11, 4, 'Materi', 'input/materi', 'fas fa-fw fa-chalkboard-teacher', 1),
 (12, 4, 'Tugas', 'input/tugas', 'fas fa-fw fa-clipboard-list', 1),
 (13, 4, 'Nilai', 'input/nilai', 'fas fa-fw fa-pen-square', 1),
 (14, 1, 'Search Data User', 'root/cari', 'fas fa-fw fa-search', 0),
 (15, 5, 'Data Guru', 'data/guru', 'fas fa-fw fa-chalkboard-teacher', 1),
-(17, 8, 'Blog', 'hosting/blog', 'fas fa-fw fa-blog', 1),
 (18, 4, 'Soal', 'input/soal', 'fas fa-fw fa-laptop-code', 1),
-(19, 5, 'Data Kas', 'data/kas', 'fas fa-fw fa-dollar-sign', 1),
-(21, 6, 'Gallery', 'setup/gallery', 'fas fa-fw fa-images', 1),
-(22, 8, 'File Website', 'hosting/web', 'fas fa-cloud-upload-alt fa-fw', 1),
+(21, 6, 'Gallery', 'setup/gallery', 'fas fa-fw fa-images', 0),
 (23, 4, 'Hasil Ujian', 'input/ujian', 'fas fa-fw fa-clipboard-check', 1),
 (24, 1, 'Data Backend', 'admin/backend', 'fas fa-fw fa-code', 1),
-(28, 2, 'Homepage', 'profile/homepage', 'fas fa-home fa-fw', 1);
+(28, 2, 'Homepage', 'profile/homepage', 'fas fa-home fa-fw', 1),
+(29, 5, 'Data Jurusan', 'data/jurusan', 'fas fa-fw fa-archway', 1),
+(30, 5, 'Data Kelas', 'data/kelas', 'fas fa-fw fa-chalkboard', 1),
+(31, 1, 'Data Staff', 'admin/staff', 'fas fa-fw fa-user-tie', 1),
+(32, 5, 'Data Mapel', 'data/mapel', 'fas fa-fw fa-book', 1),
+(33, 1, 'Data User', 'admin/user', 'fas fa-fw fa-user', 1),
+(34, 5, 'Data Ruangan', 'data/ruangan', 'fas fa-fw fa-store', 1),
+(35, 5, 'Data Alumni', 'data/alumni', 'fas fa-fw fa-user-graduate', 1),
+(36, 6, 'Data Jadwal', 'kurikulum/jadwal', 'fas fa-fw fa-table', 1),
+(37, 11, 'Dashboard', 'guru', 'fas fa-fw fa-chart-line', 1),
+(38, 11, 'Data Siswa', 'guru/siswa', 'fas fa-fw fa-user', 1),
+(39, 12, 'Dashboard', 'siswa', 'fas fa-fw fa-chart-line', 1),
+(43, 12, 'SPP', 'siswa/spp', 'fas fa-fw fa-dollar-sign', 1),
+(44, 12, 'DSP', 'siswa/dsp', 'fas fa-fw fa-file-invoice-dollar', 1),
+(45, 8, 'DSP', 'tu/dsp', 'fas fa-fw fa-file-invoice-dollar', 1),
+(46, 8, 'SPP', 'tu/spp', 'fas fa-fw fa-dollar-sign', 1),
+(47, 13, 'Data Ujian', 'cbt/ujian', 'fas fa-fw fa-table', 1),
+(48, 13, 'Bank Soal', 'cbt/soal', 'fas fa-fw fa-database', 1),
+(49, 6, 'Jadwal Ujian', 'kurikulum/jadwalujian', 'fas fa-fw fa-network-wired', 1),
+(50, 14, 'Daftar Barang', 'inventaris/daftar', 'fas fa-fw fa-tools', 1),
+(51, 14, 'Transaksi Barang', 'inventaris/transaksi', 'fas fa-fw fa-clipboard-list', 1),
+(52, 15, 'Absen Guru', 'piket/guru', 'fas fa-fw fa-table', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_token`
+-- Struktur dari tabel `user_token`
 --
 
 CREATE TABLE `user_token` (
@@ -2026,7 +2639,7 @@ CREATE TABLE `user_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_token`
+-- Dumping data untuk tabel `user_token`
 --
 
 INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
@@ -2050,521 +2663,749 @@ INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
 --
 
 --
--- Indexes for table `bidang_keahlian`
+-- Indeks untuk tabel `absen_guru`
 --
-ALTER TABLE `bidang_keahlian`
+ALTER TABLE `absen_guru`
+  ADD PRIMARY KEY (`id_absen`);
+
+--
+-- Indeks untuk tabel `angkatan`
+--
+ALTER TABLE `angkatan`
+  ADD PRIMARY KEY (`angkatan_id`);
+
+--
+-- Indeks untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indeks untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_absen`
+-- Indeks untuk tabel `cbt_jawaban`
+--
+ALTER TABLE `cbt_jawaban`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `cbt_soal`
+--
+ALTER TABLE `cbt_soal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `cbt_ujian`
+--
+ALTER TABLE `cbt_ujian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `data_absen`
 --
 ALTER TABLE `data_absen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_blog`
+-- Indeks untuk tabel `data_blog`
 --
 ALTER TABLE `data_blog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_catatan`
+-- Indeks untuk tabel `data_dpp`
 --
-ALTER TABLE `data_catatan`
+ALTER TABLE `data_dpp`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_folder`
+-- Indeks untuk tabel `data_file`
 --
-ALTER TABLE `data_folder`
+ALTER TABLE `data_file`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_homepage`
+-- Indeks untuk tabel `data_homepage`
 --
 ALTER TABLE `data_homepage`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_hosting`
---
-ALTER TABLE `data_hosting`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `data_jawaban`
+-- Indeks untuk tabel `data_jawaban`
 --
 ALTER TABLE `data_jawaban`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_jurusan`
+-- Indeks untuk tabel `data_jenjang`
 --
-ALTER TABLE `data_jurusan`
-  ADD PRIMARY KEY (`jurusan_id`);
+ALTER TABLE `data_jenjang`
+  ADD PRIMARY KEY (`jenjang_id`);
 
 --
--- Indexes for table `data_kas`
+-- Indeks untuk tabel `data_kas`
 --
 ALTER TABLE `data_kas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_kelas`
---
-ALTER TABLE `data_kelas`
-  ADD PRIMARY KEY (`kelas_id`);
-
---
--- Indexes for table `data_komentar`
+-- Indeks untuk tabel `data_komentar`
 --
 ALTER TABLE `data_komentar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_materi`
+-- Indeks untuk tabel `data_materi`
 --
 ALTER TABLE `data_materi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_nilai`
+-- Indeks untuk tabel `data_nilai`
 --
 ALTER TABLE `data_nilai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_nilai_ujian`
+-- Indeks untuk tabel `data_nilai_ujian`
 --
 ALTER TABLE `data_nilai_ujian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_pekerjaan`
---
-ALTER TABLE `data_pekerjaan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `data_portfolio`
---
-ALTER TABLE `data_portfolio`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `data_postingan`
+-- Indeks untuk tabel `data_postingan`
 --
 ALTER TABLE `data_postingan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_sertifikat`
---
-ALTER TABLE `data_sertifikat`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `data_setting`
---
-ALTER TABLE `data_setting`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `data_soal`
+-- Indeks untuk tabel `data_soal`
 --
 ALTER TABLE `data_soal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_status`
+-- Indeks untuk tabel `data_spp`
+--
+ALTER TABLE `data_spp`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `data_status`
 --
 ALTER TABLE `data_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_tag`
+-- Indeks untuk tabel `data_tag`
 --
 ALTER TABLE `data_tag`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_tugas`
+-- Indeks untuk tabel `data_tugas`
 --
 ALTER TABLE `data_tugas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_user`
+-- Indeks untuk tabel `data_user`
 --
 ALTER TABLE `data_user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `gallery`
+-- Indeks untuk tabel `gallery`
 --
 ALTER TABLE `gallery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `guru`
+-- Indeks untuk tabel `gedung`
+--
+ALTER TABLE `gedung`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `guru`
 --
 ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `log`
+-- Indeks untuk tabel `jabatan`
+--
+ALTER TABLE `jabatan`
+  ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indeks untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD PRIMARY KEY (`jadwal_id`);
+
+--
+-- Indeks untuk tabel `jadwal_ujian`
+--
+ALTER TABLE `jadwal_ujian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD PRIMARY KEY (`jawaban_id`);
+
+--
+-- Indeks untuk tabel `jenis_barang`
+--
+ALTER TABLE `jenis_barang`
+  ADD PRIMARY KEY (`id_jenis`);
+
+--
+-- Indeks untuk tabel `jurusan`
+--
+ALTER TABLE `jurusan`
+  ADD PRIMARY KEY (`jurusan_id`);
+
+--
+-- Indeks untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`kelas_id`);
+
+--
+-- Indeks untuk tabel `kepala_sekolah`
+--
+ALTER TABLE `kepala_sekolah`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `keuangan`
+--
+ALTER TABLE `keuangan`
+  ADD PRIMARY KEY (`keuangan_id`);
+
+--
+-- Indeks untuk tabel `keuangan_detail`
+--
+ALTER TABLE `keuangan_detail`
+  ADD PRIMARY KEY (`detail_id`);
+
+--
+-- Indeks untuk tabel `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `materi_check`
+-- Indeks untuk tabel `mapel`
+--
+ALTER TABLE `mapel`
+  ADD PRIMARY KEY (`mapel_id`);
+
+--
+-- Indeks untuk tabel `materi_check`
 --
 ALTER TABLE `materi_check`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengumuman`
+-- Indeks untuk tabel `materi_siswa`
 --
-ALTER TABLE `pengumuman`
+ALTER TABLE `materi_siswa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `siswa`
+-- Indeks untuk tabel `merk_barang`
+--
+ALTER TABLE `merk_barang`
+  ADD PRIMARY KEY (`id_merk`);
+
+--
+-- Indeks untuk tabel `nilai_tugas`
+--
+ALTER TABLE `nilai_tugas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `pembelian`
+--
+ALTER TABLE `pembelian`
+  ADD PRIMARY KEY (`id_pembelian`);
+
+--
+-- Indeks untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`id_pengeluaran`);
+
+--
+-- Indeks untuk tabel `ruangan`
+--
+ALTER TABLE `ruangan`
+  ADD PRIMARY KEY (`ruangan_id`);
+
+--
+-- Indeks untuk tabel `setup_spp`
+--
+ALTER TABLE `setup_spp`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `staff`
+-- Indeks untuk tabel `staff_jabatan`
 --
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `staff_jabatan`
+  ADD PRIMARY KEY (`staff_jabatan_id`);
 
 --
--- Indexes for table `tb_data_webcode_backend`
+-- Indeks untuk tabel `tb_data_webcode_backend`
 --
 ALTER TABLE `tb_data_webcode_backend`
   ADD PRIMARY KEY (`id_id`);
 
 --
--- Indexes for table `tb_developer`
+-- Indeks untuk tabel `tb_developer`
 --
 ALTER TABLE `tb_developer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_kas`
+-- Indeks untuk tabel `tb_kas`
 --
 ALTER TABLE `tb_kas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_komponen`
+-- Indeks untuk tabel `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `tipe_barang`
 --
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `tipe_barang`
+  ADD PRIMARY KEY (`idTipe`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `tipe_ujian`
+--
+ALTER TABLE `tipe_ujian`
+  ADD PRIMARY KEY (`id_tipe_ujian`);
+
+--
+-- Indeks untuk tabel `unit_barang`
+--
+ALTER TABLE `unit_barang`
+  ADD PRIMARY KEY (`id_unit`);
+
+--
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_access_menu`
+-- Indeks untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_menu`
+-- Indeks untuk tabel `user_menu`
 --
 ALTER TABLE `user_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_role`
+-- Indeks untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_sub_menu`
+-- Indeks untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_token`
+-- Indeks untuk tabel `user_token`
 --
 ALTER TABLE `user_token`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `bidang_keahlian`
+-- AUTO_INCREMENT untuk tabel `absen_guru`
 --
-ALTER TABLE `bidang_keahlian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `absen_guru`
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `data_absen`
+-- AUTO_INCREMENT untuk tabel `angkatan`
 --
-ALTER TABLE `data_absen`
+ALTER TABLE `angkatan`
+  MODIFY `angkatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `data_blog`
+-- AUTO_INCREMENT untuk tabel `cbt_jawaban`
+--
+ALTER TABLE `cbt_jawaban`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_soal`
+--
+ALTER TABLE `cbt_soal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `cbt_ujian`
+--
+ALTER TABLE `cbt_ujian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_absen`
+--
+ALTER TABLE `data_absen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_blog`
 --
 ALTER TABLE `data_blog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `data_catatan`
+-- AUTO_INCREMENT untuk tabel `data_dpp`
 --
-ALTER TABLE `data_catatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `data_dpp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `data_folder`
+-- AUTO_INCREMENT untuk tabel `data_file`
 --
-ALTER TABLE `data_folder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `data_file`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `data_homepage`
+-- AUTO_INCREMENT untuk tabel `data_homepage`
 --
 ALTER TABLE `data_homepage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT for table `data_hosting`
---
-ALTER TABLE `data_hosting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `data_jawaban`
+-- AUTO_INCREMENT untuk tabel `data_jawaban`
 --
 ALTER TABLE `data_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `data_jurusan`
+-- AUTO_INCREMENT untuk tabel `data_jenjang`
 --
-ALTER TABLE `data_jurusan`
-  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `data_jenjang`
+  MODIFY `jenjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `data_kas`
+-- AUTO_INCREMENT untuk tabel `data_kas`
 --
 ALTER TABLE `data_kas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT for table `data_kelas`
---
-ALTER TABLE `data_kelas`
-  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `data_komentar`
+-- AUTO_INCREMENT untuk tabel `data_komentar`
 --
 ALTER TABLE `data_komentar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `data_materi`
+-- AUTO_INCREMENT untuk tabel `data_materi`
 --
 ALTER TABLE `data_materi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `data_nilai`
+-- AUTO_INCREMENT untuk tabel `data_nilai`
 --
 ALTER TABLE `data_nilai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `data_nilai_ujian`
+-- AUTO_INCREMENT untuk tabel `data_nilai_ujian`
 --
 ALTER TABLE `data_nilai_ujian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `data_pekerjaan`
---
-ALTER TABLE `data_pekerjaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `data_portfolio`
---
-ALTER TABLE `data_portfolio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `data_postingan`
+-- AUTO_INCREMENT untuk tabel `data_postingan`
 --
 ALTER TABLE `data_postingan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT for table `data_sertifikat`
---
-ALTER TABLE `data_sertifikat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `data_setting`
---
-ALTER TABLE `data_setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `data_soal`
+-- AUTO_INCREMENT untuk tabel `data_soal`
 --
 ALTER TABLE `data_soal`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `data_status`
+-- AUTO_INCREMENT untuk tabel `data_spp`
+--
+ALTER TABLE `data_spp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_status`
 --
 ALTER TABLE `data_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `data_tag`
+-- AUTO_INCREMENT untuk tabel `data_tag`
 --
 ALTER TABLE `data_tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `data_tugas`
+-- AUTO_INCREMENT untuk tabel `data_tugas`
 --
 ALTER TABLE `data_tugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `data_user`
+-- AUTO_INCREMENT untuk tabel `data_user`
 --
 ALTER TABLE `data_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `gallery`
+-- AUTO_INCREMENT untuk tabel `gallery`
 --
 ALTER TABLE `gallery`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `guru`
+-- AUTO_INCREMENT untuk tabel `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
 
 --
--- AUTO_INCREMENT for table `log`
+-- AUTO_INCREMENT untuk tabel `jabatan`
+--
+ALTER TABLE `jabatan`
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal_ujian`
+--
+ALTER TABLE `jadwal_ujian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT untuk tabel `jenis_barang`
+--
+ALTER TABLE `jenis_barang`
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `jurusan`
+--
+ALTER TABLE `jurusan`
+  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT untuk tabel `kepala_sekolah`
+--
+ALTER TABLE `kepala_sekolah`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `log`
 --
 ALTER TABLE `log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2164;
 
 --
--- AUTO_INCREMENT for table `materi_check`
+-- AUTO_INCREMENT untuk tabel `mapel`
+--
+ALTER TABLE `mapel`
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `materi_check`
 --
 ALTER TABLE `materi_check`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `pengumuman`
+-- AUTO_INCREMENT untuk tabel `materi_siswa`
 --
-ALTER TABLE `pengumuman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `materi_siswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `siswa`
+-- AUTO_INCREMENT untuk tabel `merk_barang`
+--
+ALTER TABLE `merk_barang`
+  MODIFY `id_merk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `nilai_tugas`
+--
+ALTER TABLE `nilai_tugas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `pembelian`
+--
+ALTER TABLE `pembelian`
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `ruangan`
+--
+ALTER TABLE `ruangan`
+  MODIFY `ruangan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT untuk tabel `setup_spp`
+--
+ALTER TABLE `setup_spp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1277;
 
 --
--- AUTO_INCREMENT for table `staff`
+-- AUTO_INCREMENT untuk tabel `staff_jabatan`
 --
-ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `staff_jabatan`
+  MODIFY `staff_jabatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
--- AUTO_INCREMENT for table `tb_data_webcode_backend`
+-- AUTO_INCREMENT untuk tabel `tb_data_webcode_backend`
 --
 ALTER TABLE `tb_data_webcode_backend`
   MODIFY `id_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
--- AUTO_INCREMENT for table `tb_developer`
+-- AUTO_INCREMENT untuk tabel `tb_developer`
 --
 ALTER TABLE `tb_developer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `tb_kas`
+-- AUTO_INCREMENT untuk tabel `tb_kas`
 --
 ALTER TABLE `tb_kas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tb_komponen`
+-- AUTO_INCREMENT untuk tabel `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `tipe_barang`
 --
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+ALTER TABLE `tipe_barang`
+  MODIFY `idTipe` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `tipe_ujian`
+--
+ALTER TABLE `tipe_ujian`
+  MODIFY `id_tipe_ujian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `unit_barang`
+--
+ALTER TABLE `unit_barang`
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1081;
 
 --
--- AUTO_INCREMENT for table `user_access_menu`
+-- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `user_menu`
+-- AUTO_INCREMENT untuk tabel `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `user_role`
+-- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `user_sub_menu`
+-- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
--- AUTO_INCREMENT for table `user_token`
+-- AUTO_INCREMENT untuk tabel `user_token`
 --
 ALTER TABLE `user_token`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
